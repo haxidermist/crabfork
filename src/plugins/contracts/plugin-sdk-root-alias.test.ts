@@ -269,12 +269,12 @@ describe("plugin-sdk root alias", () => {
 
     expect((lazyModule.moduleExports.slowHelper as () => string)()).toBe("loaded");
     expect(lazyModule.createJitiOptions.at(-1)?.alias).toMatchObject({
-      "openclaw/plugin-sdk": rootAliasPath,
-      "@openclaw/plugin-sdk": rootAliasPath,
-      "openclaw/plugin-sdk/group-access": expect.stringContaining(
+      "crabfork/plugin-sdk": rootAliasPath,
+      "@crabfork/plugin-sdk": rootAliasPath,
+      "crabfork/plugin-sdk/group-access": expect.stringContaining(
         path.join("src", "plugin-sdk", "group-access.ts"),
       ),
-      "@openclaw/plugin-sdk/group-access": expect.stringContaining(
+      "@crabfork/plugin-sdk/group-access": expect.stringContaining(
         path.join("src", "plugin-sdk", "group-access.ts"),
       ),
     });
@@ -298,14 +298,14 @@ describe("plugin-sdk root alias", () => {
       (lazyModule.createJitiOptions.at(-1)?.alias ?? {}) as Record<string, string>,
     );
     expect(aliasKeys).toEqual([
-      "openclaw/plugin-sdk",
-      "@openclaw/plugin-sdk",
-      "openclaw/plugin-sdk/alpha",
-      "@openclaw/plugin-sdk/alpha",
-      "openclaw/plugin-sdk/group-access",
-      "@openclaw/plugin-sdk/group-access",
-      "openclaw/plugin-sdk/zeta",
-      "@openclaw/plugin-sdk/zeta",
+      "crabfork/plugin-sdk",
+      "@crabfork/plugin-sdk",
+      "crabfork/plugin-sdk/alpha",
+      "@crabfork/plugin-sdk/alpha",
+      "crabfork/plugin-sdk/group-access",
+      "@crabfork/plugin-sdk/group-access",
+      "crabfork/plugin-sdk/zeta",
+      "@crabfork/plugin-sdk/zeta",
     ]);
   });
 
@@ -323,13 +323,13 @@ describe("plugin-sdk root alias", () => {
 
     expect((lazyModule.moduleExports.slowHelper as () => string)()).toBe("loaded");
     expect(lazyModule.createJitiOptions.at(-1)?.alias).toMatchObject({
-      "openclaw/plugin-sdk/channel-runtime": path.join(
+      "crabfork/plugin-sdk/channel-runtime": path.join(
         packageRoot,
         "src",
         "plugin-sdk",
         "channel-runtime.mts",
       ),
-      "@openclaw/plugin-sdk/channel-runtime": path.join(
+      "@crabfork/plugin-sdk/channel-runtime": path.join(
         packageRoot,
         "src",
         "plugin-sdk",

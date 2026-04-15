@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/whatsapp",
+  "name": "@crabfork/whatsapp",
   "version": "2026.4.12",
-  "description": "OpenClaw WhatsApp channel plugin",
+  "description": "Crabfork WhatsApp channel plugin",
   "type": "module",
   "dependencies": {
     "@whiskeysockets/baileys": "7.0.0-rc.9",
@@ -9,18 +9,18 @@
     "qrcode-terminal": "^0.12.0"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*",
+    "crabfork": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.4.12"
+    "crabfork": ">=2026.4.12"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "crabfork": {
       "optional": true
     }
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ],
@@ -40,7 +40,7 @@
       }
     },
     "install": {
-      "npmSpec": "@openclaw/whatsapp",
+      "npmSpec": "@crabfork/whatsapp",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.4.10"
     },
@@ -51,7 +51,7 @@
       "stageRuntimeDependencies": true
     },
     "build": {
-      "openclawVersion": "2026.4.12"
+      "crabforkVersion": "2026.4.12"
     },
     "release": {
       "publishToClawHub": true,

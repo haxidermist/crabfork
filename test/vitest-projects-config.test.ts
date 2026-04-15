@@ -46,7 +46,7 @@ describe("projects vitest config", () => {
     expect(config.test.isolate).toBe(true);
     expect(config.test.runner).toBeUndefined();
     const setupFiles = normalizeConfigPaths(config.test.setupFiles);
-    expect(setupFiles).not.toContain("test/setup-openclaw-runtime.ts");
+    expect(setupFiles).not.toContain("test/setup-crabfork-runtime.ts");
     expect(setupFiles).toContain("ui/src/test-helpers/lit-warnings.setup.ts");
     expect(config.test.deps?.optimizer?.web?.enabled).toBe(true);
   });

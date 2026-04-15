@@ -5,16 +5,16 @@ import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
-import { disposeRegisteredAgentHarnesses } from "openclaw/plugin-sdk/agent-harness";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { disposeRegisteredAgentHarnesses } from "crabfork/plugin-sdk/agent-harness";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import { formatErrorMessage } from "crabfork/plugin-sdk/error-runtime";
 import {
   formatMemoryDreamingDay,
   resolveSessionTranscriptsDirForAgent,
-} from "openclaw/plugin-sdk/memory-core";
-import { buildAgentSessionKey } from "openclaw/plugin-sdk/routing";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/memory-core";
+import { buildAgentSessionKey } from "crabfork/plugin-sdk/routing";
+import { fetchWithSsrFGuard } from "crabfork/plugin-sdk/ssrf-runtime";
+import { normalizeLowercaseStringOrEmpty } from "crabfork/plugin-sdk/text-runtime";
 import {
   callQaBrowserRequest,
   qaBrowserAct,
@@ -92,7 +92,7 @@ type QaSuiteEnvironment = {
   lab: QaLabServerHandle;
   mock: Awaited<ReturnType<typeof startQaMockOpenAiServer>> | null;
   gateway: Awaited<ReturnType<typeof startQaGatewayChild>>;
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   transport: QaTransportAdapter;
   repoRoot: string;
   providerMode: "mock-openai" | "live-frontier";
@@ -176,7 +176,7 @@ type QaRawSessionStoreEntry = {
 const DEFAULT_QA_SUITE_CONCURRENCY = 64;
 
 function normalizeQaSuiteConcurrency(value: number | undefined, scenarioCount: number) {
-  const envValue = Number(process.env.OPENCLAW_QA_SUITE_CONCURRENCY);
+  const envValue = Number(process.env.CRABFORK_QA_SUITE_CONCURRENCY);
   const raw =
     typeof value === "number" && Number.isFinite(value)
       ? value
@@ -531,11 +531,11 @@ async function runScenario(name: string, steps: QaSuiteStep[]): Promise<QaSuiteS
   const stepResults: QaReportCheck[] = [];
   for (const step of steps) {
     try {
-      if (process.env.OPENCLAW_QA_DEBUG === "1") {
+      if (process.env.CRABFORK_QA_DEBUG === "1") {
         console.error(`[qa-suite] start scenario="${name}" step="${step.name}"`);
       }
       const details = await step.run();
-      if (process.env.OPENCLAW_QA_DEBUG === "1") {
+      if (process.env.CRABFORK_QA_DEBUG === "1") {
         console.error(`[qa-suite] pass scenario="${name}" step="${step.name}"`);
       }
       stepResults.push({
@@ -545,7 +545,7 @@ async function runScenario(name: string, steps: QaSuiteStep[]): Promise<QaSuiteS
       });
     } catch (error) {
       const details = formatErrorMessage(error);
-      if (process.env.OPENCLAW_QA_DEBUG === "1") {
+      if (process.env.CRABFORK_QA_DEBUG === "1") {
         console.error(`[qa-suite] fail scenario="${name}" step="${step.name}" details=${details}`);
       }
       stepResults.push({
@@ -884,7 +884,7 @@ async function runQaCli(
     });
     const timeout = setTimeout(() => {
       child.kill("SIGKILL");
-      reject(new Error(`qa cli timed out: openclaw ${args.join(" ")}`));
+      reject(new Error(`qa cli timed out: crabfork ${args.join(" ")}`));
     }, opts?.timeoutMs ?? 60_000);
     child.stdout.on("data", (chunk) => stdout.push(Buffer.from(chunk)));
     child.stderr.on("data", (chunk) => stderr.push(Buffer.from(chunk)));
@@ -1121,7 +1121,7 @@ async function callPluginToolsMcp(params: {
     stderr: "pipe",
     env: transportEnv,
   });
-  const client = new Client({ name: "openclaw-qa-suite", version: "0.0.0" }, {});
+  const client = new Client({ name: "crabfork-qa-suite", version: "0.0.0" }, {});
   try {
     await client.connect(transport);
     const listed = await client.listTools();
@@ -1478,7 +1478,7 @@ async function writeQaSuiteArtifacts(params: {
   scenarioIds?: readonly string[];
 }) {
   const report = renderQaMarkdownReport({
-    title: "OpenClaw QA Scenario Suite",
+    title: "Crabfork QA Scenario Suite",
     startedAt: params.startedAt,
     finishedAt: params.finishedAt,
     checks: [],
@@ -1733,7 +1733,7 @@ export async function runQaSuite(params?: QaSuiteRunParams): Promise<QaSuiteResu
     enabledPluginIds,
     forwardHostHome: gatewayRuntimeOptions?.forwardHostHome,
     mutateConfig: gatewayConfigPatch
-      ? (cfg) => applyQaMergePatch(cfg, gatewayConfigPatch) as OpenClawConfig
+      ? (cfg) => applyQaMergePatch(cfg, gatewayConfigPatch) as CrabforkConfig
       : undefined,
   });
   lab.setControlUi({
@@ -1863,7 +1863,7 @@ export async function runQaSuite(params?: QaSuiteRunParams): Promise<QaSuiteResu
     throw error;
   } finally {
     await closeQaWebSessions(env.webSessionIds);
-    const keepTemp = process.env.OPENCLAW_QA_KEEP_TEMP === "1" || false;
+    const keepTemp = process.env.CRABFORK_QA_KEEP_TEMP === "1" || false;
     await gateway.stop({
       keepTemp,
       preserveToDir: keepTemp ? undefined : preserveGatewayRuntimeDir,

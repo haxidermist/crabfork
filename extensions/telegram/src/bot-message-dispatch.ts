@@ -1,23 +1,23 @@
-import type { Bot } from "grammy";
 import {
   logAckFailure,
   logTypingFailure,
   removeAckReactionAfterReply,
-} from "openclaw/plugin-sdk/channel-feedback";
-import { createChannelReplyPipeline } from "openclaw/plugin-sdk/channel-reply-pipeline";
-import { resolveChannelStreamingBlockEnabled } from "openclaw/plugin-sdk/channel-streaming";
+} from "crabfork/plugin-sdk/channel-feedback";
+import { createChannelReplyPipeline } from "crabfork/plugin-sdk/channel-reply-pipeline";
+import { resolveChannelStreamingBlockEnabled } from "crabfork/plugin-sdk/channel-streaming";
 import type {
-  OpenClawConfig,
+  CrabforkConfig,
   ReplyToMode,
   TelegramAccountConfig,
   TelegramDirectConfig,
-} from "openclaw/plugin-sdk/config-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { clearHistoryEntriesIfEnabled } from "openclaw/plugin-sdk/reply-history";
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { danger, logVerbose } from "openclaw/plugin-sdk/runtime-env";
+} from "crabfork/plugin-sdk/config-runtime";
+import { formatErrorMessage } from "crabfork/plugin-sdk/error-runtime";
+import { clearHistoryEntriesIfEnabled } from "crabfork/plugin-sdk/reply-history";
+import { resolveSendableOutboundReplyParts } from "crabfork/plugin-sdk/reply-payload";
+import type { ReplyPayload } from "crabfork/plugin-sdk/reply-runtime";
+import type { RuntimeEnv } from "crabfork/plugin-sdk/runtime-env";
+import { danger, logVerbose } from "crabfork/plugin-sdk/runtime-env";
+import type { Bot } from "grammy";
 import { defaultTelegramBotDeps, type TelegramBotDeps } from "./bot-deps.js";
 import type { TelegramMessageContext } from "./bot-message-context.js";
 import {
@@ -70,7 +70,7 @@ const EMPTY_RESPONSE_FALLBACK = "No response generated. Please try again.";
 /** Minimum chars before sending first streaming message (improves push notification UX) */
 const DRAFT_MIN_INITIAL_CHARS = 30;
 
-async function resolveStickerVisionSupport(cfg: OpenClawConfig, agentId: string) {
+async function resolveStickerVisionSupport(cfg: CrabforkConfig, agentId: string) {
   try {
     const catalog = await loadModelCatalog({ config: cfg });
     const defaultModel = resolveDefaultModelForAgent({ cfg, agentId });
@@ -118,7 +118,7 @@ export function pruneStickerMediaFromContext(
 type DispatchTelegramMessageParams = {
   context: TelegramMessageContext;
   bot: Bot;
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   runtime: RuntimeEnv;
   replyToMode: ReplyToMode;
   streamMode: TelegramStreamMode;
@@ -131,7 +131,7 @@ type DispatchTelegramMessageParams = {
 type TelegramReasoningLevel = "off" | "on" | "stream";
 
 function resolveTelegramReasoningLevel(params: {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   sessionKey?: string;
   agentId: string;
   telegramDeps: TelegramBotDeps;

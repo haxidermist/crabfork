@@ -3,9 +3,9 @@ import {
   loadBundledPluginContractApiSync,
 } from "../../../src/test-utils/bundled-plugin-public-surface.js";
 
-type TelegramContractSurface = typeof import("@openclaw/telegram/contract-api.js");
+type TelegramContractSurface = typeof import("@crabfork/telegram/contract-api.js");
 type WhatsAppApiSurface = Pick<
-  typeof import("@openclaw/whatsapp/api.js"),
+  typeof import("@crabfork/whatsapp/api.js"),
   "isWhatsAppGroupJid" | "normalizeWhatsAppTarget" | "whatsappCommandPolicy"
 >;
 

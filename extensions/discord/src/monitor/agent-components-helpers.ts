@@ -8,15 +8,15 @@ import {
   type StringSelectMenuInteraction,
   type UserSelectMenuInteraction,
 } from "@buape/carbon";
+import { createChannelPairingChallengeIssuer } from "crabfork/plugin-sdk/channel-pairing";
+import { resolveCommandAuthorizedFromAuthorizers } from "crabfork/plugin-sdk/command-auth-native";
+import type { DiscordAccountConfig, CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import { isDangerousNameMatchingEnabled } from "crabfork/plugin-sdk/dangerous-name-runtime";
+import { resolveAgentRoute } from "crabfork/plugin-sdk/routing";
+import { logVerbose } from "crabfork/plugin-sdk/runtime-env";
+import { resolveOpenProviderRuntimeGroupPolicy } from "crabfork/plugin-sdk/runtime-group-policy";
+import { logError } from "crabfork/plugin-sdk/text-runtime";
 import { ChannelType } from "discord-api-types/v10";
-import { createChannelPairingChallengeIssuer } from "openclaw/plugin-sdk/channel-pairing";
-import { resolveCommandAuthorizedFromAuthorizers } from "openclaw/plugin-sdk/command-auth-native";
-import type { DiscordAccountConfig, OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { isDangerousNameMatchingEnabled } from "openclaw/plugin-sdk/dangerous-name-runtime";
-import { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { resolveOpenProviderRuntimeGroupPolicy } from "openclaw/plugin-sdk/runtime-group-policy";
-import { logError } from "openclaw/plugin-sdk/text-runtime";
 import {
   parseDiscordComponentCustomId,
   parseDiscordModalCustomId,
@@ -67,10 +67,10 @@ export type DiscordChannelContext = {
 };
 
 export type AgentComponentContext = {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   accountId: string;
   discordConfig?: DiscordAccountConfig;
-  runtime?: import("openclaw/plugin-sdk/runtime-env").RuntimeEnv;
+  runtime?: import("crabfork/plugin-sdk/runtime-env").RuntimeEnv;
   token?: string;
   guildEntries?: Record<string, DiscordGuildEntryResolved>;
   allowFrom?: string[];

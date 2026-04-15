@@ -99,7 +99,7 @@ describe("applyPluginAutoEnable core", () => {
     const result = applyPluginAutoEnable({
       config: {
         browser: {
-          defaultProfile: "openclaw",
+          defaultProfile: "crabfork",
         },
         plugins: {
           allow: ["telegram"],
@@ -414,7 +414,7 @@ describe("applyPluginAutoEnable core", () => {
       env: {
         ...makeIsolatedEnv(),
         IRC_HOST: "irc.libera.chat",
-        IRC_NICK: "openclaw-bot",
+        IRC_NICK: "crabfork-bot",
       },
     });
 

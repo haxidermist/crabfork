@@ -1,6 +1,6 @@
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/text-runtime";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import { normalizeLowercaseStringOrEmpty } from "crabfork/plugin-sdk/text-runtime";
 import WebSocket from "ws";
 import {
   clearTokenCache,
@@ -108,7 +108,7 @@ function readOptionalMessageSceneExt(
 export interface GatewayContext {
   account: ResolvedQQBotAccount;
   abortSignal: AbortSignal;
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   onReady?: (data: unknown) => void;
   onError?: (error: Error) => void;
   log?: {

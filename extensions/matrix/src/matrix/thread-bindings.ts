@@ -1,13 +1,13 @@
 import path from "node:path";
-import { readJsonFileWithFallback, writeJsonFileAtomically } from "openclaw/plugin-sdk/json-store";
-import { resolveAgentIdFromSessionKey } from "openclaw/plugin-sdk/routing";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
+import { readJsonFileWithFallback, writeJsonFileAtomically } from "crabfork/plugin-sdk/json-store";
+import { resolveAgentIdFromSessionKey } from "crabfork/plugin-sdk/routing";
+import { normalizeOptionalString } from "crabfork/plugin-sdk/text-runtime";
 import {
   registerSessionBindingAdapter,
   resolveThreadBindingFarewellText,
   type SessionBindingAdapter,
   unregisterSessionBindingAdapter,
-} from "openclaw/plugin-sdk/thread-bindings-runtime";
+} from "crabfork/plugin-sdk/thread-bindings-runtime";
 import { claimCurrentTokenStorageState, resolveMatrixStateFilePath } from "./client/storage.js";
 import type { MatrixAuth } from "./client/types.js";
 import type { MatrixClient } from "./sdk.js";

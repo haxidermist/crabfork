@@ -1,23 +1,23 @@
-import { type Bot, GrammyError, InputFile } from "grammy";
-import type { ReplyToMode } from "openclaw/plugin-sdk/config-runtime";
-import type { MarkdownTableMode } from "openclaw/plugin-sdk/config-runtime";
-import { fireAndForgetHook } from "openclaw/plugin-sdk/hook-runtime";
-import { createInternalHookEvent, triggerInternalHook } from "openclaw/plugin-sdk/hook-runtime";
+import type { ReplyToMode } from "crabfork/plugin-sdk/config-runtime";
+import type { MarkdownTableMode } from "crabfork/plugin-sdk/config-runtime";
+import { fireAndForgetHook } from "crabfork/plugin-sdk/hook-runtime";
+import { createInternalHookEvent, triggerInternalHook } from "crabfork/plugin-sdk/hook-runtime";
 import {
   buildCanonicalSentMessageHookContext,
   toInternalMessageSentContext,
   toPluginMessageContext,
   toPluginMessageSentEvent,
-} from "openclaw/plugin-sdk/hook-runtime";
-import { buildOutboundMediaLoadOptions } from "openclaw/plugin-sdk/media-runtime";
-import { isGifMedia, kindFromMime } from "openclaw/plugin-sdk/media-runtime";
-import { getGlobalHookRunner } from "openclaw/plugin-sdk/plugin-runtime";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { chunkMarkdownTextWithMode, type ChunkMode } from "openclaw/plugin-sdk/reply-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { danger, logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { formatErrorMessage } from "openclaw/plugin-sdk/ssrf-runtime";
-import { loadWebMedia } from "openclaw/plugin-sdk/web-media";
+} from "crabfork/plugin-sdk/hook-runtime";
+import { buildOutboundMediaLoadOptions } from "crabfork/plugin-sdk/media-runtime";
+import { isGifMedia, kindFromMime } from "crabfork/plugin-sdk/media-runtime";
+import { getGlobalHookRunner } from "crabfork/plugin-sdk/plugin-runtime";
+import type { ReplyPayload } from "crabfork/plugin-sdk/reply-runtime";
+import { chunkMarkdownTextWithMode, type ChunkMode } from "crabfork/plugin-sdk/reply-runtime";
+import type { RuntimeEnv } from "crabfork/plugin-sdk/runtime-env";
+import { danger, logVerbose } from "crabfork/plugin-sdk/runtime-env";
+import { formatErrorMessage } from "crabfork/plugin-sdk/ssrf-runtime";
+import { loadWebMedia } from "crabfork/plugin-sdk/web-media";
+import { type Bot, GrammyError, InputFile } from "grammy";
 import type { TelegramInlineButtons } from "../button-types.js";
 import { splitTelegramCaption } from "../caption.js";
 import {

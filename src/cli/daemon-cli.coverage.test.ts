@@ -35,8 +35,8 @@ const buildGatewayInstallPlan = vi.fn(
     programArguments: ["/bin/node", "cli", "gateway", "--port", String(params.port)],
     workingDirectory: process.cwd(),
     environment: {
-      OPENCLAW_GATEWAY_PORT: String(params.port),
-      ...(params.token ? { OPENCLAW_GATEWAY_TOKEN: params.token } : {}),
+      CRABFORK_GATEWAY_PORT: String(params.port),
+      ...(params.token ? { CRABFORK_GATEWAY_TOKEN: params.token } : {}),
     },
   }),
 );
@@ -158,15 +158,15 @@ describe("daemon-cli coverage", () => {
   beforeEach(() => {
     daemonProgram = createDaemonProgram();
     envSnapshot = captureEnv([
-      "OPENCLAW_STATE_DIR",
-      "OPENCLAW_CONFIG_PATH",
-      "OPENCLAW_GATEWAY_PORT",
-      "OPENCLAW_PROFILE",
+      "CRABFORK_STATE_DIR",
+      "CRABFORK_CONFIG_PATH",
+      "CRABFORK_GATEWAY_PORT",
+      "CRABFORK_PROFILE",
     ]);
-    process.env.OPENCLAW_STATE_DIR = "/tmp/openclaw-cli-state";
-    process.env.OPENCLAW_CONFIG_PATH = "/tmp/openclaw-cli-state/openclaw.json";
-    delete process.env.OPENCLAW_GATEWAY_PORT;
-    delete process.env.OPENCLAW_PROFILE;
+    process.env.CRABFORK_STATE_DIR = "/tmp/crabfork-cli-state";
+    process.env.CRABFORK_CONFIG_PATH = "/tmp/crabfork-cli-state/crabfork.json";
+    delete process.env.CRABFORK_GATEWAY_PORT;
+    delete process.env.CRABFORK_PROFILE;
     serviceReadCommand.mockResolvedValue(null);
     resolveGatewayProbeAuthSafeWithSecretInputs.mockClear();
     findExtraGatewayServices.mockClear();
@@ -199,12 +199,12 @@ describe("daemon-cli coverage", () => {
     serviceReadCommand.mockResolvedValueOnce({
       programArguments: ["/bin/node", "cli", "gateway", "--port", "19001"],
       environment: {
-        OPENCLAW_PROFILE: "dev",
-        OPENCLAW_STATE_DIR: "/tmp/openclaw-daemon-state",
-        OPENCLAW_CONFIG_PATH: "/tmp/openclaw-daemon-state/openclaw.json",
-        OPENCLAW_GATEWAY_PORT: "19001",
+        CRABFORK_PROFILE: "dev",
+        CRABFORK_STATE_DIR: "/tmp/crabfork-daemon-state",
+        CRABFORK_CONFIG_PATH: "/tmp/crabfork-daemon-state/crabfork.json",
+        CRABFORK_GATEWAY_PORT: "19001",
       },
-      sourcePath: "/tmp/ai.openclaw.gateway.plist",
+      sourcePath: "/tmp/ai.crabfork.gateway.plist",
     });
 
     await runDaemonCommand(["daemon", "status", "--json"]);
@@ -276,7 +276,7 @@ describe("daemon-cli coverage", () => {
         GOPATH: "/Users/test/.local/gopath",
         GOBIN: "/Users/test/.local/gopath/bin",
       },
-      sourcePath: "/tmp/ai.openclaw.gateway.plist",
+      sourcePath: "/tmp/ai.crabfork.gateway.plist",
     });
 
     await runDaemonCommand(["daemon", "install", "--force", "--json"]);

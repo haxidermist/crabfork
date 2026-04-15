@@ -26,35 +26,35 @@ describe("gateway cli backend connect", () => {
     async () => {
       const envSnapshot = captureEnv([
         "HOME",
-        "OPENCLAW_STATE_DIR",
-        "OPENCLAW_CONFIG_PATH",
-        "OPENCLAW_GATEWAY_TOKEN",
-        "OPENCLAW_SKIP_CHANNELS",
-        "OPENCLAW_SKIP_PROVIDERS",
-        "OPENCLAW_SKIP_GMAIL_WATCHER",
-        "OPENCLAW_SKIP_CRON",
-        "OPENCLAW_SKIP_CANVAS_HOST",
-        "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-        "OPENCLAW_BUNDLED_PLUGINS_DIR",
-        "OPENCLAW_TEST_MINIMAL_GATEWAY",
+        "CRABFORK_STATE_DIR",
+        "CRABFORK_CONFIG_PATH",
+        "CRABFORK_GATEWAY_TOKEN",
+        "CRABFORK_SKIP_CHANNELS",
+        "CRABFORK_SKIP_PROVIDERS",
+        "CRABFORK_SKIP_GMAIL_WATCHER",
+        "CRABFORK_SKIP_CRON",
+        "CRABFORK_SKIP_CANVAS_HOST",
+        "CRABFORK_SKIP_BROWSER_CONTROL_SERVER",
+        "CRABFORK_BUNDLED_PLUGINS_DIR",
+        "CRABFORK_TEST_MINIMAL_GATEWAY",
       ]);
 
-      const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-gateway-connect-home-"));
-      const configPath = path.join(tempHome, ".openclaw", "openclaw.json");
-      const bundledPluginsDir = path.join(tempHome, "openclaw-test-no-bundled-extensions");
+      const tempHome = await fs.mkdtemp(path.join(os.tmpdir(), "crabfork-gateway-connect-home-"));
+      const configPath = path.join(tempHome, ".crabfork", "crabfork.json");
+      const bundledPluginsDir = path.join(tempHome, "crabfork-test-no-bundled-extensions");
       const token = `test-${Date.now()}`;
       process.env.HOME = tempHome;
-      process.env.OPENCLAW_STATE_DIR = path.join(tempHome, ".openclaw");
-      process.env.OPENCLAW_CONFIG_PATH = configPath;
-      process.env.OPENCLAW_GATEWAY_TOKEN = token;
-      process.env.OPENCLAW_SKIP_CHANNELS = "1";
-      process.env.OPENCLAW_SKIP_PROVIDERS = "1";
-      process.env.OPENCLAW_SKIP_GMAIL_WATCHER = "1";
-      process.env.OPENCLAW_SKIP_CRON = "1";
-      process.env.OPENCLAW_SKIP_CANVAS_HOST = "1";
-      process.env.OPENCLAW_SKIP_BROWSER_CONTROL_SERVER = "1";
-      process.env.OPENCLAW_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
-      process.env.OPENCLAW_TEST_MINIMAL_GATEWAY = "1";
+      process.env.CRABFORK_STATE_DIR = path.join(tempHome, ".crabfork");
+      process.env.CRABFORK_CONFIG_PATH = configPath;
+      process.env.CRABFORK_GATEWAY_TOKEN = token;
+      process.env.CRABFORK_SKIP_CHANNELS = "1";
+      process.env.CRABFORK_SKIP_PROVIDERS = "1";
+      process.env.CRABFORK_SKIP_GMAIL_WATCHER = "1";
+      process.env.CRABFORK_SKIP_CRON = "1";
+      process.env.CRABFORK_SKIP_CANVAS_HOST = "1";
+      process.env.CRABFORK_SKIP_BROWSER_CONTROL_SERVER = "1";
+      process.env.CRABFORK_BUNDLED_PLUGINS_DIR = bundledPluginsDir;
+      process.env.CRABFORK_TEST_MINIMAL_GATEWAY = "1";
       await fs.mkdir(path.dirname(configPath), { recursive: true });
       await fs.mkdir(bundledPluginsDir, { recursive: true });
       await fs.writeFile(

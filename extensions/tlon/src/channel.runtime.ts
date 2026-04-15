@@ -1,8 +1,8 @@
 import crypto from "node:crypto";
-import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/channel-contract";
-import type { ChannelOutboundAdapter } from "openclaw/plugin-sdk/channel-send-result";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import type { ChannelPlugin } from "openclaw/plugin-sdk/core";
+import type { ChannelAccountSnapshot } from "crabfork/plugin-sdk/channel-contract";
+import type { ChannelOutboundAdapter } from "crabfork/plugin-sdk/channel-send-result";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import type { ChannelPlugin } from "crabfork/plugin-sdk/core";
 import { monitorTlonProvider } from "./monitor/index.js";
 import { tlonSetupWizard } from "./setup-surface.js";
 import {
@@ -91,7 +91,7 @@ async function createHttpPokeApi(params: {
 }
 
 function resolveOutboundContext(params: {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   accountId?: string | null;
   to: string;
 }) {

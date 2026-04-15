@@ -1,25 +1,25 @@
 {
-  "name": "@openclaw/mattermost",
+  "name": "@crabfork/mattermost",
   "version": "2026.4.12",
-  "description": "OpenClaw Mattermost channel plugin",
+  "description": "Crabfork Mattermost channel plugin",
   "type": "module",
   "dependencies": {
     "@sinclair/typebox": "0.34.49",
     "ws": "^8.20.0"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*",
+    "crabfork": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.4.12"
+    "crabfork": ">=2026.4.12"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "crabfork": {
       "optional": true
     }
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ],
@@ -34,7 +34,7 @@
       "order": 65
     },
     "install": {
-      "npmSpec": "@openclaw/mattermost",
+      "npmSpec": "@crabfork/mattermost",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.4.10"
     }

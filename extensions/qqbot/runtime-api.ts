@@ -1,9 +1,9 @@
-export type { ChannelPlugin, OpenClawPluginApi, PluginRuntime } from "openclaw/plugin-sdk/core";
-export type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
+export type { ChannelPlugin, CrabforkPluginApi, PluginRuntime } from "crabfork/plugin-sdk/core";
+export type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
 export type {
-  OpenClawPluginService,
-  OpenClawPluginServiceContext,
+  CrabforkPluginService,
+  CrabforkPluginServiceContext,
   PluginLogger,
-} from "openclaw/plugin-sdk/core";
+} from "crabfork/plugin-sdk/core";
 export type { ResolvedQQBotAccount, QQBotAccountConfig } from "./src/types.js";
 export { getQQBotRuntime, setQQBotRuntime } from "./src/runtime.js";

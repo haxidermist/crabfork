@@ -55,7 +55,7 @@ export async function dashboardCommand(
   if (resolvedToken.unresolvedRefReason) {
     runtime.log(`Token auto-auth unavailable: ${resolvedToken.unresolvedRefReason}`);
     runtime.log(
-      "Set OPENCLAW_GATEWAY_TOKEN in this shell or resolve your secret provider, then rerun `openclaw dashboard`.",
+      "Set CRABFORK_GATEWAY_TOKEN in this shell or resolve your secret provider, then rerun `crabfork dashboard`.",
     );
   }
 
@@ -81,7 +81,7 @@ export async function dashboardCommand(
   }
 
   if (opened) {
-    runtime.log("Opened in your browser. Keep that tab to control OpenClaw.");
+    runtime.log("Opened in your browser. Keep that tab to control Crabfork.");
   } else if (hint) {
     runtime.log(hint);
   }

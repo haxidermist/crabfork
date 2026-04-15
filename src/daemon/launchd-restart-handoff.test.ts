@@ -23,7 +23,7 @@ describe("scheduleDetachedLaunchdRestartHandoff", () => {
   it("waits for the caller pid before kickstarting launchd", () => {
     const env = {
       HOME: "/Users/test",
-      OPENCLAW_PROFILE: "default",
+      CRABFORK_PROFILE: "default",
     };
     spawnMock.mockReturnValue({ pid: 4242, unref: unrefMock });
 
@@ -37,9 +37,9 @@ describe("scheduleDetachedLaunchdRestartHandoff", () => {
     expect(spawnMock).toHaveBeenCalledTimes(1);
     const [, args] = spawnMock.mock.calls[0] as [string, string[]];
     expect(args[0]).toBe("-c");
-    expect(args[2]).toBe("openclaw-launchd-restart-handoff");
+    expect(args[2]).toBe("crabfork-launchd-restart-handoff");
     expect(args[6]).toBe("9876");
-    expect(args[7]).toBe("ai.openclaw.gateway");
+    expect(args[7]).toBe("ai.crabfork.gateway");
     expect(args[1]).toContain('while kill -0 "$wait_pid" >/dev/null 2>&1; do');
     expect(args[1]).toContain('launchctl enable "$service_target" >/dev/null 2>&1');
     expect(args[1]).toContain(
@@ -55,13 +55,13 @@ describe("scheduleDetachedLaunchdRestartHandoff", () => {
     scheduleDetachedLaunchdRestartHandoff({
       env: {
         HOME: "/Users/test",
-        OPENCLAW_PROFILE: "default",
+        CRABFORK_PROFILE: "default",
       },
       mode: "start-after-exit",
     });
 
     const [, args] = spawnMock.mock.calls[0] as [string, string[]];
-    expect(args[7]).toBe("ai.openclaw.gateway");
+    expect(args[7]).toBe("ai.crabfork.gateway");
     expect(args[1]).toContain('launchctl start "$label" >/dev/null 2>&1');
     expect(args[1]).not.toContain('basename "$service_target"');
   });
@@ -71,7 +71,7 @@ describe("scheduleDetachedLaunchdRestartHandoff", () => {
       scheduleDetachedLaunchdRestartHandoff({
         env: {
           HOME: "/Users/test",
-          OPENCLAW_LAUNCHD_LABEL: "../evil/\n\u001b[31mlabel\u001b[0m",
+          CRABFORK_LAUNCHD_LABEL: "../evil/\n\u001b[31mlabel\u001b[0m",
         },
         mode: "kickstart",
       });

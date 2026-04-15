@@ -10,10 +10,10 @@ const REPO_ROOT = process.cwd();
 const require = createRequire(import.meta.url);
 const JITI_ENTRY_PATH = require.resolve("jiti");
 const matrixWrapperGlobal = globalThis as typeof globalThis & {
-  __openclawMatrixWrapperJitiOptions?: unknown;
+  __crabforkMatrixWrapperJitiOptions?: unknown;
 };
-const PLUGIN_SDK_ROOT = ["openclaw", "plugin-sdk"].join("/");
-const SCOPED_PLUGIN_SDK_ROOT = ["@openclaw", "plugin-sdk"].join("/");
+const PLUGIN_SDK_ROOT = ["crabfork", "plugin-sdk"].join("/");
+const SCOPED_PLUGIN_SDK_ROOT = ["@crabfork", "plugin-sdk"].join("/");
 const GROUP_ACCESS_SUBPATH = `${PLUGIN_SDK_ROOT}/group-access`;
 const SCOPED_GROUP_ACCESS_SUBPATH = `${SCOPED_PLUGIN_SDK_ROOT}/group-access`;
 const PACKAGED_RUNTIME_STUB = [
@@ -50,7 +50,7 @@ function writeCapturingJitiFixture(fixtureRoot: string) {
     "node_modules/jiti/index.js",
     [
       "exports.createJiti = function createJiti(_filename, options) {",
-      "  globalThis.__openclawMatrixWrapperJitiOptions = options;",
+      "  globalThis.__crabforkMatrixWrapperJitiOptions = options;",
       "  return function jiti() {",
       "    return {",
       "      ensureMatrixCryptoRuntime: async function ensureMatrixCryptoRuntime() {},",
@@ -65,13 +65,13 @@ function writeCapturingJitiFixture(fixtureRoot: string) {
   );
 }
 
-function writeOpenClawPackageFixture(fixtureRoot: string) {
+function writeCrabforkPackageFixture(fixtureRoot: string) {
   writeFixtureFile(
     fixtureRoot,
     "package.json",
     JSON.stringify(
       {
-        name: "openclaw",
+        name: "crabfork",
         type: "module",
         exports: {
           "./plugin-sdk": "./dist/plugin-sdk/index.js",
@@ -81,17 +81,17 @@ function writeOpenClawPackageFixture(fixtureRoot: string) {
       2,
     ) + "\n",
   );
-  writeFixtureFile(fixtureRoot, "openclaw.mjs", "export {};\n");
+  writeFixtureFile(fixtureRoot, "crabfork.mjs", "export {};\n");
   writeFixtureFile(fixtureRoot, "dist/plugin-sdk/index.js", "export {};\n");
 }
 
-function writeOpenClawAliasFixture(fixtureRoot: string, extraExports?: Record<string, string>) {
+function writeCrabforkAliasFixture(fixtureRoot: string, extraExports?: Record<string, string>) {
   writeFixtureFile(
     fixtureRoot,
     "package.json",
     JSON.stringify(
       {
-        name: "openclaw",
+        name: "crabfork",
         type: "module",
         exports: {
           "./plugin-sdk": "./dist/plugin-sdk/index.js",
@@ -105,13 +105,13 @@ function writeOpenClawAliasFixture(fixtureRoot: string, extraExports?: Record<st
   );
   writeFixtureFile(fixtureRoot, "src/plugin-sdk/root-alias.cjs", "module.exports = {};\n");
   writeFixtureFile(fixtureRoot, "src/plugin-sdk/group-access.ts", "export {};\n");
-  writeFixtureFile(fixtureRoot, "openclaw.mjs", "export {};\n");
+  writeFixtureFile(fixtureRoot, "crabfork.mjs", "export {};\n");
   writeFixtureFile(fixtureRoot, "dist/plugin-sdk/index.js", "export {};\n");
   writeFixtureFile(fixtureRoot, "dist/plugin-sdk/root-alias.cjs", "module.exports = {};\n");
   writeFixtureFile(fixtureRoot, "dist/plugin-sdk/group-access.js", "export {};\n");
 }
 
-function writeTrustedOpenClawBinFixture(
+function writeTrustedCrabforkBinFixture(
   fixtureRoot: string,
   packageBin: string | Record<string, string>,
 ) {
@@ -120,7 +120,7 @@ function writeTrustedOpenClawBinFixture(
     "package.json",
     JSON.stringify(
       {
-        name: "openclaw",
+        name: "crabfork",
         type: "module",
         bin: packageBin,
         exports: {
@@ -152,7 +152,7 @@ it("loads the source-checkout runtime wrapper through native ESM import", async 
     "utf8",
   );
 
-  writeOpenClawPackageFixture(fixtureRoot);
+  writeCrabforkPackageFixture(fixtureRoot);
   writeJitiFixture(fixtureRoot);
   writeFixtureFile(fixtureRoot, "extensions/matrix/src/plugin-entry.runtime.js", wrapperSource);
   writeFixtureFile(
@@ -181,7 +181,7 @@ it("loads the packaged runtime wrapper without recursing through the stable root
     "utf8",
   );
 
-  writeOpenClawPackageFixture(fixtureRoot);
+  writeCrabforkPackageFixture(fixtureRoot);
   writeJitiFixture(fixtureRoot);
   writeFixtureFile(fixtureRoot, "dist/plugin-entry.runtime-C88YIa_v.js", wrapperSource);
   writeFixtureFile(
@@ -215,8 +215,8 @@ it("builds scoped and unscoped plugin-sdk aliases for the wrapper jiti loader", 
     "utf8",
   );
 
-  delete matrixWrapperGlobal.__openclawMatrixWrapperJitiOptions;
-  writeOpenClawAliasFixture(fixtureRoot);
+  delete matrixWrapperGlobal.__crabforkMatrixWrapperJitiOptions;
+  writeCrabforkAliasFixture(fixtureRoot);
   writeCapturingJitiFixture(fixtureRoot);
   writeFixtureFile(fixtureRoot, "extensions/matrix/src/plugin-entry.runtime.js", wrapperSource);
   writeFixtureFile(
@@ -230,7 +230,7 @@ it("builds scoped and unscoped plugin-sdk aliases for the wrapper jiti loader", 
   );
   await import(`${wrapperUrl.href}?t=${Date.now()}`);
 
-  expect(matrixWrapperGlobal.__openclawMatrixWrapperJitiOptions).toMatchObject({
+  expect(matrixWrapperGlobal.__crabforkMatrixWrapperJitiOptions).toMatchObject({
     alias: {
       [PLUGIN_SDK_ROOT]: path.join(fixtureRoot, "src", "plugin-sdk", "root-alias.cjs"),
       [SCOPED_PLUGIN_SDK_ROOT]: path.join(fixtureRoot, "src", "plugin-sdk", "root-alias.cjs"),
@@ -247,8 +247,8 @@ it("resolves extension-api aliases through the same source extension family", as
     "utf8",
   );
 
-  delete matrixWrapperGlobal.__openclawMatrixWrapperJitiOptions;
-  writeOpenClawAliasFixture(fixtureRoot);
+  delete matrixWrapperGlobal.__crabforkMatrixWrapperJitiOptions;
+  writeCrabforkAliasFixture(fixtureRoot);
   writeFixtureFile(fixtureRoot, "src/extensionAPI.mts", "export {};\n");
   writeCapturingJitiFixture(fixtureRoot);
   writeFixtureFile(fixtureRoot, "extensions/matrix/src/plugin-entry.runtime.js", wrapperSource);
@@ -263,9 +263,9 @@ it("resolves extension-api aliases through the same source extension family", as
   );
   await import(`${wrapperUrl.href}?t=${Date.now()}`);
 
-  expect(matrixWrapperGlobal.__openclawMatrixWrapperJitiOptions).toMatchObject({
+  expect(matrixWrapperGlobal.__crabforkMatrixWrapperJitiOptions).toMatchObject({
     alias: {
-      "openclaw/extension-api": path.join(fixtureRoot, "src", "extensionAPI.mts"),
+      "crabfork/extension-api": path.join(fixtureRoot, "src", "extensionAPI.mts"),
     },
   });
 }, 240_000);
@@ -277,8 +277,8 @@ it("keeps wrapper plugin-sdk aliases deterministic and ignores unsafe subpaths",
     "utf8",
   );
 
-  delete matrixWrapperGlobal.__openclawMatrixWrapperJitiOptions;
-  writeOpenClawAliasFixture(fixtureRoot, {
+  delete matrixWrapperGlobal.__crabforkMatrixWrapperJitiOptions;
+  writeCrabforkAliasFixture(fixtureRoot, {
     "./plugin-sdk/zeta": "./dist/plugin-sdk/zeta.js",
     "./plugin-sdk/../escape": "./dist/plugin-sdk/escape.js",
     "./plugin-sdk/alpha": "./dist/plugin-sdk/alpha.js",
@@ -300,7 +300,7 @@ it("keeps wrapper plugin-sdk aliases deterministic and ignores unsafe subpaths",
 
   const aliasKeys = Object.keys(
     (
-      (matrixWrapperGlobal.__openclawMatrixWrapperJitiOptions ?? {}) as {
+      (matrixWrapperGlobal.__crabforkMatrixWrapperJitiOptions ?? {}) as {
         alias?: Record<string, string>;
       }
     ).alias ?? {},
@@ -317,21 +317,21 @@ it("keeps wrapper plugin-sdk aliases deterministic and ignores unsafe subpaths",
   ]);
 }, 240_000);
 
-it("ignores nearby untrusted openclaw package stubs when resolving the wrapper root", async () => {
+it("ignores nearby untrusted crabfork package stubs when resolving the wrapper root", async () => {
   const fixtureRoot = makeFixtureRoot(".tmp-matrix-runtime-trusted-root-");
   const wrapperSource = fs.readFileSync(
     path.join(REPO_ROOT, "extensions", "matrix", "src", "plugin-entry.runtime.js"),
     "utf8",
   );
 
-  delete matrixWrapperGlobal.__openclawMatrixWrapperJitiOptions;
-  writeOpenClawAliasFixture(fixtureRoot);
+  delete matrixWrapperGlobal.__crabforkMatrixWrapperJitiOptions;
+  writeCrabforkAliasFixture(fixtureRoot);
   writeFixtureFile(
     fixtureRoot,
     "extensions/package.json",
     JSON.stringify(
       {
-        name: "openclaw",
+        name: "crabfork",
         type: "module",
         exports: {
           "./plugin-sdk": "./dist/plugin-sdk/index.js",
@@ -361,7 +361,7 @@ it("ignores nearby untrusted openclaw package stubs when resolving the wrapper r
   );
   await import(`${wrapperUrl.href}?t=${Date.now()}`);
 
-  expect(matrixWrapperGlobal.__openclawMatrixWrapperJitiOptions).toMatchObject({
+  expect(matrixWrapperGlobal.__crabforkMatrixWrapperJitiOptions).toMatchObject({
     alias: {
       [PLUGIN_SDK_ROOT]: path.join(fixtureRoot, "src", "plugin-sdk", "root-alias.cjs"),
       [SCOPED_PLUGIN_SDK_ROOT]: path.join(fixtureRoot, "src", "plugin-sdk", "root-alias.cjs"),
@@ -378,8 +378,8 @@ it("treats string bin hints case-insensitively when trusting wrapper package roo
     "utf8",
   );
 
-  delete matrixWrapperGlobal.__openclawMatrixWrapperJitiOptions;
-  writeTrustedOpenClawBinFixture(fixtureRoot, "OpenClaw.MJS");
+  delete matrixWrapperGlobal.__crabforkMatrixWrapperJitiOptions;
+  writeTrustedCrabforkBinFixture(fixtureRoot, "Crabfork.MJS");
   writeCapturingJitiFixture(fixtureRoot);
   writeFixtureFile(fixtureRoot, "extensions/matrix/src/plugin-entry.runtime.js", wrapperSource);
   writeFixtureFile(
@@ -393,7 +393,7 @@ it("treats string bin hints case-insensitively when trusting wrapper package roo
   );
   await import(`${wrapperUrl.href}?t=${Date.now()}`);
 
-  expect(matrixWrapperGlobal.__openclawMatrixWrapperJitiOptions).toMatchObject({
+  expect(matrixWrapperGlobal.__crabforkMatrixWrapperJitiOptions).toMatchObject({
     alias: {
       [PLUGIN_SDK_ROOT]: path.join(fixtureRoot, "src", "plugin-sdk", "root-alias.cjs"),
       [SCOPED_PLUGIN_SDK_ROOT]: path.join(fixtureRoot, "src", "plugin-sdk", "root-alias.cjs"),

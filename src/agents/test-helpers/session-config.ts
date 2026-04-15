@@ -1,8 +1,8 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { CrabforkConfig } from "../../config/types.crabfork.js";
 
 export function createPerSenderSessionConfig(
-  overrides: Partial<NonNullable<OpenClawConfig["session"]>> = {},
-): NonNullable<OpenClawConfig["session"]> {
+  overrides: Partial<NonNullable<CrabforkConfig["session"]>> = {},
+): NonNullable<CrabforkConfig["session"]> {
   return {
     mainKey: "main",
     scope: "per-sender",

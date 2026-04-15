@@ -26,7 +26,7 @@ const readConfigFileSnapshotForWriteSpy = vi.spyOn(
 const runCliAgentSpy = vi.spyOn(cliRunnerModule, "runCliAgent");
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
-  return withSharedAgentCommandTempHome("openclaw-agent-cli-", fn);
+  return withSharedAgentCommandTempHome("crabfork-agent-cli-", fn);
 }
 
 function mockConfig(

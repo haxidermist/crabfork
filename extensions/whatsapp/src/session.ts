@@ -1,12 +1,12 @@
 import { randomUUID } from "node:crypto";
 import fsSync from "node:fs";
 import type { Agent } from "node:https";
-import { formatCliCommand } from "openclaw/plugin-sdk/cli-runtime";
-import { VERSION } from "openclaw/plugin-sdk/cli-runtime";
-import { resolveAmbientNodeProxyAgent } from "openclaw/plugin-sdk/extension-shared";
-import { danger, success } from "openclaw/plugin-sdk/runtime-env";
-import { getChildLogger, toPinoLikeLogger } from "openclaw/plugin-sdk/runtime-env";
-import { ensureDir, resolveUserPath } from "openclaw/plugin-sdk/text-runtime";
+import { formatCliCommand } from "crabfork/plugin-sdk/cli-runtime";
+import { VERSION } from "crabfork/plugin-sdk/cli-runtime";
+import { resolveAmbientNodeProxyAgent } from "crabfork/plugin-sdk/extension-shared";
+import { danger, success } from "crabfork/plugin-sdk/runtime-env";
+import { getChildLogger, toPinoLikeLogger } from "crabfork/plugin-sdk/runtime-env";
+import { ensureDir, resolveUserPath } from "crabfork/plugin-sdk/text-runtime";
 import {
   maybeRestoreCredsFromBackup,
   readCredsJsonRaw,
@@ -134,7 +134,7 @@ export async function createWaSocket(
     version,
     logger,
     printQRInTerminal: false,
-    browser: ["openclaw", "cli", VERSION],
+    browser: ["crabfork", "cli", VERSION],
     syncFullHistory: false,
     markOnlineOnConnect: false,
     agent,
@@ -162,7 +162,7 @@ export async function createWaSocket(
           if (status === LOGGED_OUT_STATUS) {
             console.error(
               danger(
-                `WhatsApp session logged out. Run: ${formatCliCommand("openclaw channels login")}`,
+                `WhatsApp session logged out. Run: ${formatCliCommand("crabfork channels login")}`,
               ),
             );
           }

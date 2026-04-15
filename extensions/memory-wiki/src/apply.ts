@@ -3,7 +3,7 @@ import path from "node:path";
 import {
   replaceManagedMarkdownBlock,
   withTrailingNewline,
-} from "openclaw/plugin-sdk/memory-host-markdown";
+} from "crabfork/plugin-sdk/memory-host-markdown";
 import { compileMemoryWikiVault, type CompileMemoryWikiResult } from "./compile.js";
 import type { ResolvedMemoryWikiConfig } from "./config.js";
 import {
@@ -21,10 +21,10 @@ import {
 } from "./query.js";
 import { initializeMemoryWikiVault } from "./vault.js";
 
-const GENERATED_START = "<!-- openclaw:wiki:generated:start -->";
-const GENERATED_END = "<!-- openclaw:wiki:generated:end -->";
-const HUMAN_START = "<!-- openclaw:human:start -->";
-const HUMAN_END = "<!-- openclaw:human:end -->";
+const GENERATED_START = "<!-- crabfork:wiki:generated:start -->";
+const GENERATED_END = "<!-- crabfork:wiki:generated:end -->";
+const HUMAN_START = "<!-- crabfork:human:start -->";
+const HUMAN_END = "<!-- crabfork:human:end -->";
 
 export type CreateSynthesisMemoryWikiMutation = {
   op: "create_synthesis";

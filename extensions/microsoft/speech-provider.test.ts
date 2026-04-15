@@ -1,7 +1,7 @@
 import { mkdtempSync, writeFileSync } from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import {
   buildMicrosoftSpeechProvider,
@@ -10,15 +10,15 @@ import {
 } from "./speech-provider.js";
 import * as ttsModule from "./tts.js";
 
-const TEST_CFG = {} as OpenClawConfig;
+const TEST_CFG = {} as CrabforkConfig;
 
 describe("listMicrosoftVoices", () => {
   const originalFetch = globalThis.fetch;
   const proxyEnvKeys = [
-    "OPENCLAW_DEBUG_PROXY_ENABLED",
-    "OPENCLAW_DEBUG_PROXY_DB_PATH",
-    "OPENCLAW_DEBUG_PROXY_BLOB_DIR",
-    "OPENCLAW_DEBUG_PROXY_SESSION_ID",
+    "CRABFORK_DEBUG_PROXY_ENABLED",
+    "CRABFORK_DEBUG_PROXY_DB_PATH",
+    "CRABFORK_DEBUG_PROXY_BLOB_DIR",
+    "CRABFORK_DEBUG_PROXY_SESSION_ID",
   ] as const;
   let priorProxyEnv: Partial<Record<(typeof proxyEnvKeys)[number], string | undefined>> = {};
 
@@ -85,10 +85,10 @@ describe("listMicrosoftVoices", () => {
     priorProxyEnv = Object.fromEntries(
       proxyEnvKeys.map((key) => [key, process.env[key]]),
     ) as typeof priorProxyEnv;
-    process.env.OPENCLAW_DEBUG_PROXY_ENABLED = "1";
-    process.env.OPENCLAW_DEBUG_PROXY_DB_PATH = path.join(tempDir, "capture.sqlite");
-    process.env.OPENCLAW_DEBUG_PROXY_BLOB_DIR = path.join(tempDir, "blobs");
-    process.env.OPENCLAW_DEBUG_PROXY_SESSION_ID = "ms-voices-session";
+    process.env.CRABFORK_DEBUG_PROXY_ENABLED = "1";
+    process.env.CRABFORK_DEBUG_PROXY_DB_PATH = path.join(tempDir, "capture.sqlite");
+    process.env.CRABFORK_DEBUG_PROXY_BLOB_DIR = path.join(tempDir, "blobs");
+    process.env.CRABFORK_DEBUG_PROXY_SESSION_ID = "ms-voices-session";
 
     globalThis.fetch = vi
       .fn()
@@ -98,17 +98,17 @@ describe("listMicrosoftVoices", () => {
 
     const { getDebugProxyCaptureStore } = await import("../../src/proxy-capture/store.sqlite.js");
     const store = getDebugProxyCaptureStore(
-      process.env.OPENCLAW_DEBUG_PROXY_DB_PATH,
-      process.env.OPENCLAW_DEBUG_PROXY_BLOB_DIR,
+      process.env.CRABFORK_DEBUG_PROXY_DB_PATH,
+      process.env.CRABFORK_DEBUG_PROXY_BLOB_DIR,
     );
     store.upsertSession({
       id: "ms-voices-session",
       startedAt: Date.now(),
       mode: "test",
-      sourceScope: "openclaw",
-      sourceProcess: "openclaw",
-      dbPath: process.env.OPENCLAW_DEBUG_PROXY_DB_PATH,
-      blobDir: process.env.OPENCLAW_DEBUG_PROXY_BLOB_DIR,
+      sourceScope: "crabfork",
+      sourceProcess: "crabfork",
+      dbPath: process.env.CRABFORK_DEBUG_PROXY_DB_PATH,
+      blobDir: process.env.CRABFORK_DEBUG_PROXY_BLOB_DIR,
     });
 
     await listMicrosoftVoices();
@@ -130,10 +130,10 @@ describe("listMicrosoftVoices", () => {
     priorProxyEnv = Object.fromEntries(
       proxyEnvKeys.map((key) => [key, process.env[key]]),
     ) as typeof priorProxyEnv;
-    process.env.OPENCLAW_DEBUG_PROXY_ENABLED = "1";
-    process.env.OPENCLAW_DEBUG_PROXY_DB_PATH = path.join(tempDir, "capture.sqlite");
-    process.env.OPENCLAW_DEBUG_PROXY_BLOB_DIR = path.join(tempDir, "blobs");
-    process.env.OPENCLAW_DEBUG_PROXY_SESSION_ID = "ms-voices-global-session";
+    process.env.CRABFORK_DEBUG_PROXY_ENABLED = "1";
+    process.env.CRABFORK_DEBUG_PROXY_DB_PATH = path.join(tempDir, "capture.sqlite");
+    process.env.CRABFORK_DEBUG_PROXY_BLOB_DIR = path.join(tempDir, "blobs");
+    process.env.CRABFORK_DEBUG_PROXY_SESSION_ID = "ms-voices-global-session";
 
     globalThis.fetch = vi.fn(
       async () => new Response(JSON.stringify([{ ShortName: "en-US-AvaNeural" }]), { status: 200 }),
@@ -143,17 +143,17 @@ describe("listMicrosoftVoices", () => {
     const { finalizeDebugProxyCapture, initializeDebugProxyCapture } =
       await import("../../src/proxy-capture/runtime.js");
     const store = getDebugProxyCaptureStore(
-      process.env.OPENCLAW_DEBUG_PROXY_DB_PATH,
-      process.env.OPENCLAW_DEBUG_PROXY_BLOB_DIR,
+      process.env.CRABFORK_DEBUG_PROXY_DB_PATH,
+      process.env.CRABFORK_DEBUG_PROXY_BLOB_DIR,
     );
     store.upsertSession({
       id: "ms-voices-global-session",
       startedAt: Date.now(),
       mode: "test",
-      sourceScope: "openclaw",
-      sourceProcess: "openclaw",
-      dbPath: process.env.OPENCLAW_DEBUG_PROXY_DB_PATH,
-      blobDir: process.env.OPENCLAW_DEBUG_PROXY_BLOB_DIR,
+      sourceScope: "crabfork",
+      sourceProcess: "crabfork",
+      dbPath: process.env.CRABFORK_DEBUG_PROXY_DB_PATH,
+      blobDir: process.env.CRABFORK_DEBUG_PROXY_BLOB_DIR,
     });
     initializeDebugProxyCapture("test");
 

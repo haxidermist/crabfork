@@ -9,8 +9,8 @@ export {
   WEBHOOK_IN_FLIGHT_DEFAULTS,
   WEBHOOK_RATE_LIMIT_DEFAULTS,
   type WebhookInFlightLimiter,
-} from "openclaw/plugin-sdk/webhook-ingress";
+} from "crabfork/plugin-sdk/webhook-ingress";
 export {
   resolveConfiguredSecretInputString,
-  type OpenClawConfig,
-} from "openclaw/plugin-sdk/config-runtime";
+  type CrabforkConfig,
+} from "crabfork/plugin-sdk/config-runtime";

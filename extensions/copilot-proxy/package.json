@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/copilot-proxy",
+  "name": "@crabfork/copilot-proxy",
   "version": "2026.4.12",
   "private": true,
-  "description": "OpenClaw Copilot Proxy provider plugin",
+  "description": "Crabfork Copilot Proxy provider plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*"
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ]

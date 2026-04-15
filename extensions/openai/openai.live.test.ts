@@ -3,11 +3,11 @@ import os from "node:os";
 import path from "node:path";
 import { getModel } from "@mariozechner/pi-ai";
 import { AuthStorage, ModelRegistry } from "@mariozechner/pi-coding-agent";
+import type { ResolvedTtsConfig } from "crabfork/plugin-sdk/agent-runtime";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import { loadConfig } from "crabfork/plugin-sdk/config-runtime";
+import { encodePngRgba, fillPixel } from "crabfork/plugin-sdk/media-runtime";
 import OpenAI from "openai";
-import type { ResolvedTtsConfig } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { encodePngRgba, fillPixel } from "openclaw/plugin-sdk/media-runtime";
 import { describe, expect, it } from "vitest";
 import {
   registerProviderPlugin,
@@ -16,10 +16,10 @@ import {
 import plugin from "./index.js";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY ?? "";
-const LIVE_MODEL_ID = process.env.OPENCLAW_LIVE_OPENAI_PLUGIN_MODEL?.trim() || "gpt-5.4-nano";
-const LIVE_IMAGE_MODEL = process.env.OPENCLAW_LIVE_OPENAI_IMAGE_MODEL?.trim() || "gpt-image-1";
-const LIVE_VISION_MODEL = process.env.OPENCLAW_LIVE_OPENAI_VISION_MODEL?.trim() || "gpt-4.1-mini";
-const liveEnabled = OPENAI_API_KEY.trim().length > 0 && process.env.OPENCLAW_LIVE_TEST === "1";
+const LIVE_MODEL_ID = process.env.CRABFORK_LIVE_OPENAI_PLUGIN_MODEL?.trim() || "gpt-5.4-nano";
+const LIVE_IMAGE_MODEL = process.env.CRABFORK_LIVE_OPENAI_IMAGE_MODEL?.trim() || "gpt-image-1";
+const LIVE_VISION_MODEL = process.env.CRABFORK_LIVE_OPENAI_VISION_MODEL?.trim() || "gpt-4.1-mini";
+const liveEnabled = OPENAI_API_KEY.trim().length > 0 && process.env.CRABFORK_LIVE_TEST === "1";
 const describeLive = liveEnabled ? describe : describe.skip;
 const EMPTY_AUTH_STORE = { version: 1, profiles: {} } as const;
 const ModelRegistryCtor = ModelRegistry as unknown as {
@@ -89,7 +89,7 @@ function createReferencePng(): Buffer {
   return encodePngRgba(buf, width, height);
 }
 
-function createLiveConfig(): OpenClawConfig {
+function createLiveConfig(): CrabforkConfig {
   const cfg = loadConfig();
   return {
     ...cfg,
@@ -104,7 +104,7 @@ function createLiveConfig(): OpenClawConfig {
         },
       },
     },
-  } as OpenClawConfig;
+  } as CrabforkConfig;
 }
 
 function createLiveTtsConfig(): ResolvedTtsConfig {
@@ -195,7 +195,7 @@ describeLive("openai plugin live", () => {
     const ttsConfig = createLiveTtsConfig();
 
     const audioFile = await speechProvider.synthesize({
-      text: "OpenClaw integration test OK.",
+      text: "Crabfork integration test OK.",
       cfg,
       providerConfig: ttsConfig.providerConfigs.openai ?? {},
       target: "audio-file",
@@ -225,7 +225,7 @@ describeLive("openai plugin live", () => {
     const ttsConfig = createLiveTtsConfig();
 
     const synthesized = await speechProvider.synthesize({
-      text: "OpenClaw integration test OK.",
+      text: "Crabfork integration test OK.",
       cfg,
       providerConfig: ttsConfig.providerConfigs.openai ?? {},
       target: "audio-file",
@@ -242,7 +242,7 @@ describeLive("openai plugin live", () => {
 
     const text = (transcription?.text ?? "").toLowerCase();
     expect(text.length).toBeGreaterThan(0);
-    expect(text).toContain("openclaw");
+    expect(text).toContain("crabfork");
     expect(text).toMatch(/\bok\b/);
   }, 45_000);
 

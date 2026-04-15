@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/anthropic-provider",
+  "name": "@crabfork/anthropic-provider",
   "version": "2026.4.12",
   "private": true,
-  "description": "OpenClaw Anthropic provider plugin",
+  "description": "Crabfork Anthropic provider plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*"
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ]

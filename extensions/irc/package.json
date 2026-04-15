@@ -1,12 +1,12 @@
 {
-  "name": "@openclaw/irc",
+  "name": "@crabfork/irc",
   "version": "2026.4.12",
-  "description": "OpenClaw IRC channel plugin",
+  "description": "Crabfork IRC channel plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*"
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ],

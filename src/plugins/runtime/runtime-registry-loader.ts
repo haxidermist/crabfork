@@ -1,10 +1,10 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { CrabforkConfig } from "../../config/types.crabfork.js";
 import { withActivatedPluginIds } from "../activation-context.js";
 import {
   resolveChannelPluginIds,
   resolveConfiguredChannelPluginIds,
 } from "../channel-plugin-ids.js";
-import { loadOpenClawPlugins } from "../loader.js";
+import { loadCrabforkPlugins } from "../loader.js";
 import {
   hasExplicitPluginIdScope,
   hasNonEmptyPluginIdScope,
@@ -75,8 +75,8 @@ function shouldForwardChannelScope(params: {
 
 export function ensurePluginRegistryLoaded(options?: {
   scope?: PluginRegistryScope;
-  config?: OpenClawConfig;
-  activationSourceConfig?: OpenClawConfig;
+  config?: CrabforkConfig;
+  activationSourceConfig?: CrabforkConfig;
   env?: NodeJS.ProcessEnv;
   onlyPluginIds?: string[];
 }): void {
@@ -131,7 +131,7 @@ export function ensurePluginRegistryLoaded(options?: {
           pluginIds: expectedChannelPluginIds,
         }) ?? context.activationSourceConfig)
       : context.activationSourceConfig;
-  loadOpenClawPlugins(
+  loadCrabforkPlugins(
     buildPluginRuntimeLoadOptionsFromValues(
       {
         ...context,

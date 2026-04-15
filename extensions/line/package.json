@@ -1,22 +1,22 @@
 {
-  "name": "@openclaw/line",
+  "name": "@crabfork/line",
   "version": "2026.4.12",
   "private": true,
-  "description": "OpenClaw LINE channel plugin",
+  "description": "Crabfork LINE channel plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*",
+    "crabfork": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.4.12"
+    "crabfork": ">=2026.4.12"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "crabfork": {
       "optional": true
     }
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ],
@@ -34,7 +34,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/line",
+      "npmSpec": "@crabfork/line",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.4.10"
     }

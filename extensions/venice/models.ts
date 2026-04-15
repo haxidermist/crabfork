@@ -1,7 +1,7 @@
-import type { ModelDefinitionConfig } from "openclaw/plugin-sdk/provider-model-shared";
-import { createSubsystemLogger, retryAsync } from "openclaw/plugin-sdk/runtime-env";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/text-runtime";
+import type { ModelDefinitionConfig } from "crabfork/plugin-sdk/provider-model-shared";
+import { createSubsystemLogger, retryAsync } from "crabfork/plugin-sdk/runtime-env";
+import { fetchWithSsrFGuard } from "crabfork/plugin-sdk/ssrf-runtime";
+import { normalizeLowercaseStringOrEmpty } from "crabfork/plugin-sdk/text-runtime";
 
 const log = createSubsystemLogger("venice-models");
 

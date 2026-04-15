@@ -1,9 +1,9 @@
-import { createLazyRuntimeNamedExport } from "openclaw/plugin-sdk/lazy-runtime";
-import type { ChannelAccountSnapshot } from "openclaw/plugin-sdk/status-helpers";
+import { createLazyRuntimeNamedExport } from "crabfork/plugin-sdk/lazy-runtime";
+import type { ChannelAccountSnapshot } from "crabfork/plugin-sdk/status-helpers";
 import {
   createAccountStatusSink,
   runPassiveAccountLifecycle,
-  type OpenClawConfig,
+  type CrabforkConfig,
   type ResolvedGoogleChatAccount,
 } from "./channel.deps.runtime.js";
 import type { GoogleChatRuntimeEnv } from "./monitor-types.js";
@@ -15,7 +15,7 @@ const loadGoogleChatChannelRuntime = createLazyRuntimeNamedExport(
 
 export async function startGoogleChatGatewayAccount(ctx: {
   account: ResolvedGoogleChatAccount;
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   runtime: GoogleChatRuntimeEnv;
   abortSignal: AbortSignal;
   setStatus: (next: ChannelAccountSnapshot) => void;

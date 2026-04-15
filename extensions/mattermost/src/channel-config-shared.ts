@@ -1,10 +1,10 @@
-import { describeAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
-import { formatNormalizedAllowFromEntries } from "openclaw/plugin-sdk/allow-from";
+import { describeAccountSnapshot } from "crabfork/plugin-sdk/account-helpers";
+import { formatNormalizedAllowFromEntries } from "crabfork/plugin-sdk/allow-from";
 import {
   adaptScopedAccountAccessor,
   createScopedChannelConfigAdapter,
-} from "openclaw/plugin-sdk/channel-config-helpers";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/channel-config-helpers";
+import { normalizeLowercaseStringOrEmpty } from "crabfork/plugin-sdk/text-runtime";
 import {
   listMattermostAccountIds,
   resolveDefaultMattermostAccountId,

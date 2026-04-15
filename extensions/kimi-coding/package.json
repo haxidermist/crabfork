@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/kimi-provider",
+  "name": "@crabfork/kimi-provider",
   "version": "2026.4.12",
   "private": true,
-  "description": "OpenClaw Kimi provider plugin",
+  "description": "Crabfork Kimi provider plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*"
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ]

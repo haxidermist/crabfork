@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/feishu",
+  "name": "@crabfork/feishu",
   "version": "2026.4.12",
-  "description": "OpenClaw Feishu/Lark channel plugin (community maintained by @m1heng)",
+  "description": "Crabfork Feishu/Lark channel plugin (community maintained by @m1heng)",
   "type": "module",
   "dependencies": {
     "@larksuiteoapi/node-sdk": "^1.60.0",
@@ -9,18 +9,18 @@
     "qrcode-terminal": "^0.12.0"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*",
+    "crabfork": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.4.12"
+    "crabfork": ">=2026.4.12"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "crabfork": {
       "optional": true
     }
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ],
@@ -39,7 +39,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/feishu",
+      "npmSpec": "@crabfork/feishu",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.4.10"
     },
@@ -47,7 +47,7 @@
       "pluginApi": ">=2026.4.12"
     },
     "build": {
-      "openclawVersion": "2026.4.12"
+      "crabforkVersion": "2026.4.12"
     },
     "bundle": {
       "stageRuntimeDependencies": true

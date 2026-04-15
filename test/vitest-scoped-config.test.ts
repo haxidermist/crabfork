@@ -76,9 +76,9 @@ describe("resolveVitestIsolation", () => {
   });
 
   it("ignores the legacy isolation escape hatches", () => {
-    expect(resolveVitestIsolation({ OPENCLAW_TEST_ISOLATE: "1" })).toBe(false);
-    expect(resolveVitestIsolation({ OPENCLAW_TEST_NO_ISOLATE: "0" })).toBe(false);
-    expect(resolveVitestIsolation({ OPENCLAW_TEST_NO_ISOLATE: "false" })).toBe(false);
+    expect(resolveVitestIsolation({ CRABFORK_TEST_ISOLATE: "1" })).toBe(false);
+    expect(resolveVitestIsolation({ CRABFORK_TEST_NO_ISOLATE: "0" })).toBe(false);
+    expect(resolveVitestIsolation({ CRABFORK_TEST_NO_ISOLATE: "false" })).toBe(false);
   });
 
   it("resolves scoped discovery dirs from the repo root after config relocation", () => {
@@ -97,7 +97,7 @@ describe("createScopedVitestConfig", () => {
     expect(normalizeConfigPath(config.test?.runner)).toBe("test/non-isolated-runner.ts");
     expect(normalizeConfigPaths(config.test?.setupFiles)).toEqual([
       "test/setup.ts",
-      "test/setup-openclaw-runtime.ts",
+      "test/setup-crabfork-runtime.ts",
     ]);
   });
 
@@ -132,8 +132,8 @@ describe("createScopedVitestConfig", () => {
     expect(config.test?.passWithNoTests).toBe(true);
   });
 
-  it("loads scoped include overrides from OPENCLAW_VITEST_INCLUDE_FILE", () => {
-    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "openclaw-vitest-scoped-"));
+  it("loads scoped include overrides from CRABFORK_VITEST_INCLUDE_FILE", () => {
+    const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), "crabfork-vitest-scoped-"));
     try {
       const includeFile = path.join(tempDir, "include.json");
       fs.writeFileSync(includeFile, JSON.stringify(["src/utils/utils-misc.test.ts"]), "utf8");
@@ -141,7 +141,7 @@ describe("createScopedVitestConfig", () => {
       const config = createScopedVitestConfig(["src/utils/**/*.test.ts"], {
         dir: "src",
         env: {
-          OPENCLAW_VITEST_INCLUDE_FILE: includeFile,
+          CRABFORK_VITEST_INCLUDE_FILE: includeFile,
         },
       });
 
@@ -160,7 +160,7 @@ describe("createScopedVitestConfig", () => {
     expect(normalizeConfigPaths(config.test?.setupFiles)).toEqual([
       "test/setup.ts",
       "test/setup.extensions.ts",
-      "test/setup-openclaw-runtime.ts",
+      "test/setup-crabfork-runtime.ts",
     ]);
   });
 
@@ -254,12 +254,12 @@ describe("scoped vitest configs", () => {
     expect(defaultUiConfig.test?.runner).toBeUndefined();
   });
 
-  it("keeps the process lane off the openclaw runtime setup", () => {
+  it("keeps the process lane off the crabfork runtime setup", () => {
     expect(normalizeConfigPaths(defaultProcessConfig.test?.setupFiles)).toEqual(["test/setup.ts"]);
     expect(normalizeConfigPaths(defaultRuntimeConfig.test?.setupFiles)).toEqual(["test/setup.ts"]);
     expect(normalizeConfigPaths(defaultPluginSdkConfig.test?.setupFiles)).toEqual([
       "test/setup.ts",
-      "test/setup-openclaw-runtime.ts",
+      "test/setup-crabfork-runtime.ts",
     ]);
   });
 
@@ -272,7 +272,7 @@ describe("scoped vitest configs", () => {
     expect(defaultAutoReplyReplyConfig.test?.include).toEqual(["reply/**/*.test.ts"]);
   });
 
-  it("keeps selected plugin-sdk and commands light lanes off the openclaw runtime setup", () => {
+  it("keeps selected plugin-sdk and commands light lanes off the crabfork runtime setup", () => {
     expect(normalizeConfigPaths(defaultPluginSdkLightConfig.test?.setupFiles)).toEqual([
       "test/setup.ts",
     ]);
@@ -293,9 +293,9 @@ describe("scoped vitest configs", () => {
     expect(defaultChannelsConfig.test?.include).toEqual(["src/channels/**/*.test.ts"]);
   });
 
-  it("loads channel include overrides from OPENCLAW_VITEST_INCLUDE_FILE", () => {
+  it("loads channel include overrides from CRABFORK_VITEST_INCLUDE_FILE", () => {
     const tempDirs: string[] = [];
-    const tempDir = makeTempDir(tempDirs, "openclaw-vitest-channels-");
+    const tempDir = makeTempDir(tempDirs, "crabfork-vitest-channels-");
     try {
       const includeFile = path.join(tempDir, "include.json");
       fs.writeFileSync(
@@ -310,7 +310,7 @@ describe("scoped vitest configs", () => {
       );
 
       const config = createChannelsVitestConfig({
-        OPENCLAW_VITEST_INCLUDE_FILE: includeFile,
+        CRABFORK_VITEST_INCLUDE_FILE: includeFile,
       });
 
       expect(config.test?.include).toEqual([
@@ -449,12 +449,12 @@ describe("scoped vitest configs", () => {
     expect(normalizeConfigPaths(defaultExtensionsConfig.test?.setupFiles)).toEqual([
       "test/setup.ts",
       "test/setup.extensions.ts",
-      "test/setup-openclaw-runtime.ts",
+      "test/setup-crabfork-runtime.ts",
     ]);
     expect(normalizeConfigPaths(defaultExtensionTelegramConfig.test?.setupFiles)).toEqual([
       "test/setup.ts",
       "test/setup.extensions.ts",
-      "test/setup-openclaw-runtime.ts",
+      "test/setup-crabfork-runtime.ts",
     ]);
   });
 

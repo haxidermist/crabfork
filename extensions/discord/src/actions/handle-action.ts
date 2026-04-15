@@ -3,12 +3,12 @@ import {
   readNumberParam,
   readStringArrayParam,
   readStringParam,
-} from "openclaw/plugin-sdk/agent-runtime";
-import { readBooleanParam } from "openclaw/plugin-sdk/boolean-param";
-import { resolveReactionMessageId } from "openclaw/plugin-sdk/channel-actions";
-import type { ChannelMessageActionContext } from "openclaw/plugin-sdk/channel-contract";
-import { normalizeInteractiveReply } from "openclaw/plugin-sdk/interactive-runtime";
-import { normalizeOptionalStringifiedId } from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/agent-runtime";
+import { readBooleanParam } from "crabfork/plugin-sdk/boolean-param";
+import { resolveReactionMessageId } from "crabfork/plugin-sdk/channel-actions";
+import type { ChannelMessageActionContext } from "crabfork/plugin-sdk/channel-contract";
+import { normalizeInteractiveReply } from "crabfork/plugin-sdk/interactive-runtime";
+import { normalizeOptionalStringifiedId } from "crabfork/plugin-sdk/text-runtime";
 import { handleDiscordAction } from "../../action-runtime-api.js";
 import { buildDiscordInteractiveComponents } from "../shared-interactive.js";
 import { resolveDiscordChannelId } from "../targets.js";

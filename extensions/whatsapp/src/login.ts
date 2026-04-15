@@ -1,8 +1,8 @@
-import { formatCliCommand } from "openclaw/plugin-sdk/cli-runtime";
-import { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { danger, success } from "openclaw/plugin-sdk/runtime-env";
-import { defaultRuntime, type RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { logInfo } from "openclaw/plugin-sdk/text-runtime";
+import { formatCliCommand } from "crabfork/plugin-sdk/cli-runtime";
+import { loadConfig } from "crabfork/plugin-sdk/config-runtime";
+import { danger, success } from "crabfork/plugin-sdk/runtime-env";
+import { defaultRuntime, type RuntimeEnv } from "crabfork/plugin-sdk/runtime-env";
+import { logInfo } from "crabfork/plugin-sdk/text-runtime";
 import { resolveWhatsAppAccount } from "./accounts.js";
 import { closeWaSocketSoon, waitForWhatsAppLoginResult } from "./connection-controller.js";
 import { createWaSocket, waitForWaConnection } from "./session.js";
@@ -45,7 +45,7 @@ export async function loginWeb(
     if (result.outcome === "logged-out") {
       console.error(
         danger(
-          `WhatsApp reported the session is logged out. Cleared cached web session; please rerun ${formatCliCommand("openclaw channels login")} and scan the QR again.`,
+          `WhatsApp reported the session is logged out. Cleared cached web session; please rerun ${formatCliCommand("crabfork channels login")} and scan the QR again.`,
         ),
       );
       throw new Error("Session logged out; cache cleared. Re-run login.", {

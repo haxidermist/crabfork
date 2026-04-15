@@ -11,42 +11,42 @@ export type {
   ChannelOutboundAdapter,
   ChannelPlugin,
   HistoryEntry,
-  OpenClawConfig,
-  OpenClawPluginApi,
+  CrabforkConfig,
+  CrabforkPluginApi,
   OutboundIdentity,
   PluginRuntime,
   ReplyPayload,
-} from "openclaw/plugin-sdk/core";
-export type { OpenClawConfig as ClawdbotConfig } from "openclaw/plugin-sdk/core";
-export type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
-export type { GroupToolPolicyConfig } from "openclaw/plugin-sdk/config-runtime";
+} from "crabfork/plugin-sdk/core";
+export type { CrabforkConfig as ClawdbotConfig } from "crabfork/plugin-sdk/core";
+export type { RuntimeEnv } from "crabfork/plugin-sdk/runtime";
+export type { GroupToolPolicyConfig } from "crabfork/plugin-sdk/config-runtime";
 export {
   DEFAULT_ACCOUNT_ID,
   buildChannelConfigSchema,
   createActionGate,
   createDedupeCache,
-} from "openclaw/plugin-sdk/core";
+} from "crabfork/plugin-sdk/core";
 export {
   PAIRING_APPROVED_MESSAGE,
   buildProbeChannelStatusSummary,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/channel-status";
-export { buildAgentMediaPayload } from "openclaw/plugin-sdk/agent-media-payload";
-export { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
-export { createReplyPrefixContext } from "openclaw/plugin-sdk/channel-reply-pipeline";
+} from "crabfork/plugin-sdk/channel-status";
+export { buildAgentMediaPayload } from "crabfork/plugin-sdk/agent-media-payload";
+export { createChannelPairingController } from "crabfork/plugin-sdk/channel-pairing";
+export { createReplyPrefixContext } from "crabfork/plugin-sdk/channel-reply-pipeline";
 export {
   evaluateSupplementalContextVisibility,
   filterSupplementalContextItems,
   resolveChannelContextVisibilityMode,
-} from "openclaw/plugin-sdk/config-runtime";
-export { loadSessionStore, resolveSessionStoreEntry } from "openclaw/plugin-sdk/config-runtime";
-export { readJsonFileWithFallback } from "openclaw/plugin-sdk/json-store";
-export { createPersistentDedupe } from "openclaw/plugin-sdk/persistent-dedupe";
-export { normalizeAgentId } from "openclaw/plugin-sdk/routing";
-export { chunkTextForOutbound } from "openclaw/plugin-sdk/text-chunking";
+} from "crabfork/plugin-sdk/config-runtime";
+export { loadSessionStore, resolveSessionStoreEntry } from "crabfork/plugin-sdk/config-runtime";
+export { readJsonFileWithFallback } from "crabfork/plugin-sdk/json-store";
+export { createPersistentDedupe } from "crabfork/plugin-sdk/persistent-dedupe";
+export { normalizeAgentId } from "crabfork/plugin-sdk/routing";
+export { chunkTextForOutbound } from "crabfork/plugin-sdk/text-chunking";
 export {
   isRequestBodyLimitError,
   readRequestBodyWithLimit,
   requestBodyErrorToText,
-} from "openclaw/plugin-sdk/webhook-ingress";
+} from "crabfork/plugin-sdk/webhook-ingress";
 export { setFeishuRuntime } from "./src/runtime.js";

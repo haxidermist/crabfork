@@ -494,7 +494,7 @@ function hasRuntimeDeps(packageJson) {
 }
 
 function shouldStageRuntimeDeps(packageJson) {
-  return packageJson.openclaw?.bundle?.stageRuntimeDependencies === true;
+  return packageJson.crabfork?.bundle?.stageRuntimeDependencies === true;
 }
 
 function sanitizeBundledManifestForRuntimeInstall(pluginDir) {
@@ -525,7 +525,7 @@ function sanitizeBundledManifestForRuntimeInstall(pluginDir) {
 }
 
 function resolveRuntimeDepsStampPath(pluginDir) {
-  return path.join(pluginDir, ".openclaw-runtime-deps-stamp.json");
+  return path.join(pluginDir, ".crabfork-runtime-deps-stamp.json");
 }
 
 function createRuntimeDepsFingerprint(packageJson, pruneConfig, params = {}) {
@@ -590,7 +590,7 @@ function stageInstalledRootRuntimeDeps(params) {
   const stagedNodeModulesDir = path.join(
     makeTempDir(
       os.tmpdir(),
-      `openclaw-runtime-deps-${sanitizeTempPrefixSegment(path.basename(pluginDir))}-`,
+      `crabfork-runtime-deps-${sanitizeTempPrefixSegment(path.basename(pluginDir))}-`,
     ),
     "node_modules",
   );
@@ -643,7 +643,7 @@ function installPluginRuntimeDeps(params) {
   const stampPath = resolveRuntimeDepsStampPath(pluginDir);
   const tempInstallDir = makeTempDir(
     os.tmpdir(),
-    `openclaw-runtime-deps-${sanitizeTempPrefixSegment(pluginId)}-`,
+    `crabfork-runtime-deps-${sanitizeTempPrefixSegment(pluginId)}-`,
   );
   const npmRunner = resolveNpmRunner({
     npmArgs: [

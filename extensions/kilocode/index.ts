@@ -1,7 +1,7 @@
-import { readConfiguredProviderCatalogEntries } from "openclaw/plugin-sdk/provider-catalog-shared";
-import { defineSingleProviderPluginEntry } from "openclaw/plugin-sdk/provider-entry";
-import { PASSTHROUGH_GEMINI_REPLAY_HOOKS } from "openclaw/plugin-sdk/provider-model-shared";
-import { KILOCODE_THINKING_STREAM_HOOKS } from "openclaw/plugin-sdk/provider-stream-family";
+import { readConfiguredProviderCatalogEntries } from "crabfork/plugin-sdk/provider-catalog-shared";
+import { defineSingleProviderPluginEntry } from "crabfork/plugin-sdk/provider-entry";
+import { PASSTHROUGH_GEMINI_REPLAY_HOOKS } from "crabfork/plugin-sdk/provider-model-shared";
+import { KILOCODE_THINKING_STREAM_HOOKS } from "crabfork/plugin-sdk/provider-stream-family";
 import { applyKilocodeConfig, KILOCODE_DEFAULT_MODEL_REF } from "./onboard.js";
 import { buildKilocodeProviderWithDiscovery } from "./provider-catalog.js";
 

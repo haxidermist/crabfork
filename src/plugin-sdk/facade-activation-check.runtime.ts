@@ -5,7 +5,7 @@ import { resolveConfigPath } from "../config/paths.js";
 import { applyPluginAutoEnable } from "../config/plugin-auto-enable.js";
 import { configMayNeedPluginAutoEnable } from "../config/plugin-auto-enable.shared.js";
 import { getRuntimeConfigSnapshot } from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.js";
+import type { CrabforkConfig } from "../config/types.js";
 import { resolveBundledPluginsDir } from "../plugins/bundled-dir.js";
 import {
   createPluginActivationSource,
@@ -26,22 +26,22 @@ const ALWAYS_ALLOWED_RUNTIME_DIR_NAMES = new Set([
   "media-understanding-core",
   "speech-core",
 ]);
-const EMPTY_FACADE_BOUNDARY_CONFIG: OpenClawConfig = {};
+const EMPTY_FACADE_BOUNDARY_CONFIG: CrabforkConfig = {};
 
-let cachedBoundaryRawConfig: OpenClawConfig | undefined;
+let cachedBoundaryRawConfig: CrabforkConfig | undefined;
 let cachedBoundaryResolvedConfigKey: string | undefined;
 let cachedBoundaryConfigFileState:
   | {
       configPath: string;
       mtimeMs: number;
       size: number;
-      rawConfig: OpenClawConfig;
+      rawConfig: CrabforkConfig;
     }
   | undefined;
 let cachedBoundaryResolvedConfig:
   | {
-      rawConfig: OpenClawConfig;
-      config: OpenClawConfig;
+      rawConfig: CrabforkConfig;
+      config: CrabforkConfig;
       normalizedPluginsConfig: ReturnType<typeof normalizePluginsConfig>;
       activationSource: ReturnType<typeof createPluginActivationSource>;
       autoEnabledReasons: Record<string, string[]>;
@@ -65,7 +65,7 @@ type FacadeModuleLocation = {
 };
 
 function readFacadeBoundaryConfigSafely(): {
-  rawConfig: OpenClawConfig;
+  rawConfig: CrabforkConfig;
   cacheKey?: string;
 } {
   try {
@@ -93,7 +93,7 @@ function readFacadeBoundaryConfigSafely(): {
     const parsed = JSON5.parse(raw);
     const rawConfig =
       parsed && typeof parsed === "object"
-        ? (parsed as OpenClawConfig)
+        ? (parsed as CrabforkConfig)
         : EMPTY_FACADE_BOUNDARY_CONFIG;
     cachedBoundaryConfigFileState = {
       configPath,
@@ -196,7 +196,7 @@ function readBundledPluginManifestRecordFromDir(params: {
   const manifestPath = path.join(
     params.pluginsRoot,
     params.resolvedDirName,
-    "openclaw.plugin.json",
+    "crabfork.plugin.json",
   );
   if (!fs.existsSync(manifestPath)) {
     return null;
@@ -366,7 +366,7 @@ export function resolveBundledPluginPublicSurfaceAccess(params: {
 export function evaluateBundledPluginPublicSurfaceAccess(params: {
   params: { dirName: string; artifactBasename: string };
   manifestRecord: FacadePluginManifestLike;
-  config: OpenClawConfig;
+  config: CrabforkConfig;
   normalizedPluginsConfig: ReturnType<typeof normalizePluginsConfig>;
   activationSource: ReturnType<typeof createPluginActivationSource>;
   autoEnabledReasons: Record<string, string[]>;

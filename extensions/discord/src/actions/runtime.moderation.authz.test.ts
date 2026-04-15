@@ -1,5 +1,5 @@
+import type { DiscordActionConfig } from "crabfork/plugin-sdk/config-runtime";
 import { PermissionFlagsBits } from "discord-api-types/v10";
-import type { DiscordActionConfig } from "openclaw/plugin-sdk/config-runtime";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   discordModerationActionRuntime,

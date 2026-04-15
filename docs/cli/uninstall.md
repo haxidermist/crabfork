@@ -1,12 +1,12 @@
 ---
-summary: "CLI reference for `openclaw uninstall` (remove gateway service + local data)"
+summary: "CLI reference for `crabfork uninstall` (remove gateway service + local data)"
 read_when:
   - You want to remove the gateway service and/or local state
   - You want a dry-run first
 title: "uninstall"
 ---
 
-# `openclaw uninstall`
+# `crabfork uninstall`
 
 Uninstall the gateway service + local data (CLI remains).
 
@@ -24,16 +24,16 @@ Options:
 Examples:
 
 ```bash
-openclaw backup create
-openclaw uninstall
-openclaw uninstall --service --yes --non-interactive
-openclaw uninstall --state --workspace --yes --non-interactive
-openclaw uninstall --all --yes
-openclaw uninstall --dry-run
+crabfork backup create
+crabfork uninstall
+crabfork uninstall --service --yes --non-interactive
+crabfork uninstall --state --workspace --yes --non-interactive
+crabfork uninstall --all --yes
+crabfork uninstall --dry-run
 ```
 
 Notes:
 
-- Run `openclaw backup create` first if you want a restorable snapshot before removing state or workspaces.
+- Run `crabfork backup create` first if you want a restorable snapshot before removing state or workspaces.
 - `--all` is shorthand for removing service, state, workspace, and app together.
 - `--non-interactive` requires `--yes`.

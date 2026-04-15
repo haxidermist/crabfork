@@ -1,23 +1,23 @@
 import type { RequestClient } from "@buape/carbon";
-import { resolveAgentAvatar } from "openclaw/plugin-sdk/agent-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import type { MarkdownTableMode, ReplyToMode } from "openclaw/plugin-sdk/config-runtime";
-import type { ChunkMode } from "openclaw/plugin-sdk/reply-chunking";
-import type { ReplyPayload } from "openclaw/plugin-sdk/reply-dispatch-runtime";
+import { resolveAgentAvatar } from "crabfork/plugin-sdk/agent-runtime";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import type { MarkdownTableMode, ReplyToMode } from "crabfork/plugin-sdk/config-runtime";
+import type { ChunkMode } from "crabfork/plugin-sdk/reply-chunking";
+import type { ReplyPayload } from "crabfork/plugin-sdk/reply-dispatch-runtime";
 import {
   resolveSendableOutboundReplyParts,
   resolveTextChunksWithFallback,
   sendMediaWithLeadingCaption,
-} from "openclaw/plugin-sdk/reply-payload";
-import { isSingleUseReplyToMode } from "openclaw/plugin-sdk/reply-reference";
+} from "crabfork/plugin-sdk/reply-payload";
+import { isSingleUseReplyToMode } from "crabfork/plugin-sdk/reply-reference";
 import {
   resolveRetryConfig,
   retryAsync,
   type RetryConfig,
   type RetryRunner,
-} from "openclaw/plugin-sdk/retry-runtime";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime-env";
-import { convertMarkdownTables, normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/retry-runtime";
+import type { RuntimeEnv } from "crabfork/plugin-sdk/runtime-env";
+import { convertMarkdownTables, normalizeOptionalString } from "crabfork/plugin-sdk/text-runtime";
 import { resolveDiscordAccount } from "../accounts.js";
 import { chunkDiscordTextWithMode } from "../chunk.js";
 import { isLikelyDiscordVideoMedia } from "../media-detection.js";
@@ -89,7 +89,7 @@ async function sendWithRetry(
 
 async function sendDiscordMediaOnly(params: {
   target: string;
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   token: string;
   rest?: RequestClient;
   mediaUrl: string;
@@ -115,7 +115,7 @@ async function sendDiscordMediaOnly(params: {
 
 async function sendDiscordMediaBatch(params: {
   target: string;
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   token: string;
   rest?: RequestClient;
   mediaUrls: string[];
@@ -144,7 +144,7 @@ async function sendDiscordMediaBatch(params: {
 }
 
 async function sendDiscordPayloadText(params: {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   target: string;
   text: string;
   token: string;
@@ -251,7 +251,7 @@ function createPayloadReplyToResolver(params: {
 }
 
 function resolveBindingPersona(
-  cfg: OpenClawConfig,
+  cfg: CrabforkConfig,
   binding: DiscordThreadBindingLookupRecord | undefined,
 ): {
   username?: string;
@@ -276,7 +276,7 @@ function resolveBindingPersona(
 }
 
 async function sendDiscordChunkWithFallback(params: {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   target: string;
   text: string;
   token: string;
@@ -353,7 +353,7 @@ async function sendDiscordChunkWithFallback(params: {
 }
 
 export async function deliverDiscordReply(params: {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   replies: ReplyPayload[];
   target: string;
   token: string;

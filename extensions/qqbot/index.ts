@@ -1,9 +1,9 @@
 import {
   defineBundledChannelEntry,
   loadBundledEntryExportSync,
-  type OpenClawPluginApi,
+  type CrabforkPluginApi,
   type PluginCommandContext,
-} from "openclaw/plugin-sdk/channel-entry-contract";
+} from "crabfork/plugin-sdk/channel-entry-contract";
 
 type QQBotAccount = {
   accountId: string;
@@ -73,16 +73,16 @@ function getFrameworkCommands(): QQBotFrameworkCommand[] {
   return getCommands();
 }
 
-function registerChannelTool(api: OpenClawPluginApi): void {
-  const register = loadBundledEntryExportSync<(api: OpenClawPluginApi) => void>(import.meta.url, {
+function registerChannelTool(api: CrabforkPluginApi): void {
+  const register = loadBundledEntryExportSync<(api: CrabforkPluginApi) => void>(import.meta.url, {
     specifier: "./api.js",
     exportName: "registerChannelTool",
   });
   register(api);
 }
 
-function registerRemindTool(api: OpenClawPluginApi): void {
-  const register = loadBundledEntryExportSync<(api: OpenClawPluginApi) => void>(import.meta.url, {
+function registerRemindTool(api: CrabforkPluginApi): void {
+  const register = loadBundledEntryExportSync<(api: CrabforkPluginApi) => void>(import.meta.url, {
     specifier: "./api.js",
     exportName: "registerRemindTool",
   });
@@ -102,7 +102,7 @@ export default defineBundledChannelEntry({
     specifier: "./runtime-api.js",
     exportName: "setQQBotRuntime",
   },
-  registerFull(api: OpenClawPluginApi) {
+  registerFull(api: CrabforkPluginApi) {
     registerChannelTool(api);
     registerRemindTool(api);
 

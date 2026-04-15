@@ -1,6 +1,6 @@
-import type { BaseProbeResult } from "openclaw/plugin-sdk/channel-contract";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import { withTimeout } from "openclaw/plugin-sdk/text-runtime";
+import type { BaseProbeResult } from "crabfork/plugin-sdk/channel-contract";
+import { formatErrorMessage } from "crabfork/plugin-sdk/error-runtime";
+import { withTimeout } from "crabfork/plugin-sdk/text-runtime";
 import { createSlackWebClient } from "./client.js";
 
 export type SlackProbe = BaseProbeResult & {

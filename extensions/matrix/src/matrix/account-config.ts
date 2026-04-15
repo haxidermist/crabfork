@@ -1,11 +1,11 @@
-import { normalizeAccountId } from "openclaw/plugin-sdk/account-id";
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
+import { normalizeAccountId } from "crabfork/plugin-sdk/account-id";
+import { DEFAULT_ACCOUNT_ID } from "crabfork/plugin-sdk/account-id";
 import {
   listConfiguredAccountIds,
   resolveMergedAccountConfig,
   resolveNormalizedAccountEntry,
-} from "openclaw/plugin-sdk/account-resolution";
-import { hasConfiguredSecretInput } from "openclaw/plugin-sdk/secret-input";
+} from "crabfork/plugin-sdk/account-resolution";
+import { hasConfiguredSecretInput } from "crabfork/plugin-sdk/secret-input";
 import type { CoreConfig, MatrixAccountConfig, MatrixConfig } from "../types.js";
 
 type MatrixRoomEntries = Record<string, NonNullable<MatrixConfig["groups"]>[string]>;

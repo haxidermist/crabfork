@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/duckduckgo-plugin",
+  "name": "@crabfork/duckduckgo-plugin",
   "version": "2026.4.12",
   "private": true,
-  "description": "OpenClaw DuckDuckGo plugin",
+  "description": "Crabfork DuckDuckGo plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*"
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ]

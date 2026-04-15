@@ -1,31 +1,31 @@
 ---
-summary: "Host OpenClaw on Hostinger"
+summary: "Host Crabfork on Hostinger"
 read_when:
-  - Setting up OpenClaw on Hostinger
-  - Looking for a managed VPS for OpenClaw
-  - Using Hostinger 1-Click OpenClaw
+  - Setting up Crabfork on Hostinger
+  - Looking for a managed VPS for Crabfork
+  - Using Hostinger 1-Click Crabfork
 title: "Hostinger"
 ---
 
 # Hostinger
 
-Run a persistent OpenClaw Gateway on [Hostinger](https://www.hostinger.com/openclaw) via a **1-Click** managed deployment or a **VPS** install.
+Run a persistent Crabfork Gateway on [Hostinger](https://www.hostinger.com/crabfork) via a **1-Click** managed deployment or a **VPS** install.
 
 ## Prerequisites
 
-- Hostinger account ([signup](https://www.hostinger.com/openclaw))
+- Hostinger account ([signup](https://www.hostinger.com/crabfork))
 - About 5-10 minutes
 
-## Option A: 1-Click OpenClaw
+## Option A: 1-Click Crabfork
 
 The fastest way to get started. Hostinger handles infrastructure, Docker, and automatic updates.
 
 <Steps>
   <Step title="Purchase and launch">
-    1. From the [Hostinger OpenClaw page](https://www.hostinger.com/openclaw), choose a Managed OpenClaw plan and complete checkout.
+    1. From the [Hostinger Crabfork page](https://www.hostinger.com/crabfork), choose a Managed Crabfork plan and complete checkout.
 
     <Note>
-    During checkout you can select **Ready-to-Use AI** credits that are pre-purchased and integrated instantly inside OpenClaw -- no external accounts or API keys from other providers needed. You can start chatting right away. Alternatively, provide your own key from Anthropic, OpenAI, Google Gemini, or xAI during setup.
+    During checkout you can select **Ready-to-Use AI** credits that are pre-purchased and integrated instantly inside Crabfork -- no external accounts or API keys from other providers needed. You can start chatting right away. Alternatively, provide your own key from Anthropic, OpenAI, Google Gemini, or xAI during setup.
     </Note>
 
   </Step>
@@ -39,26 +39,26 @@ The fastest way to get started. Hostinger handles infrastructure, Docker, and au
   </Step>
 
   <Step title="Complete installation">
-    Click **Finish** to deploy the instance. Once ready, access the OpenClaw dashboard from **OpenClaw Overview** in hPanel.
+    Click **Finish** to deploy the instance. Once ready, access the Crabfork dashboard from **Crabfork Overview** in hPanel.
   </Step>
 
 </Steps>
 
-## Option B: OpenClaw on VPS
+## Option B: Crabfork on VPS
 
-More control over your server. Hostinger deploys OpenClaw via Docker on your VPS and you manage it through the **Docker Manager** in hPanel.
+More control over your server. Hostinger deploys Crabfork via Docker on your VPS and you manage it through the **Docker Manager** in hPanel.
 
 <Steps>
   <Step title="Purchase a VPS">
-    1. From the [Hostinger OpenClaw page](https://www.hostinger.com/openclaw), choose an OpenClaw on VPS plan and complete checkout.
+    1. From the [Hostinger Crabfork page](https://www.hostinger.com/crabfork), choose an Crabfork on VPS plan and complete checkout.
 
     <Note>
-    You can select **Ready-to-Use AI** credits during checkout -- these are pre-purchased and integrated instantly inside OpenClaw, so you can start chatting without any external accounts or API keys from other providers.
+    You can select **Ready-to-Use AI** credits during checkout -- these are pre-purchased and integrated instantly inside Crabfork, so you can start chatting without any external accounts or API keys from other providers.
     </Note>
 
   </Step>
 
-  <Step title="Configure OpenClaw">
+  <Step title="Configure Crabfork">
     Once the VPS is provisioned, fill in the configuration fields:
 
     - **Gateway token** -- auto-generated; save it for later use.
@@ -68,8 +68,8 @@ More control over your server. Hostinger deploys OpenClaw via Docker on your VPS
 
   </Step>
 
-  <Step title="Start OpenClaw">
-    Click **Deploy**. Once running, open the OpenClaw dashboard from the hPanel by clicking on **Open**.
+  <Step title="Start Crabfork">
+    Click **Deploy**. Once running, open the Crabfork dashboard from the hPanel by clicking on **Open**.
   </Step>
 
 </Steps>
@@ -78,7 +78,7 @@ Logs, restarts, and updates are managed directly from the Docker Manager interfa
 
 ## Verify your setup
 
-Send "Hi" to your assistant on the channel you connected. OpenClaw will reply and walk you through initial preferences.
+Send "Hi" to your assistant on the channel you connected. Crabfork will reply and walk you through initial preferences.
 
 ## Troubleshooting
 
@@ -86,7 +86,7 @@ Send "Hi" to your assistant on the channel you connected. OpenClaw will reply an
 
 **Docker container keeps restarting** -- Open Docker Manager logs and look for configuration errors (missing tokens, invalid API keys).
 
-**Telegram bot not responding** -- Send your pairing code message from Telegram directly as a message inside your OpenClaw chat to complete the connection.
+**Telegram bot not responding** -- Send your pairing code message from Telegram directly as a message inside your Crabfork chat to complete the connection.
 
 ## Next steps
 

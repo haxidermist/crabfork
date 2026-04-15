@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/msteams",
+  "name": "@crabfork/msteams",
   "version": "2026.4.12",
-  "description": "OpenClaw Microsoft Teams channel plugin",
+  "description": "Crabfork Microsoft Teams channel plugin",
   "type": "module",
   "dependencies": {
     "@azure/identity": "^4.13.1",
@@ -13,19 +13,19 @@
     "jwks-rsa": "^4.0.1"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
+    "@crabfork/plugin-sdk": "workspace:*",
     "@types/jsonwebtoken": "^9.0.10",
-    "openclaw": "workspace:*"
+    "crabfork": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.4.12"
+    "crabfork": ">=2026.4.12"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "crabfork": {
       "optional": true
     }
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ],
@@ -43,7 +43,7 @@
       "order": 60
     },
     "install": {
-      "npmSpec": "@openclaw/msteams",
+      "npmSpec": "@crabfork/msteams",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.4.10"
     },
@@ -51,7 +51,7 @@
       "pluginApi": ">=2026.4.12"
     },
     "build": {
-      "openclawVersion": "2026.4.12"
+      "crabforkVersion": "2026.4.12"
     },
     "release": {
       "publishToClawHub": true,

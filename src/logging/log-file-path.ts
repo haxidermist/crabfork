@@ -1,11 +1,11 @@
 import path from "node:path";
-import type { OpenClawConfig } from "../config/types.js";
+import type { CrabforkConfig } from "../config/types.js";
 import {
-  POSIX_OPENCLAW_TMP_DIR,
-  resolvePreferredOpenClawTmpDir,
-} from "../infra/tmp-openclaw-dir.js";
+  POSIX_CRABFORK_TMP_DIR,
+  resolvePreferredCrabforkTmpDir,
+} from "../infra/tmp-crabfork-dir.js";
 
-const LOG_PREFIX = "openclaw";
+const LOG_PREFIX = "crabfork";
 const LOG_SUFFIX = ".log";
 
 function canUseNodeFs(): boolean {
@@ -32,10 +32,10 @@ function formatLocalDate(date: Date): string {
 }
 
 export function resolveDefaultRollingLogFile(date = new Date()): string {
-  const logDir = canUseNodeFs() ? resolvePreferredOpenClawTmpDir() : POSIX_OPENCLAW_TMP_DIR;
+  const logDir = canUseNodeFs() ? resolvePreferredCrabforkTmpDir() : POSIX_CRABFORK_TMP_DIR;
   return path.join(logDir, `${LOG_PREFIX}-${formatLocalDate(date)}${LOG_SUFFIX}`);
 }
 
-export function resolveConfiguredLogFilePath(config?: OpenClawConfig | null): string {
+export function resolveConfiguredLogFilePath(config?: CrabforkConfig | null): string {
   return config?.logging?.file ?? resolveDefaultRollingLogFile();
 }

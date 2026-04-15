@@ -31,8 +31,8 @@ describe("qa suite failure reply handling", () => {
     }) as Parameters<typeof qaSuiteTesting.selectQaSuiteScenarios>[0]["scenarios"][number];
 
   it("normalizes suite concurrency to a bounded integer", () => {
-    const previous = process.env.OPENCLAW_QA_SUITE_CONCURRENCY;
-    delete process.env.OPENCLAW_QA_SUITE_CONCURRENCY;
+    const previous = process.env.CRABFORK_QA_SUITE_CONCURRENCY;
+    delete process.env.CRABFORK_QA_SUITE_CONCURRENCY;
     try {
       expect(qaSuiteTesting.normalizeQaSuiteConcurrency(undefined, 10)).toBe(10);
       expect(qaSuiteTesting.normalizeQaSuiteConcurrency(undefined, 80)).toBe(64);
@@ -41,9 +41,9 @@ describe("qa suite failure reply handling", () => {
       expect(qaSuiteTesting.normalizeQaSuiteConcurrency(0, 3)).toBe(1);
     } finally {
       if (previous === undefined) {
-        delete process.env.OPENCLAW_QA_SUITE_CONCURRENCY;
+        delete process.env.CRABFORK_QA_SUITE_CONCURRENCY;
       } else {
-        process.env.OPENCLAW_QA_SUITE_CONCURRENCY = previous;
+        process.env.CRABFORK_QA_SUITE_CONCURRENCY = previous;
       }
     }
   });
@@ -283,8 +283,8 @@ describe("qa suite failure reply handling", () => {
     state.addOutboundMessage({
       to: "dm:qa-operator",
       text: "⚠️ Something went wrong while processing your request. Please try again, or use /new to start a fresh session.",
-      senderId: "openclaw",
-      senderName: "OpenClaw QA",
+      senderId: "crabfork",
+      senderName: "Crabfork QA",
     });
 
     const message = qaSuiteTesting.findFailureOutboundMessage(state);
@@ -304,8 +304,8 @@ describe("qa suite failure reply handling", () => {
     state.addOutboundMessage({
       to: "dm:qa-operator",
       text: '⚠️ No API key found for provider "openai". You are authenticated with OpenAI Codex OAuth. Use openai-codex/gpt-5.4 (OAuth) or set OPENAI_API_KEY to use openai/gpt-5.4.',
-      senderId: "openclaw",
-      senderName: "OpenClaw QA",
+      senderId: "crabfork",
+      senderName: "Crabfork QA",
     });
 
     await expect(pending).rejects.toThrow('No API key found for provider "openai".');
@@ -322,8 +322,8 @@ describe("qa suite failure reply handling", () => {
     state.addOutboundMessage({
       to: "channel:qa-room",
       text: "⚠️ ✉️ Message failed",
-      senderId: "openclaw",
-      senderName: "OpenClaw QA",
+      senderId: "crabfork",
+      senderName: "Crabfork QA",
     });
 
     await expect(pending).rejects.toThrow("Message failed");
@@ -340,8 +340,8 @@ describe("qa suite failure reply handling", () => {
     state.addOutboundMessage({
       to: "dm:qa-operator",
       text: "checking thread context; then post a tight progress reply here.\nQA_LEAK_OK",
-      senderId: "openclaw",
-      senderName: "OpenClaw QA",
+      senderId: "crabfork",
+      senderName: "Crabfork QA",
     });
 
     await expect(pending).rejects.toThrow("checking thread context");
@@ -368,8 +368,8 @@ describe("qa suite failure reply handling", () => {
     state.addOutboundMessage({
       to: "dm:qa-operator",
       text: '⚠️ No API key found for provider "openai". You are authenticated with OpenAI Codex OAuth. Use openai-codex/gpt-5.4 (OAuth) or set OPENAI_API_KEY to use openai/gpt-5.4.',
-      senderId: "openclaw",
-      senderName: "OpenClaw QA",
+      senderId: "crabfork",
+      senderName: "Crabfork QA",
     });
 
     await expect(pending).rejects.toThrow('No API key found for provider "openai".');
@@ -386,8 +386,8 @@ describe("qa suite failure reply handling", () => {
     state.addOutboundMessage({
       to: "dm:qa-operator",
       text: "working on it",
-      senderId: "openclaw",
-      senderName: "OpenClaw QA",
+      senderId: "crabfork",
+      senderName: "Crabfork QA",
     });
     state.addInboundMessage({
       conversation: { id: "qa-operator", kind: "direct" },
@@ -415,8 +415,8 @@ describe("qa suite failure reply handling", () => {
     state.addOutboundMessage({
       to: "dm:qa-operator",
       text: '⚠️ No API key found for provider "openai". You are authenticated with OpenAI Codex OAuth. Use openai-codex/gpt-5.4 (OAuth) or set OPENAI_API_KEY to use openai/gpt-5.4.',
-      senderId: "openclaw",
-      senderName: "OpenClaw QA",
+      senderId: "crabfork",
+      senderName: "Crabfork QA",
     });
 
     await expect(pending).rejects.toThrow('No API key found for provider "openai".');
@@ -433,14 +433,14 @@ describe("qa suite failure reply handling", () => {
     state.addOutboundMessage({
       to: "dm:qa-operator",
       text: "working on it",
-      senderId: "openclaw",
-      senderName: "OpenClaw QA",
+      senderId: "crabfork",
+      senderName: "Crabfork QA",
     });
     state.addOutboundMessage({
       to: "dm:qa-operator",
       text: "done",
-      senderId: "openclaw",
-      senderName: "OpenClaw QA",
+      senderId: "crabfork",
+      senderName: "Crabfork QA",
     });
 
     const messages = qaSuiteTesting.readTransportTranscript(state, {
@@ -453,7 +453,7 @@ describe("qa suite failure reply handling", () => {
 
     expect(messages.map((message) => message.text)).toEqual(["working on it", "done"]);
     expect(formatted).toContain("USER Alice: hello");
-    expect(formatted).toContain("ASSISTANT OpenClaw QA: working on it");
+    expect(formatted).toContain("ASSISTANT Crabfork QA: working on it");
   });
 
   it("waits for outbound replies through the generic transport alias", async () => {
@@ -467,8 +467,8 @@ describe("qa suite failure reply handling", () => {
     state.addOutboundMessage({
       to: "dm:qa-operator",
       text: "done",
-      senderId: "openclaw",
-      senderName: "OpenClaw QA",
+      senderId: "crabfork",
+      senderName: "Crabfork QA",
     });
 
     await expect(pending).resolves.toMatchObject({ text: "done" });

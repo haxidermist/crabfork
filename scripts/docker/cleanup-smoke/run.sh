@@ -3,42 +3,42 @@ set -euo pipefail
 
 cd /repo
 
-export OPENCLAW_STATE_DIR="/tmp/openclaw-test"
-export OPENCLAW_CONFIG_PATH="${OPENCLAW_STATE_DIR}/openclaw.json"
+export CRABFORK_STATE_DIR="/tmp/crabfork-test"
+export CRABFORK_CONFIG_PATH="${CRABFORK_STATE_DIR}/crabfork.json"
 
 echo "==> Build"
-if ! pnpm build >/tmp/openclaw-cleanup-build.log 2>&1; then
-  cat /tmp/openclaw-cleanup-build.log
+if ! pnpm build >/tmp/crabfork-cleanup-build.log 2>&1; then
+  cat /tmp/crabfork-cleanup-build.log
   exit 1
 fi
 
 echo "==> Seed state"
-mkdir -p "${OPENCLAW_STATE_DIR}/credentials"
-mkdir -p "${OPENCLAW_STATE_DIR}/agents/main/sessions"
-echo '{}' >"${OPENCLAW_CONFIG_PATH}"
-echo 'creds' >"${OPENCLAW_STATE_DIR}/credentials/marker.txt"
-echo 'session' >"${OPENCLAW_STATE_DIR}/agents/main/sessions/sessions.json"
+mkdir -p "${CRABFORK_STATE_DIR}/credentials"
+mkdir -p "${CRABFORK_STATE_DIR}/agents/main/sessions"
+echo '{}' >"${CRABFORK_CONFIG_PATH}"
+echo 'creds' >"${CRABFORK_STATE_DIR}/credentials/marker.txt"
+echo 'session' >"${CRABFORK_STATE_DIR}/agents/main/sessions/sessions.json"
 
 echo "==> Reset (config+creds+sessions)"
-if ! pnpm openclaw reset --scope config+creds+sessions --yes --non-interactive >/tmp/openclaw-cleanup-reset.log 2>&1; then
-  cat /tmp/openclaw-cleanup-reset.log
+if ! pnpm crabfork reset --scope config+creds+sessions --yes --non-interactive >/tmp/crabfork-cleanup-reset.log 2>&1; then
+  cat /tmp/crabfork-cleanup-reset.log
   exit 1
 fi
 
-test ! -f "${OPENCLAW_CONFIG_PATH}"
-test ! -d "${OPENCLAW_STATE_DIR}/credentials"
-test ! -d "${OPENCLAW_STATE_DIR}/agents/main/sessions"
+test ! -f "${CRABFORK_CONFIG_PATH}"
+test ! -d "${CRABFORK_STATE_DIR}/credentials"
+test ! -d "${CRABFORK_STATE_DIR}/agents/main/sessions"
 
 echo "==> Recreate minimal config"
-mkdir -p "${OPENCLAW_STATE_DIR}/credentials"
-echo '{}' >"${OPENCLAW_CONFIG_PATH}"
+mkdir -p "${CRABFORK_STATE_DIR}/credentials"
+echo '{}' >"${CRABFORK_CONFIG_PATH}"
 
 echo "==> Uninstall (state only)"
-if ! pnpm openclaw uninstall --state --yes --non-interactive >/tmp/openclaw-cleanup-uninstall.log 2>&1; then
-  cat /tmp/openclaw-cleanup-uninstall.log
+if ! pnpm crabfork uninstall --state --yes --non-interactive >/tmp/crabfork-cleanup-uninstall.log 2>&1; then
+  cat /tmp/crabfork-cleanup-uninstall.log
   exit 1
 fi
 
-test ! -d "${OPENCLAW_STATE_DIR}"
+test ! -d "${CRABFORK_STATE_DIR}"
 
 echo "OK"

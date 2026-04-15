@@ -1,8 +1,8 @@
 import { resolveActiveTalkProviderConfig } from "../../config/talk.js";
-import type { OpenClawConfig } from "../../config/types.js";
+import type { CrabforkConfig } from "../../config/types.js";
 
 export { resolveActiveTalkProviderConfig };
 
-export function getRuntimeConfigSnapshot(): OpenClawConfig | null {
+export function getRuntimeConfigSnapshot(): CrabforkConfig | null {
   return null;
 }

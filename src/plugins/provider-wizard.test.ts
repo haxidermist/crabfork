@@ -63,7 +63,7 @@ function createSglangConfig() {
 
 function createHomeEnv(suffix = "", overrides?: Partial<NodeJS.ProcessEnv>) {
   return {
-    OPENCLAW_HOME: `/tmp/openclaw-home${suffix}`,
+    CRABFORK_HOME: `/tmp/crabfork-home${suffix}`,
     ...overrides,
   } as NodeJS.ProcessEnv;
 }

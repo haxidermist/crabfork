@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
 import { describe, expect, it } from "vitest";
 import { buildMatrixQaConfig } from "./config.js";
 import type { MatrixQaProvisionedTopology } from "./topology.js";
@@ -47,7 +47,7 @@ describe("matrix qa config", () => {
   };
 
   it("builds default Matrix QA config from provisioned topology", () => {
-    const next = buildMatrixQaConfig({} as OpenClawConfig, {
+    const next = buildMatrixQaConfig({} as CrabforkConfig, {
       driverUserId: "@driver:matrix-qa.test",
       homeserver: "http://127.0.0.1:28008/",
       sutAccessToken: "sut-token",
@@ -74,7 +74,7 @@ describe("matrix qa config", () => {
   });
 
   it("applies room-keyed Matrix QA config overrides", () => {
-    const next = buildMatrixQaConfig({} as OpenClawConfig, {
+    const next = buildMatrixQaConfig({} as CrabforkConfig, {
       driverUserId: "@driver:matrix-qa.test",
       homeserver: "http://127.0.0.1:28008/",
       overrides: {
@@ -106,7 +106,7 @@ describe("matrix qa config", () => {
 
   it("rejects unknown room-key overrides", () => {
     expect(() =>
-      buildMatrixQaConfig({} as OpenClawConfig, {
+      buildMatrixQaConfig({} as CrabforkConfig, {
         driverUserId: "@driver:matrix-qa.test",
         homeserver: "http://127.0.0.1:28008/",
         overrides: {

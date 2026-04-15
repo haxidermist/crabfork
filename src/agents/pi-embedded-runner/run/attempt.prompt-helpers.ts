@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../../config/types.openclaw.js";
+import type { CrabforkConfig } from "../../../config/types.crabfork.js";
 import type {
   ContextEnginePromptCacheInfo,
   ContextEngineRuntimeContext,
@@ -96,7 +96,7 @@ export function resolvePromptModeForSession(sessionKey?: string): "minimal" | "f
 }
 
 export function shouldInjectHeartbeatPrompt(params: {
-  config?: OpenClawConfig;
+  config?: CrabforkConfig;
   agentId?: string;
   defaultAgentId?: string;
   isDefaultAgent: boolean;
@@ -166,7 +166,7 @@ export function mergeOrphanedTrailingUserPrompt(params: {
 }
 
 export function resolveAttemptFsWorkspaceOnly(params: {
-  config?: OpenClawConfig;
+  config?: CrabforkConfig;
   sessionAgentId: string;
 }): boolean {
   return resolveEffectiveToolFsWorkspaceOnly({
@@ -255,13 +255,13 @@ export function buildAfterTurnRuntimeContext(params: {
       ownerNumbers: params.attempt.ownerNumbers,
     }),
     ...(typeof params.tokenBudget === "number" &&
-      Number.isFinite(params.tokenBudget) &&
-      params.tokenBudget > 0
+    Number.isFinite(params.tokenBudget) &&
+    params.tokenBudget > 0
       ? { tokenBudget: Math.floor(params.tokenBudget) }
       : {}),
     ...(typeof params.currentTokenCount === "number" &&
-      Number.isFinite(params.currentTokenCount) &&
-      params.currentTokenCount > 0
+    Number.isFinite(params.currentTokenCount) &&
+    params.currentTokenCount > 0
       ? { currentTokenCount: Math.floor(params.currentTokenCount) }
       : {}),
     ...(params.promptCache ? { promptCache: params.promptCache } : {}),

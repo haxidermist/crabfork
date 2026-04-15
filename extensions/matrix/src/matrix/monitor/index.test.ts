@@ -1,5 +1,5 @@
 import path from "node:path";
-import { z } from "openclaw/plugin-sdk/zod";
+import { z } from "crabfork/plugin-sdk/zod";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { loadRuntimeApiExportTypesViaJiti } from "../../../../../test/helpers/plugins/jiti-runtime-api.ts";
 import type { MatrixRoomInfo } from "./room-info.js";
@@ -302,7 +302,7 @@ vi.mock("../config-update.js", () => ({
 
 vi.mock("../device-health.js", () => ({
   summarizeMatrixDeviceHealth: vi.fn(() => ({
-    staleOpenClawDevices: [],
+    staleCrabforkDevices: [],
   })),
 }));
 

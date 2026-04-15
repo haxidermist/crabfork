@@ -1,9 +1,9 @@
-import { resolveApprovalOverGateway } from "openclaw/plugin-sdk/approval-gateway-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import type { ExecApprovalReplyDecision } from "openclaw/plugin-sdk/infra-runtime";
+import { resolveApprovalOverGateway } from "crabfork/plugin-sdk/approval-gateway-runtime";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import type { ExecApprovalReplyDecision } from "crabfork/plugin-sdk/infra-runtime";
 
 export type ResolveTelegramExecApprovalParams = {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   approvalId: string;
   decision: ExecApprovalReplyDecision;
   senderId?: string | null;

@@ -1,5 +1,5 @@
 // Manual facade. Keep loader boundary explicit.
-type FacadeModule = typeof import("@openclaw/telegram/contract-api.js");
+type FacadeModule = typeof import("@crabfork/telegram/contract-api.js");
 import {
   createLazyFacadeArrayValue,
   loadBundledPluginPublicSurfaceModuleSync,

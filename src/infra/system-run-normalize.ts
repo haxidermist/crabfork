@@ -1,4 +1,4 @@
-import { mapAllowFromEntries } from "openclaw/plugin-sdk/channel-config-helpers";
+import { mapAllowFromEntries } from "crabfork/plugin-sdk/channel-config-helpers";
 import { normalizeOptionalString } from "../shared/string-coerce.js";
 
 export function normalizeNonEmptyString(value: unknown): string | null {

@@ -1,17 +1,17 @@
-# @openclaw/zalo
+# @crabfork/zalo
 
-Zalo channel plugin for OpenClaw (Bot API).
+Zalo channel plugin for Crabfork (Bot API).
 
 ## Install (local checkout)
 
 ```bash
-openclaw plugins install ./path/to/local/zalo-plugin
+crabfork plugins install ./path/to/local/zalo-plugin
 ```
 
 ## Install (npm)
 
 ```bash
-openclaw plugins install @openclaw/zalo
+crabfork plugins install @crabfork/zalo
 ```
 
 Onboarding: select Zalo and confirm the install prompt to fetch the plugin automatically.

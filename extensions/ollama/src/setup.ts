@@ -1,14 +1,14 @@
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/provider-auth";
-import { upsertAuthProfileWithLock } from "openclaw/plugin-sdk/provider-auth";
-import { applyAgentDefaultModelPrimary } from "openclaw/plugin-sdk/provider-onboard";
-import type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
-import { WizardCancelledError, type WizardPrompter } from "openclaw/plugin-sdk/setup";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+import { formatErrorMessage } from "crabfork/plugin-sdk/error-runtime";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/provider-auth";
+import { upsertAuthProfileWithLock } from "crabfork/plugin-sdk/provider-auth";
+import { applyAgentDefaultModelPrimary } from "crabfork/plugin-sdk/provider-onboard";
+import type { RuntimeEnv } from "crabfork/plugin-sdk/runtime";
+import { WizardCancelledError, type WizardPrompter } from "crabfork/plugin-sdk/setup";
+import { fetchWithSsrFGuard } from "crabfork/plugin-sdk/ssrf-runtime";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
-} from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/text-runtime";
 import { OLLAMA_DEFAULT_BASE_URL, OLLAMA_DEFAULT_MODEL } from "./defaults.js";
 import {
   buildOllamaBaseUrlSsrFPolicy,
@@ -261,11 +261,11 @@ function buildOllamaModelsConfig(
 }
 
 function applyOllamaProviderConfig(
-  cfg: OpenClawConfig,
+  cfg: CrabforkConfig,
   baseUrl: string,
   modelNames: string[],
   discoveredModelsByName?: Map<string, OllamaModelWithContext>,
-): OpenClawConfig {
+): CrabforkConfig {
   return {
     ...cfg,
     models: {
@@ -316,11 +316,11 @@ export async function buildOllamaProvider(
 }
 
 export async function promptAndConfigureOllama(params: {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   prompter: WizardPrompter;
   isRemote: boolean;
   openUrl: (url: string) => Promise<void>;
-}): Promise<{ config: OpenClawConfig }> {
+}): Promise<{ config: CrabforkConfig }> {
   const baseUrlRaw = await params.prompter.text({
     message: "Ollama base URL",
     initialValue: OLLAMA_DEFAULT_BASE_URL,
@@ -414,11 +414,11 @@ export async function promptAndConfigureOllama(params: {
 }
 
 export async function configureOllamaNonInteractive(params: {
-  nextConfig: OpenClawConfig;
+  nextConfig: CrabforkConfig;
   opts: OllamaSetupOptions;
   runtime: RuntimeEnv;
   agentDir?: string;
-}): Promise<OpenClawConfig> {
+}): Promise<CrabforkConfig> {
   const baseUrl = resolveOllamaApiBase(
     (params.opts.customBaseUrl?.trim() || OLLAMA_DEFAULT_BASE_URL).replace(/\/+$/, ""),
   );
@@ -507,7 +507,7 @@ export async function configureOllamaNonInteractive(params: {
 }
 
 export async function ensureOllamaModelPulled(params: {
-  config: OpenClawConfig;
+  config: CrabforkConfig;
   model: string;
   prompter: WizardPrompter;
 }): Promise<void> {

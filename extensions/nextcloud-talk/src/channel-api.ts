@@ -1,5 +1,5 @@
-export type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-export type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-export { clearAccountEntryFields } from "openclaw/plugin-sdk/channel-core";
-export { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-export { buildChannelConfigSchema } from "openclaw/plugin-sdk/channel-config-schema";
+export type { ChannelPlugin } from "crabfork/plugin-sdk/channel-core";
+export type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+export { clearAccountEntryFields } from "crabfork/plugin-sdk/channel-core";
+export { DEFAULT_ACCOUNT_ID } from "crabfork/plugin-sdk/account-id";
+export { buildChannelConfigSchema } from "crabfork/plugin-sdk/channel-config-schema";

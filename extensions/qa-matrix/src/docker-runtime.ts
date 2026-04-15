@@ -1,6 +1,6 @@
 import { createServer } from "node:net";
-import { runExec } from "openclaw/plugin-sdk/process-runtime";
-import { fetchWithSsrFGuard } from "openclaw/plugin-sdk/ssrf-runtime";
+import { runExec } from "crabfork/plugin-sdk/process-runtime";
+import { fetchWithSsrFGuard } from "crabfork/plugin-sdk/ssrf-runtime";
 
 export type RunCommand = (
   command: string,

@@ -1,12 +1,12 @@
-export { buildChannelConfigSchema, formatPairingApproveHint } from "openclaw/plugin-sdk/core";
-export type { ChannelOutboundAdapter, ChannelPlugin } from "openclaw/plugin-sdk/core";
-export { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/core";
+export { buildChannelConfigSchema, formatPairingApproveHint } from "crabfork/plugin-sdk/core";
+export type { ChannelOutboundAdapter, ChannelPlugin } from "crabfork/plugin-sdk/core";
+export { DEFAULT_ACCOUNT_ID } from "crabfork/plugin-sdk/core";
 export {
   collectStatusIssuesFromLastError,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
+} from "crabfork/plugin-sdk/status-helpers";
 export {
   createPreCryptoDirectDmAuthorizer,
   dispatchInboundDirectDmWithRuntime,
   resolveInboundDirectDmAccessWithRuntime,
-} from "openclaw/plugin-sdk/direct-dm";
+} from "crabfork/plugin-sdk/direct-dm";

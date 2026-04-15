@@ -1,11 +1,11 @@
-import type { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import type { resolveAgentRoute } from "openclaw/plugin-sdk/routing";
-import { buildAgentSessionKey, deriveLastRoutePolicy } from "openclaw/plugin-sdk/routing";
+import type { loadConfig } from "crabfork/plugin-sdk/config-runtime";
+import type { resolveAgentRoute } from "crabfork/plugin-sdk/routing";
+import { buildAgentSessionKey, deriveLastRoutePolicy } from "crabfork/plugin-sdk/routing";
 import {
   buildAgentMainSessionKey,
   DEFAULT_MAIN_KEY,
   normalizeAgentId,
-} from "openclaw/plugin-sdk/routing";
+} from "crabfork/plugin-sdk/routing";
 import { formatError } from "../../session.js";
 import { whatsappInboundLog } from "../loggers.js";
 import type { WebInboundMsg } from "../types.js";

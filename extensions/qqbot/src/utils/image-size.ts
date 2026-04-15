@@ -5,8 +5,8 @@
  */
 
 import { Buffer } from "buffer";
-import { fetchRemoteMedia } from "openclaw/plugin-sdk/media-runtime";
-import type { SsrFPolicy } from "openclaw/plugin-sdk/ssrf-runtime";
+import { fetchRemoteMedia } from "crabfork/plugin-sdk/media-runtime";
+import type { SsrFPolicy } from "crabfork/plugin-sdk/ssrf-runtime";
 import { debugLog } from "./debug-log.js";
 
 export interface ImageSize {

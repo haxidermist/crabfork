@@ -126,7 +126,7 @@ describe("CodexAppServerClient", () => {
     };
     harness.send({
       id: outbound.id,
-      result: { userAgent: "openclaw/0.118.0 (macOS; test)" },
+      result: { userAgent: "crabfork/0.118.0 (macOS; test)" },
     });
 
     await expect(initializing).resolves.toBeUndefined();
@@ -134,8 +134,8 @@ describe("CodexAppServerClient", () => {
       method: "initialize",
       params: {
         clientInfo: {
-          name: "openclaw",
-          title: "OpenClaw",
+          name: "crabfork",
+          title: "Crabfork",
           version: expect.any(String),
         },
       },
@@ -152,7 +152,7 @@ describe("CodexAppServerClient", () => {
     const outbound = JSON.parse(harness.writes[0] ?? "{}") as { id?: number };
     harness.send({
       id: outbound.id,
-      result: { userAgent: "openclaw/0.117.9 (macOS; test)" },
+      result: { userAgent: "crabfork/0.117.9 (macOS; test)" },
     });
 
     await expect(initializing).rejects.toThrow(
@@ -200,7 +200,7 @@ describe("CodexAppServerClient", () => {
     expect(process.unref).toHaveBeenCalledTimes(1);
   });
   it("reads the Codex version from the app-server user agent", () => {
-    expect(readCodexVersionFromUserAgent("openclaw/0.118.0 (macOS; test)")).toBe("0.118.0");
+    expect(readCodexVersionFromUserAgent("crabfork/0.118.0 (macOS; test)")).toBe("0.118.0");
     expect(readCodexVersionFromUserAgent("codex_cli_rs/0.118.1-dev (linux; test)")).toBe(
       "0.118.1-dev",
     );

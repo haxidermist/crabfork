@@ -91,7 +91,7 @@ describe("channelsRemoveCommand", () => {
       .mockReturnValueOnce(
         createTestRegistry([
           {
-            pluginId: "@openclaw/msteams-plugin",
+            pluginId: "@crabfork/msteams-plugin",
             plugin: scopedPlugin,
             source: "test",
           },

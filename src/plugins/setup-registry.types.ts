@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { CrabforkConfig } from "../config/types.crabfork.js";
 import type { CliBackendPlugin } from "./cli-backend.types.js";
 
 export type SetupPluginLogger = {
@@ -15,21 +15,21 @@ export type SetupProviderPlugin = {
   resolveConfigApiKey?: (params: {
     provider: string;
     env?: NodeJS.ProcessEnv;
-    cfg?: OpenClawConfig;
+    cfg?: CrabforkConfig;
     workspaceDir?: string;
   }) => string | null | undefined;
 };
 
-export type SetupPluginConfigMigration = (config: OpenClawConfig) =>
+export type SetupPluginConfigMigration = (config: CrabforkConfig) =>
   | {
-      config: OpenClawConfig;
+      config: CrabforkConfig;
       changes: string[];
     }
   | null
   | undefined;
 
 export type SetupPluginAutoEnableContext = {
-  config: OpenClawConfig;
+  config: CrabforkConfig;
   env: NodeJS.ProcessEnv;
 };
 
@@ -45,7 +45,7 @@ export type SetupOnlyPluginApi = {
   source: string;
   rootDir?: string;
   registrationMode: "setup-only";
-  config: OpenClawConfig;
+  config: CrabforkConfig;
   pluginConfig?: Record<string, unknown>;
   runtime: Record<string, never>;
   logger: SetupPluginLogger;

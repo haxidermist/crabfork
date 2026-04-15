@@ -1,15 +1,15 @@
-import { resolveChannelStreamingPreviewChunk } from "openclaw/plugin-sdk/channel-streaming";
-import { type OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { resolveTextChunkLimit } from "openclaw/plugin-sdk/reply-chunking";
-import { resolveAccountEntry } from "openclaw/plugin-sdk/routing";
-import { normalizeAccountId } from "openclaw/plugin-sdk/routing";
+import { resolveChannelStreamingPreviewChunk } from "crabfork/plugin-sdk/channel-streaming";
+import { type CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import { resolveTextChunkLimit } from "crabfork/plugin-sdk/reply-chunking";
+import { resolveAccountEntry } from "crabfork/plugin-sdk/routing";
+import { normalizeAccountId } from "crabfork/plugin-sdk/routing";
 import { DISCORD_TEXT_CHUNK_LIMIT } from "./outbound-adapter.js";
 
 const DEFAULT_DISCORD_DRAFT_STREAM_MIN = 200;
 const DEFAULT_DISCORD_DRAFT_STREAM_MAX = 800;
 
 export function resolveDiscordDraftStreamingChunking(
-  cfg: OpenClawConfig | undefined,
+  cfg: CrabforkConfig | undefined,
   accountId?: string | null,
 ): {
   minChars: number;

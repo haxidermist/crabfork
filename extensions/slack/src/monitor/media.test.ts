@@ -1,8 +1,8 @@
-import * as ssrf from "openclaw/plugin-sdk/infra-runtime";
-import * as mediaFetch from "openclaw/plugin-sdk/media-runtime";
-import type { SavedMedia } from "openclaw/plugin-sdk/media-runtime";
-import * as mediaStore from "openclaw/plugin-sdk/media-runtime";
-import { type FetchMock, withFetchPreconnect } from "openclaw/plugin-sdk/testing";
+import * as ssrf from "crabfork/plugin-sdk/infra-runtime";
+import * as mediaFetch from "crabfork/plugin-sdk/media-runtime";
+import type { SavedMedia } from "crabfork/plugin-sdk/media-runtime";
+import * as mediaStore from "crabfork/plugin-sdk/media-runtime";
+import { type FetchMock, withFetchPreconnect } from "crabfork/plugin-sdk/testing";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { mockPinnedHostnameResolution } from "../../../../src/test-helpers/ssrf.js";
 import {

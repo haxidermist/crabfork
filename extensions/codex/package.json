@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/codex",
+  "name": "@crabfork/codex",
   "version": "2026.4.12",
-  "description": "OpenClaw Codex harness and model provider plugin",
+  "description": "Crabfork Codex harness and model provider plugin",
   "type": "module",
   "dependencies": {
     "@mariozechner/pi-coding-agent": "0.66.1",
@@ -9,9 +9,9 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*"
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ]

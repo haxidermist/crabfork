@@ -7,7 +7,7 @@ import { resolveSession } from "../agents/command/session.js";
 import * as commandConfigResolutionRuntimeModule from "../cli/command-config-resolution.runtime.js";
 import * as configIoModule from "../config/io.js";
 import * as runtimeSnapshotModule from "../config/runtime-snapshot.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { CrabforkConfig } from "../config/types.crabfork.js";
 import {
   mockSharedAgentCommandConfig,
   resetSharedAgentCommandRuntimeState,
@@ -28,7 +28,7 @@ const readConfigFileSnapshotForWriteSpy = vi.spyOn(
 );
 
 async function withTempHome<T>(fn: (home: string) => Promise<T>): Promise<T> {
-  return withSharedAgentCommandTempHome("openclaw-agent-", fn);
+  return withSharedAgentCommandTempHome("crabfork-agent-", fn);
 }
 
 function mockConfig(
@@ -57,7 +57,7 @@ describe("agentCommand runtime config", () => {
           defaults: {
             model: { primary: "anthropic/claude-opus-4-6" },
             models: { "anthropic/claude-opus-4-6": {} },
-            workspace: path.join(home, "openclaw"),
+            workspace: path.join(home, "crabfork"),
           },
         },
         session: { store, mainKey: "main" },
@@ -70,7 +70,7 @@ describe("agentCommand runtime config", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as CrabforkConfig;
       const sourceConfig = {
         ...loadedConfig,
         models: {
@@ -82,7 +82,7 @@ describe("agentCommand runtime config", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as CrabforkConfig;
       const resolvedConfig = {
         ...loadedConfig,
         models: {
@@ -94,7 +94,7 @@ describe("agentCommand runtime config", () => {
             },
           },
         },
-      } as unknown as OpenClawConfig;
+      } as unknown as CrabforkConfig;
 
       configSpy.mockReturnValue(loadedConfig);
       readConfigFileSnapshotForWriteSpy.mockResolvedValue({
@@ -135,7 +135,7 @@ describe("agentCommand runtime config", () => {
         telegram: {
           botToken: { source: "env", provider: "default", id: "TELEGRAM_BOT_TOKEN" },
         },
-      } as unknown as OpenClawConfig["channels"];
+      } as unknown as CrabforkConfig["channels"];
       const resolveConfigWithSecretsSpy = vi
         .spyOn(commandConfigResolutionRuntimeModule, "resolveCommandConfigWithSecrets")
         .mockResolvedValueOnce({

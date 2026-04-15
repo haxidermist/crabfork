@@ -1,13 +1,13 @@
-import { createPairingPrefixStripper } from "openclaw/plugin-sdk/channel-pairing";
-import { PAIRING_APPROVED_MESSAGE } from "openclaw/plugin-sdk/channel-status";
-import type { OpenClawConfig } from "./runtime-api.js";
+import { createPairingPrefixStripper } from "crabfork/plugin-sdk/channel-pairing";
+import { PAIRING_APPROVED_MESSAGE } from "crabfork/plugin-sdk/channel-status";
+import type { CrabforkConfig } from "./runtime-api.js";
 import { normalizeBlueBubblesHandle } from "./targets.js";
 
 type SendBlueBubblesMessage = (
   id: string,
   message: string,
   params: {
-    cfg: OpenClawConfig;
+    cfg: CrabforkConfig;
     accountId?: string;
   },
 ) => Promise<unknown>;
@@ -23,7 +23,7 @@ export function createBlueBubblesPairingText(sendMessageBlueBubbles: SendBlueBub
       message,
       accountId,
     }: {
-      cfg: OpenClawConfig;
+      cfg: CrabforkConfig;
       id: string;
       message: string;
       accountId?: string;

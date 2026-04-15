@@ -1,8 +1,8 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { hasConfiguredSecretInput } from "openclaw/plugin-sdk/setup";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import { hasConfiguredSecretInput } from "crabfork/plugin-sdk/setup";
 import { asRecord, hasNonEmptyString } from "./comment-shared.js";
 
-function isFeishuDocToolEnabled(cfg: OpenClawConfig): boolean {
+function isFeishuDocToolEnabled(cfg: CrabforkConfig): boolean {
   const channels = asRecord(cfg.channels);
   const feishu = asRecord(channels?.feishu);
   if (!feishu || feishu.enabled === false) {
@@ -42,7 +42,7 @@ function isFeishuDocToolEnabled(cfg: OpenClawConfig): boolean {
   return false;
 }
 
-export function collectFeishuSecurityAuditFindings(params: { cfg: OpenClawConfig }) {
+export function collectFeishuSecurityAuditFindings(params: { cfg: CrabforkConfig }) {
   if (!isFeishuDocToolEnabled(params.cfg)) {
     return [];
   }

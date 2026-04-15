@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { CrabforkConfig } from "../config/types.crabfork.js";
 
 export type EffectiveToolSource = "core" | "plugin" | "channel";
 
@@ -26,7 +26,7 @@ export type EffectiveToolInventoryResult = {
 };
 
 export type ResolveEffectiveToolInventoryParams = {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   agentId?: string;
   sessionKey?: string;
   workspaceDir?: string;

@@ -1,7 +1,7 @@
 import type {
-  OpenClawConfig,
+  CrabforkConfig,
   ResolvedMemorySearchConfig,
-} from "openclaw/plugin-sdk/memory-core-host-engine-foundation";
+} from "crabfork/plugin-sdk/memory-core-host-engine-foundation";
 import {
   resolveEmbeddingProviderFallbackModel,
   type EmbeddingProvider,
@@ -68,7 +68,7 @@ export function applyMemoryFallbackProviderState(params: {
 }
 
 export function resolveMemoryFallbackProviderRequest(params: {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   settings: ResolvedMemorySearchConfig;
   currentProviderId: string | null;
 }): {

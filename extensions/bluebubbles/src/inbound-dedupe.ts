@@ -1,8 +1,8 @@
 import { createHash } from "node:crypto";
 import path from "node:path";
-import { type ClaimableDedupe, createClaimableDedupe } from "openclaw/plugin-sdk/persistent-dedupe";
-import { resolveStateDir } from "openclaw/plugin-sdk/state-paths";
-import { resolvePreferredOpenClawTmpDir } from "openclaw/plugin-sdk/temp-path";
+import { type ClaimableDedupe, createClaimableDedupe } from "crabfork/plugin-sdk/persistent-dedupe";
+import { resolveStateDir } from "crabfork/plugin-sdk/state-paths";
+import { resolvePreferredCrabforkTmpDir } from "crabfork/plugin-sdk/temp-path";
 import type { NormalizedWebhookMessage } from "./monitor-normalize.js";
 
 // BlueBubbles has no sequence/ack in its webhook protocol, and its
@@ -22,14 +22,14 @@ const MAX_GUID_CHARS = 512;
 
 function resolveStateDirFromEnv(env: NodeJS.ProcessEnv = process.env): string {
   if (env.VITEST || env.NODE_ENV === "test") {
-    // Isolate tests from real ~/.openclaw state without sharing across tests.
+    // Isolate tests from real ~/.crabfork state without sharing across tests.
     // Stable-per-pid so the scoped dedupe test can observe persistence.
-    const name = "openclaw-vitest-" + process.pid;
-    return path.join(resolvePreferredOpenClawTmpDir(), name);
+    const name = "crabfork-vitest-" + process.pid;
+    return path.join(resolvePreferredCrabforkTmpDir(), name);
   }
-  // Canonical OpenClaw state dir: honors OPENCLAW_STATE_DIR (with `~` expansion
+  // Canonical Crabfork state dir: honors CRABFORK_STATE_DIR (with `~` expansion
   // via resolveUserPath), plus legacy/new fallback. Using the shared helper
-  // keeps this plugin's persistence aligned with the rest of OpenClaw state.
+  // keeps this plugin's persistence aligned with the rest of Crabfork state.
   return resolveStateDir(env);
 }
 

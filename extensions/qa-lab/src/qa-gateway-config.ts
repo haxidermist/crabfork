@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import type { ModelProviderConfig } from "openclaw/plugin-sdk/provider-model-shared";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import type { ModelProviderConfig } from "crabfork/plugin-sdk/provider-model-shared";
 import {
   defaultQaModelForMode,
   isQaFastModeModelRef,
@@ -76,7 +76,7 @@ export function buildQaGatewayConfig(params: {
   liveProviderConfigs?: Record<string, ModelProviderConfig>;
   fastMode?: boolean;
   thinkingDefault?: QaThinkingLevel;
-}): OpenClawConfig {
+}): CrabforkConfig {
   const mockProviderBaseUrl = params.providerBaseUrl ?? "http://127.0.0.1:44080/v1";
   const mockAnthropicBaseUrl = trimTrailingApiV1(mockProviderBaseUrl);
   const mockOpenAiProvider: ModelProviderConfig = {
@@ -371,5 +371,5 @@ export function buildQaGatewayConfig(params: {
     },
     ...(params.transportConfig?.channels ? { channels: params.transportConfig.channels } : {}),
     ...(params.transportConfig?.messages ? { messages: params.transportConfig.messages } : {}),
-  } satisfies OpenClawConfig;
+  } satisfies CrabforkConfig;
 }

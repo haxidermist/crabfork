@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { CrabforkConfig } from "../config/types.crabfork.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
 import {
   cancelTaskById,
@@ -630,7 +630,7 @@ export function runTaskInFlowForOwner(params: {
 }
 
 export async function cancelFlowById(params: {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   flowId: string;
 }): Promise<CancelFlowResult> {
   const flow = getTaskFlowById(params.flowId);
@@ -712,7 +712,7 @@ export async function cancelFlowById(params: {
 }
 
 export async function cancelFlowByIdForOwner(params: {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   flowId: string;
   callerOwnerKey: string;
 }): Promise<CancelFlowResult> {
@@ -733,6 +733,6 @@ export async function cancelFlowByIdForOwner(params: {
   });
 }
 
-export async function cancelDetachedTaskRunById(params: { cfg: OpenClawConfig; taskId: string }) {
+export async function cancelDetachedTaskRunById(params: { cfg: CrabforkConfig; taskId: string }) {
   return cancelTaskById(params);
 }

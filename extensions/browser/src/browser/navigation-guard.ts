@@ -2,8 +2,8 @@ import { isIP } from "node:net";
 import {
   matchesHostnameAllowlist,
   normalizeHostname,
-} from "openclaw/plugin-sdk/browser-security-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/browser-security-runtime";
+import { normalizeOptionalString } from "crabfork/plugin-sdk/text-runtime";
 import { hasProxyEnvConfigured } from "../infra/net/proxy-env.js";
 import {
   isPrivateNetworkAllowedByPolicy,

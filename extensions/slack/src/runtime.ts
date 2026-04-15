@@ -1,5 +1,5 @@
-import type { PluginRuntime } from "openclaw/plugin-sdk/channel-core";
-import { createPluginRuntimeStore } from "openclaw/plugin-sdk/runtime-store";
+import type { PluginRuntime } from "crabfork/plugin-sdk/channel-core";
+import { createPluginRuntimeStore } from "crabfork/plugin-sdk/runtime-store";
 
 type SlackChannelRuntime = {
   handleSlackAction?: typeof import("./action-runtime.js").handleSlackAction;

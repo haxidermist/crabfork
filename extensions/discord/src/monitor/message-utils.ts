@@ -1,15 +1,15 @@
 import type { ChannelType, Client, Message } from "@buape/carbon";
-import { StickerFormatType, type APIAttachment, type APIStickerItem } from "discord-api-types/v10";
-import { fetchRemoteMedia, type FetchLike } from "openclaw/plugin-sdk/media-runtime";
-import { saveMediaBuffer } from "openclaw/plugin-sdk/media-runtime";
-import { buildMediaPayload } from "openclaw/plugin-sdk/reply-payload";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
-import type { SsrFPolicy } from "openclaw/plugin-sdk/ssrf-runtime";
+import { fetchRemoteMedia, type FetchLike } from "crabfork/plugin-sdk/media-runtime";
+import { saveMediaBuffer } from "crabfork/plugin-sdk/media-runtime";
+import { buildMediaPayload } from "crabfork/plugin-sdk/reply-payload";
+import { logVerbose } from "crabfork/plugin-sdk/runtime-env";
+import type { SsrFPolicy } from "crabfork/plugin-sdk/ssrf-runtime";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalString,
   normalizeOptionalStringifiedId,
-} from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/text-runtime";
+import { StickerFormatType, type APIAttachment, type APIStickerItem } from "discord-api-types/v10";
 import { mergeAbortSignals } from "./timeouts.js";
 
 const DISCORD_CDN_HOSTNAMES = [

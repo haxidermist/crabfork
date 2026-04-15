@@ -1,15 +1,15 @@
 import { normalizeChatChannelId } from "../channels/ids.js";
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { CrabforkConfig } from "../config/types.crabfork.js";
 
 export function setPluginEnabledInConfig(
-  config: OpenClawConfig,
+  config: CrabforkConfig,
   pluginId: string,
   enabled: boolean,
-): OpenClawConfig {
+): CrabforkConfig {
   const builtInChannelId = normalizeChatChannelId(pluginId);
   const resolvedId = builtInChannelId ?? pluginId;
 
-  const next: OpenClawConfig = {
+  const next: CrabforkConfig = {
     ...config,
     plugins: {
       ...config.plugins,

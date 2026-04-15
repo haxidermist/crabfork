@@ -1,15 +1,15 @@
 ---
-summary: "CLI reference for `openclaw browser` (lifecycle, profiles, tabs, actions, state, and debugging)"
+summary: "CLI reference for `crabfork browser` (lifecycle, profiles, tabs, actions, state, and debugging)"
 read_when:
-  - You use `openclaw browser` and want examples for common tasks
+  - You use `crabfork browser` and want examples for common tasks
   - You want to control a browser running on another machine via a node host
   - You want to attach to your local signed-in Chrome via Chrome MCP
 title: "browser"
 ---
 
-# `openclaw browser`
+# `crabfork browser`
 
-Manage OpenClaw's browser control surface and run browser actions (lifecycle, profiles, tabs, snapshots, screenshots, navigation, input, state emulation, and debugging).
+Manage Crabfork's browser control surface and run browser actions (lifecycle, profiles, tabs, snapshots, screenshots, navigation, input, state emulation, and debugging).
 
 Related:
 
@@ -27,10 +27,10 @@ Related:
 ## Quick start (local)
 
 ```bash
-openclaw browser profiles
-openclaw browser --browser-profile openclaw start
-openclaw browser --browser-profile openclaw open https://example.com
-openclaw browser --browser-profile openclaw snapshot
+crabfork browser profiles
+crabfork browser --browser-profile crabfork start
+crabfork browser --browser-profile crabfork open https://example.com
+crabfork browser --browser-profile crabfork snapshot
 ```
 
 ## Quick troubleshooting
@@ -40,9 +40,9 @@ If `start` fails with `not reachable after start`, troubleshoot CDP readiness fi
 Minimal sequence:
 
 ```bash
-openclaw browser --browser-profile openclaw start
-openclaw browser --browser-profile openclaw tabs
-openclaw browser --browser-profile openclaw open https://example.com
+crabfork browser --browser-profile crabfork start
+crabfork browser --browser-profile crabfork tabs
+crabfork browser --browser-profile crabfork open https://example.com
 ```
 
 Detailed guidance: [Browser troubleshooting](/tools/browser#cdp-startup-failure-vs-navigation-ssrf-block)
@@ -50,24 +50,24 @@ Detailed guidance: [Browser troubleshooting](/tools/browser#cdp-startup-failure-
 ## Lifecycle
 
 ```bash
-openclaw browser status
-openclaw browser start
-openclaw browser stop
-openclaw browser --browser-profile openclaw reset-profile
+crabfork browser status
+crabfork browser start
+crabfork browser stop
+crabfork browser --browser-profile crabfork reset-profile
 ```
 
 Notes:
 
-- For `attachOnly` and remote CDP profiles, `openclaw browser stop` closes the
+- For `attachOnly` and remote CDP profiles, `crabfork browser stop` closes the
   active control session and clears temporary emulation overrides even when
-  OpenClaw did not launch the browser process itself.
-- For local managed profiles, `openclaw browser stop` stops the spawned browser
+  Crabfork did not launch the browser process itself.
+- For local managed profiles, `crabfork browser stop` stops the spawned browser
   process.
 
 ## If the command is missing
 
-If `openclaw browser` is an unknown command, check `plugins.allow` in
-`~/.openclaw/openclaw.json`.
+If `crabfork browser` is an unknown command, check `plugins.allow` in
+`~/.crabfork/crabfork.json`.
 
 When `plugins.allow` is present, the bundled browser plugin must be listed
 explicitly:
@@ -89,34 +89,34 @@ Related: [Browser tool](/tools/browser#missing-browser-command-or-tool)
 
 Profiles are named browser routing configs. In practice:
 
-- `openclaw`: launches or attaches to a dedicated OpenClaw-managed Chrome instance (isolated user data dir).
+- `crabfork`: launches or attaches to a dedicated Crabfork-managed Chrome instance (isolated user data dir).
 - `user`: controls your existing signed-in Chrome session via Chrome DevTools MCP.
 - custom CDP profiles: point at a local or remote CDP endpoint.
 
 ```bash
-openclaw browser profiles
-openclaw browser create-profile --name work --color "#FF5A36"
-openclaw browser create-profile --name chrome-live --driver existing-session
-openclaw browser create-profile --name remote --cdp-url https://browser-host.example.com
-openclaw browser delete-profile --name work
+crabfork browser profiles
+crabfork browser create-profile --name work --color "#FF5A36"
+crabfork browser create-profile --name chrome-live --driver existing-session
+crabfork browser create-profile --name remote --cdp-url https://browser-host.example.com
+crabfork browser delete-profile --name work
 ```
 
 Use a specific profile:
 
 ```bash
-openclaw browser --browser-profile work tabs
+crabfork browser --browser-profile work tabs
 ```
 
 ## Tabs
 
 ```bash
-openclaw browser tabs
-openclaw browser tab new
-openclaw browser tab select 2
-openclaw browser tab close 2
-openclaw browser open https://docs.openclaw.ai
-openclaw browser focus <targetId>
-openclaw browser close <targetId>
+crabfork browser tabs
+crabfork browser tab new
+crabfork browser tab select 2
+crabfork browser tab close 2
+crabfork browser open https://docs.crabfork.ai
+crabfork browser focus <targetId>
+crabfork browser close <targetId>
 ```
 
 ## Snapshot / screenshot / actions
@@ -124,15 +124,15 @@ openclaw browser close <targetId>
 Snapshot:
 
 ```bash
-openclaw browser snapshot
+crabfork browser snapshot
 ```
 
 Screenshot:
 
 ```bash
-openclaw browser screenshot
-openclaw browser screenshot --full-page
-openclaw browser screenshot --ref e12
+crabfork browser screenshot
+crabfork browser screenshot --full-page
+crabfork browser screenshot --ref e12
 ```
 
 Notes:
@@ -145,26 +145,26 @@ Notes:
 Navigate/click/type (ref-based UI automation):
 
 ```bash
-openclaw browser navigate https://example.com
-openclaw browser click <ref>
-openclaw browser type <ref> "hello"
-openclaw browser press Enter
-openclaw browser hover <ref>
-openclaw browser scrollintoview <ref>
-openclaw browser drag <startRef> <endRef>
-openclaw browser select <ref> OptionA OptionB
-openclaw browser fill --fields '[{"ref":"1","value":"Ada"}]'
-openclaw browser wait --text "Done"
-openclaw browser evaluate --fn '(el) => el.textContent' --ref <ref>
+crabfork browser navigate https://example.com
+crabfork browser click <ref>
+crabfork browser type <ref> "hello"
+crabfork browser press Enter
+crabfork browser hover <ref>
+crabfork browser scrollintoview <ref>
+crabfork browser drag <startRef> <endRef>
+crabfork browser select <ref> OptionA OptionB
+crabfork browser fill --fields '[{"ref":"1","value":"Ada"}]'
+crabfork browser wait --text "Done"
+crabfork browser evaluate --fn '(el) => el.textContent' --ref <ref>
 ```
 
 File + dialog helpers:
 
 ```bash
-openclaw browser upload /tmp/openclaw/uploads/file.pdf --ref <ref>
-openclaw browser waitfordownload
-openclaw browser download <ref> report.pdf
-openclaw browser dialog --accept
+crabfork browser upload /tmp/crabfork/uploads/file.pdf --ref <ref>
+crabfork browser waitfordownload
+crabfork browser download <ref> report.pdf
+crabfork browser dialog --accept
 ```
 
 ## State and storage
@@ -172,40 +172,40 @@ openclaw browser dialog --accept
 Viewport + emulation:
 
 ```bash
-openclaw browser resize 1280 720
-openclaw browser set viewport 1280 720
-openclaw browser set offline on
-openclaw browser set media dark
-openclaw browser set timezone Europe/London
-openclaw browser set locale en-GB
-openclaw browser set geo 51.5074 -0.1278 --accuracy 25
-openclaw browser set device "iPhone 14"
-openclaw browser set headers '{"x-test":"1"}'
-openclaw browser set credentials myuser mypass
+crabfork browser resize 1280 720
+crabfork browser set viewport 1280 720
+crabfork browser set offline on
+crabfork browser set media dark
+crabfork browser set timezone Europe/London
+crabfork browser set locale en-GB
+crabfork browser set geo 51.5074 -0.1278 --accuracy 25
+crabfork browser set device "iPhone 14"
+crabfork browser set headers '{"x-test":"1"}'
+crabfork browser set credentials myuser mypass
 ```
 
 Cookies + storage:
 
 ```bash
-openclaw browser cookies
-openclaw browser cookies set session abc123 --url https://example.com
-openclaw browser cookies clear
-openclaw browser storage local get
-openclaw browser storage local set token abc123
-openclaw browser storage session clear
+crabfork browser cookies
+crabfork browser cookies set session abc123 --url https://example.com
+crabfork browser cookies clear
+crabfork browser storage local get
+crabfork browser storage local set token abc123
+crabfork browser storage session clear
 ```
 
 ## Debugging
 
 ```bash
-openclaw browser console --level error
-openclaw browser pdf
-openclaw browser responsebody "**/api"
-openclaw browser highlight <ref>
-openclaw browser errors --clear
-openclaw browser requests --filter api
-openclaw browser trace start
-openclaw browser trace stop --out trace.zip
+crabfork browser console --level error
+crabfork browser pdf
+crabfork browser responsebody "**/api"
+crabfork browser highlight <ref>
+crabfork browser errors --clear
+crabfork browser requests --filter api
+crabfork browser trace start
+crabfork browser trace stop --out trace.zip
 ```
 
 ## Existing Chrome via MCP
@@ -213,10 +213,10 @@ openclaw browser trace stop --out trace.zip
 Use the built-in `user` profile, or create your own `existing-session` profile:
 
 ```bash
-openclaw browser --browser-profile user tabs
-openclaw browser create-profile --name chrome-live --driver existing-session
-openclaw browser create-profile --name brave-live --driver existing-session --user-data-dir "~/Library/Application Support/BraveSoftware/Brave-Browser"
-openclaw browser --browser-profile chrome-live tabs
+crabfork browser --browser-profile user tabs
+crabfork browser create-profile --name chrome-live --driver existing-session
+crabfork browser create-profile --name brave-live --driver existing-session --user-data-dir "~/Library/Application Support/BraveSoftware/Brave-Browser"
+crabfork browser --browser-profile chrome-live tabs
 ```
 
 This path is host-only. For Docker, headless servers, Browserless, or other remote setups, use a CDP profile instead.

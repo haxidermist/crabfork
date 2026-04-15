@@ -1,6 +1,6 @@
-import { shouldAckReactionForWhatsApp } from "openclaw/plugin-sdk/channel-feedback";
-import type { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { logVerbose } from "openclaw/plugin-sdk/runtime-env";
+import { shouldAckReactionForWhatsApp } from "crabfork/plugin-sdk/channel-feedback";
+import type { loadConfig } from "crabfork/plugin-sdk/config-runtime";
+import { logVerbose } from "crabfork/plugin-sdk/runtime-env";
 import { getSenderIdentity } from "../../identity.js";
 import { resolveWhatsAppReactionLevel } from "../../reaction-level.js";
 import { sendReactionWhatsApp } from "../../send.js";

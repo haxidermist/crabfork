@@ -1,14 +1,14 @@
 ---
 summary: "Infer-first CLI for provider-backed model, image, audio, TTS, video, web, and embedding workflows"
 read_when:
-  - Adding or modifying `openclaw infer` commands
+  - Adding or modifying `crabfork infer` commands
   - Designing stable headless capability automation
 title: "Inference CLI"
 ---
 
 # Inference CLI
 
-`openclaw infer` is the canonical headless surface for provider-backed inference workflows.
+`crabfork infer` is the canonical headless surface for provider-backed inference workflows.
 
 It intentionally exposes capability families, not raw gateway RPC names and not raw agent tool ids.
 
@@ -17,7 +17,7 @@ It intentionally exposes capability families, not raw gateway RPC names and not 
 Copy and paste this to an agent:
 
 ```text
-Read https://docs.openclaw.ai/cli/infer, then create a skill that routes my common workflows to `openclaw infer`.
+Read https://docs.crabfork.ai/cli/infer, then create a skill that routes my common workflows to `crabfork infer`.
 Focus on model runs, image generation, video generation, audio transcription, TTS, web search, and embeddings.
 ```
 
@@ -25,34 +25,34 @@ A good infer-based skill should:
 
 - map common user intents to the correct infer subcommand
 - include a few canonical infer examples for the workflows it covers
-- prefer `openclaw infer ...` in examples and suggestions
+- prefer `crabfork infer ...` in examples and suggestions
 - avoid re-documenting the entire infer surface inside the skill body
 
 Typical infer-focused skill coverage:
 
-- `openclaw infer model run`
-- `openclaw infer image generate`
-- `openclaw infer audio transcribe`
-- `openclaw infer tts convert`
-- `openclaw infer web search`
-- `openclaw infer embedding create`
+- `crabfork infer model run`
+- `crabfork infer image generate`
+- `crabfork infer audio transcribe`
+- `crabfork infer tts convert`
+- `crabfork infer web search`
+- `crabfork infer embedding create`
 
 ## Why use infer
 
-`openclaw infer` provides one consistent CLI for provider-backed inference tasks inside OpenClaw.
+`crabfork infer` provides one consistent CLI for provider-backed inference tasks inside Crabfork.
 
 Benefits:
 
-- Use the providers and models already configured in OpenClaw instead of wiring up one-off wrappers for each backend.
+- Use the providers and models already configured in Crabfork instead of wiring up one-off wrappers for each backend.
 - Keep model, image, audio transcription, TTS, video, web, and embedding workflows under one command tree.
 - Use a stable `--json` output shape for scripts, automation, and agent-driven workflows.
-- Prefer a first-party OpenClaw surface when the task is fundamentally "run inference."
+- Prefer a first-party Crabfork surface when the task is fundamentally "run inference."
 - Use the normal local path without requiring the gateway for most infer commands.
 
 ## Command tree
 
 ```text
- openclaw infer
+ crabfork infer
   list
   inspect
 
@@ -106,20 +106,20 @@ This table maps common inference tasks to the corresponding infer command.
 
 | Task                    | Command                                                                | Notes                                                |
 | ----------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------- |
-| Run a text/model prompt | `openclaw infer model run --prompt "..." --json`                       | Uses the normal local path by default                |
-| Generate an image       | `openclaw infer image generate --prompt "..." --json`                  | Use `image edit` when starting from an existing file |
-| Describe an image file  | `openclaw infer image describe --file ./image.png --json`              | `--model` must be `<provider/model>`                 |
-| Transcribe audio        | `openclaw infer audio transcribe --file ./memo.m4a --json`             | `--model` must be `<provider/model>`                 |
-| Synthesize speech       | `openclaw infer tts convert --text "..." --output ./speech.mp3 --json` | `tts status` is gateway-oriented                     |
-| Generate a video        | `openclaw infer video generate --prompt "..." --json`                  |                                                      |
-| Describe a video file   | `openclaw infer video describe --file ./clip.mp4 --json`               | `--model` must be `<provider/model>`                 |
-| Search the web          | `openclaw infer web search --query "..." --json`                       |                                                      |
-| Fetch a web page        | `openclaw infer web fetch --url https://example.com --json`            |                                                      |
-| Create embeddings       | `openclaw infer embedding create --text "..." --json`                  |                                                      |
+| Run a text/model prompt | `crabfork infer model run --prompt "..." --json`                       | Uses the normal local path by default                |
+| Generate an image       | `crabfork infer image generate --prompt "..." --json`                  | Use `image edit` when starting from an existing file |
+| Describe an image file  | `crabfork infer image describe --file ./image.png --json`              | `--model` must be `<provider/model>`                 |
+| Transcribe audio        | `crabfork infer audio transcribe --file ./memo.m4a --json`             | `--model` must be `<provider/model>`                 |
+| Synthesize speech       | `crabfork infer tts convert --text "..." --output ./speech.mp3 --json` | `tts status` is gateway-oriented                     |
+| Generate a video        | `crabfork infer video generate --prompt "..." --json`                  |                                                      |
+| Describe a video file   | `crabfork infer video describe --file ./clip.mp4 --json`               | `--model` must be `<provider/model>`                 |
+| Search the web          | `crabfork infer web search --query "..." --json`                       |                                                      |
+| Fetch a web page        | `crabfork infer web fetch --url https://example.com --json`            |                                                      |
+| Create embeddings       | `crabfork infer embedding create --text "..." --json`                  |                                                      |
 
 ## Behavior
 
-- `openclaw infer ...` is the primary CLI surface for these workflows.
+- `crabfork infer ...` is the primary CLI surface for these workflows.
 - Use `--json` when the output will be consumed by another command or script.
 - Use `--provider` or `--model provider/model` when a specific backend is required.
 - For `image describe`, `audio transcribe`, and `video describe`, `--model` must use the form `<provider/model>`.
@@ -132,10 +132,10 @@ This table maps common inference tasks to the corresponding infer command.
 Use `model` for provider-backed text inference and model/provider inspection.
 
 ```bash
-openclaw infer model run --prompt "Reply with exactly: smoke-ok" --json
-openclaw infer model run --prompt "Summarize this changelog entry" --provider openai --json
-openclaw infer model providers --json
-openclaw infer model inspect --name gpt-5.4 --json
+crabfork infer model run --prompt "Reply with exactly: smoke-ok" --json
+crabfork infer model run --prompt "Summarize this changelog entry" --provider openai --json
+crabfork infer model providers --json
+crabfork infer model inspect --name gpt-5.4 --json
 ```
 
 Notes:
@@ -148,10 +148,10 @@ Notes:
 Use `image` for generation, edit, and description.
 
 ```bash
-openclaw infer image generate --prompt "friendly lobster illustration" --json
-openclaw infer image generate --prompt "cinematic product photo of headphones" --json
-openclaw infer image describe --file ./photo.jpg --json
-openclaw infer image describe --file ./ui-screenshot.png --model openai/gpt-4.1-mini --json
+crabfork infer image generate --prompt "friendly lobster illustration" --json
+crabfork infer image generate --prompt "cinematic product photo of headphones" --json
+crabfork infer image describe --file ./photo.jpg --json
+crabfork infer image describe --file ./ui-screenshot.png --model openai/gpt-4.1-mini --json
 ```
 
 Notes:
@@ -164,9 +164,9 @@ Notes:
 Use `audio` for file transcription.
 
 ```bash
-openclaw infer audio transcribe --file ./memo.m4a --json
-openclaw infer audio transcribe --file ./team-sync.m4a --language en --prompt "Focus on names and action items" --json
-openclaw infer audio transcribe --file ./memo.m4a --model openai/whisper-1 --json
+crabfork infer audio transcribe --file ./memo.m4a --json
+crabfork infer audio transcribe --file ./team-sync.m4a --language en --prompt "Focus on names and action items" --json
+crabfork infer audio transcribe --file ./memo.m4a --model openai/whisper-1 --json
 ```
 
 Notes:
@@ -179,10 +179,10 @@ Notes:
 Use `tts` for speech synthesis and TTS provider state.
 
 ```bash
-openclaw infer tts convert --text "hello from openclaw" --output ./hello.mp3 --json
-openclaw infer tts convert --text "Your build is complete" --output ./build-complete.mp3 --json
-openclaw infer tts providers --json
-openclaw infer tts status --json
+crabfork infer tts convert --text "hello from crabfork" --output ./hello.mp3 --json
+crabfork infer tts convert --text "Your build is complete" --output ./build-complete.mp3 --json
+crabfork infer tts providers --json
+crabfork infer tts status --json
 ```
 
 Notes:
@@ -195,10 +195,10 @@ Notes:
 Use `video` for generation and description.
 
 ```bash
-openclaw infer video generate --prompt "cinematic sunset over the ocean" --json
-openclaw infer video generate --prompt "slow drone shot over a forest lake" --json
-openclaw infer video describe --file ./clip.mp4 --json
-openclaw infer video describe --file ./clip.mp4 --model openai/gpt-4.1-mini --json
+crabfork infer video generate --prompt "cinematic sunset over the ocean" --json
+crabfork infer video generate --prompt "slow drone shot over a forest lake" --json
+crabfork infer video describe --file ./clip.mp4 --json
+crabfork infer video describe --file ./clip.mp4 --model openai/gpt-4.1-mini --json
 ```
 
 Notes:
@@ -210,10 +210,10 @@ Notes:
 Use `web` for search and fetch workflows.
 
 ```bash
-openclaw infer web search --query "OpenClaw docs" --json
-openclaw infer web search --query "OpenClaw infer web providers" --json
-openclaw infer web fetch --url https://docs.openclaw.ai/cli/infer --json
-openclaw infer web providers --json
+crabfork infer web search --query "Crabfork docs" --json
+crabfork infer web search --query "Crabfork infer web providers" --json
+crabfork infer web fetch --url https://docs.crabfork.ai/cli/infer --json
+crabfork infer web providers --json
 ```
 
 Notes:
@@ -225,9 +225,9 @@ Notes:
 Use `embedding` for vector creation and embedding provider inspection.
 
 ```bash
-openclaw infer embedding create --text "friendly lobster" --json
-openclaw infer embedding create --text "customer support ticket: delayed shipment" --model openai/text-embedding-3-large --json
-openclaw infer embedding providers --json
+crabfork infer embedding create --text "friendly lobster" --json
+crabfork infer embedding create --text "customer support ticket: delayed shipment" --model openai/text-embedding-3-large --json
+crabfork infer embedding providers --json
 ```
 
 ## JSON output
@@ -261,20 +261,20 @@ Top-level fields are stable:
 
 ```bash
 # Bad
-openclaw infer media image generate --prompt "friendly lobster"
+crabfork infer media image generate --prompt "friendly lobster"
 
 # Good
-openclaw infer image generate --prompt "friendly lobster"
+crabfork infer image generate --prompt "friendly lobster"
 ```
 
 ```bash
 # Bad
-openclaw infer audio transcribe --file ./memo.m4a --model whisper-1 --json
+crabfork infer audio transcribe --file ./memo.m4a --model whisper-1 --json
 
 # Good
-openclaw infer audio transcribe --file ./memo.m4a --model openai/whisper-1 --json
+crabfork infer audio transcribe --file ./memo.m4a --model openai/whisper-1 --json
 ```
 
 ## Notes
 
-- `openclaw capability ...` is an alias for `openclaw infer ...`.
+- `crabfork capability ...` is an alias for `crabfork infer ...`.

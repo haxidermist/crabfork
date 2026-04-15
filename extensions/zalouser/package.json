@@ -1,25 +1,25 @@
 {
-  "name": "@openclaw/zalouser",
+  "name": "@crabfork/zalouser",
   "version": "2026.4.12",
-  "description": "OpenClaw Zalo Personal Account plugin via native zca-js integration",
+  "description": "Crabfork Zalo Personal Account plugin via native zca-js integration",
   "type": "module",
   "dependencies": {
     "@sinclair/typebox": "0.34.49",
     "zca-js": "2.1.2"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*",
+    "crabfork": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.4.12"
+    "crabfork": ">=2026.4.12"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "crabfork": {
       "optional": true
     }
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ],
@@ -38,7 +38,7 @@
       "quickstartAllowFrom": false
     },
     "install": {
-      "npmSpec": "@openclaw/zalouser",
+      "npmSpec": "@crabfork/zalouser",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.4.10"
     },
@@ -46,7 +46,7 @@
       "pluginApi": ">=2026.4.12"
     },
     "build": {
-      "openclawVersion": "2026.4.12"
+      "crabforkVersion": "2026.4.12"
     },
     "release": {
       "publishToClawHub": true,

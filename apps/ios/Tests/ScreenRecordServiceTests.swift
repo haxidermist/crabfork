@@ -1,5 +1,5 @@
 import Testing
-@testable import OpenClaw
+@testable import Crabfork
 
 @Suite(.serialized) struct ScreenRecordServiceTests {
     @Test func clampDefaultsAndBounds() {

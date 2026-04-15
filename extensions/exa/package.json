@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/exa-plugin",
+  "name": "@crabfork/exa-plugin",
   "version": "2026.4.12",
   "private": true,
-  "description": "OpenClaw Exa plugin",
+  "description": "Crabfork Exa plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*"
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ]

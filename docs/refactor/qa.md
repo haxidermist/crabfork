@@ -4,7 +4,7 @@ Status: foundational migration landed.
 
 ## Goal
 
-Move OpenClaw QA from a split-definition model to a single source of truth:
+Move Crabfork QA from a split-definition model to a single source of truth:
 
 - scenario metadata
 - prompts sent to the model

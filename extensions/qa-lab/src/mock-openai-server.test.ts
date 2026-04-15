@@ -1259,7 +1259,7 @@ describe("qa mock openai server", () => {
           },
           {
             type: "function_call_output",
-            output: "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+            output: "QA mission: Understand this Crabfork repo from source + docs before acting.",
           },
         ],
       }),
@@ -1824,7 +1824,7 @@ describe("qa mock openai server", () => {
           makeUserInput(QA_REASONING_ONLY_RECOVERY_PROMPT),
           {
             type: "function_call_output",
-            output: "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+            output: "QA mission: Understand this Crabfork repo from source + docs before acting.",
           },
         ],
       }),
@@ -1849,7 +1849,7 @@ describe("qa mock openai server", () => {
           makeUserInput(QA_REASONING_ONLY_RETRY_INSTRUCTION),
           {
             type: "function_call_output",
-            output: "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+            output: "QA mission: Understand this Crabfork repo from source + docs before acting.",
           },
         ],
       }),
@@ -1924,7 +1924,7 @@ describe("qa mock openai server", () => {
           makeUserInput(QA_EMPTY_RESPONSE_RECOVERY_PROMPT),
           {
             type: "function_call_output",
-            output: "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+            output: "QA mission: Understand this Crabfork repo from source + docs before acting.",
           },
         ],
       }),
@@ -1947,7 +1947,7 @@ describe("qa mock openai server", () => {
           makeUserInput(QA_EMPTY_RESPONSE_RETRY_INSTRUCTION),
           {
             type: "function_call_output",
-            output: "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+            output: "QA mission: Understand this Crabfork repo from source + docs before acting.",
           },
         ],
       }),
@@ -1978,7 +1978,7 @@ describe("qa mock openai server", () => {
         makeUserInput(QA_EMPTY_RESPONSE_EXHAUSTION_PROMPT),
         {
           type: "function_call_output",
-          output: "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+          output: "QA mission: Understand this Crabfork repo from source + docs before acting.",
         },
       ],
     });
@@ -1994,7 +1994,7 @@ describe("qa mock openai server", () => {
         makeUserInput(QA_EMPTY_RESPONSE_RETRY_INSTRUCTION),
         {
           type: "function_call_output",
-          output: "QA mission: Understand this OpenClaw repo from source + docs before acting.",
+          output: "QA mission: Understand this Crabfork repo from source + docs before acting.",
         },
       ],
     });

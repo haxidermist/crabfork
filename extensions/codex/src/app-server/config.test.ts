@@ -21,8 +21,8 @@ describe("Codex app-server config", () => {
         },
       },
       env: {
-        OPENCLAW_CODEX_APP_SERVER_APPROVAL_POLICY: "never",
-        OPENCLAW_CODEX_APP_SERVER_SANDBOX: "read-only",
+        CRABFORK_CODEX_APP_SERVER_APPROVAL_POLICY: "never",
+        CRABFORK_CODEX_APP_SERVER_SANDBOX: "read-only",
       },
     });
 
@@ -62,7 +62,7 @@ describe("Codex app-server config", () => {
 
   it("keeps runtime config keys aligned with manifest schema and UI hints", async () => {
     const manifest = JSON.parse(
-      await fs.readFile(new URL("../../openclaw.plugin.json", import.meta.url), "utf8"),
+      await fs.readFile(new URL("../../crabfork.plugin.json", import.meta.url), "utf8"),
     ) as {
       configSchema: {
         properties: {

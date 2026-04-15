@@ -1,8 +1,8 @@
 import {
   listProfilesForProvider,
   loadAuthProfileStoreForRuntime,
-} from "openclaw/plugin-sdk/agent-runtime";
-import { resolveEnvApiKey } from "openclaw/plugin-sdk/provider-auth";
+} from "crabfork/plugin-sdk/agent-runtime";
+import { resolveEnvApiKey } from "crabfork/plugin-sdk/provider-auth";
 import { defaultQaModelForMode, type QaProviderModeInput } from "./model-selection.js";
 
 const QA_CODEX_OAUTH_LIVE_MODEL = "openai-codex/gpt-5.4";

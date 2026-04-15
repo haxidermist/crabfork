@@ -76,7 +76,7 @@ describe("runQaManualLane", () => {
 
   it("starts the mock provider and threads its base url into the gateway child", async () => {
     const result = await runQaManualLane({
-      repoRoot: "/tmp/openclaw-repo",
+      repoRoot: "/tmp/crabfork-repo",
       providerMode: "mock-openai",
       primaryModel: "mock-openai/gpt-5.4",
       alternateModel: "mock-openai/gpt-5.4-alt",
@@ -90,13 +90,13 @@ describe("runQaManualLane", () => {
     });
     expect(startQaGatewayChild).toHaveBeenCalledWith(
       expect.objectContaining({
-        repoRoot: "/tmp/openclaw-repo",
+        repoRoot: "/tmp/crabfork-repo",
         providerMode: "mock-openai",
         providerBaseUrl: "http://127.0.0.1:44080/v1",
       }),
     );
     expect(startQaLabServer).toHaveBeenCalledWith({
-      repoRoot: "/tmp/openclaw-repo",
+      repoRoot: "/tmp/crabfork-repo",
       embeddedGateway: "disabled",
     });
     expect(result.reply).toBe("Protocol note: mock reply.");
@@ -107,7 +107,7 @@ describe("runQaManualLane", () => {
 
   it("skips the mock provider bootstrap for live frontier runs", async () => {
     const result = await runQaManualLane({
-      repoRoot: "/tmp/openclaw-repo",
+      repoRoot: "/tmp/crabfork-repo",
       providerMode: "live-frontier",
       primaryModel: "openai/gpt-5.4",
       alternateModel: "openai/gpt-5.4",
@@ -117,7 +117,7 @@ describe("runQaManualLane", () => {
 
     expect(startQaMockOpenAiServer).not.toHaveBeenCalled();
     expect(startQaLabServer).toHaveBeenCalledWith({
-      repoRoot: "/tmp/openclaw-repo",
+      repoRoot: "/tmp/crabfork-repo",
       embeddedGateway: "disabled",
     });
     expect(startQaGatewayChild).toHaveBeenCalledWith(

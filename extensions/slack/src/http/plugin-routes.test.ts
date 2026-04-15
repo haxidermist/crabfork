@@ -1,20 +1,20 @@
 import { describe, expect, it, vi } from "vitest";
 import { createTestPluginApi } from "../../../../test/helpers/plugins/plugin-api.js";
-import type { OpenClawConfig, OpenClawPluginApi } from "../runtime-api.js";
+import type { CrabforkConfig, CrabforkPluginApi } from "../runtime-api.js";
 import { registerSlackPluginHttpRoutes } from "./plugin-routes.js";
 
-function createApi(config: OpenClawConfig, registerHttpRoute = vi.fn()): OpenClawPluginApi {
+function createApi(config: CrabforkConfig, registerHttpRoute = vi.fn()): CrabforkPluginApi {
   return createTestPluginApi({
     id: "slack",
     config,
     registerHttpRoute,
-  }) as OpenClawPluginApi;
+  }) as CrabforkPluginApi;
 }
 
 describe("registerSlackPluginHttpRoutes", () => {
   it("registers account webhook paths without resolving unresolved token refs", () => {
     const registerHttpRoute = vi.fn();
-    const cfg: OpenClawConfig = {
+    const cfg: CrabforkConfig = {
       channels: {
         slack: {
           accounts: {

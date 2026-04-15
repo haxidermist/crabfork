@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import os from "node:os";
 import path from "node:path";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-entry";
+import type { CrabforkPluginApi } from "crabfork/plugin-sdk/plugin-entry";
 import { describe, expect, it, vi, beforeEach, afterEach } from "vitest";
 import plugin from "./index.js";
 
@@ -26,9 +26,9 @@ const hoisted = vi.hoisted(() => {
   };
 });
 
-vi.mock("openclaw/plugin-sdk/config-runtime", async () => {
-  const actual = await vi.importActual<typeof import("openclaw/plugin-sdk/config-runtime")>(
-    "openclaw/plugin-sdk/config-runtime",
+vi.mock("crabfork/plugin-sdk/config-runtime", async () => {
+  const actual = await vi.importActual<typeof import("crabfork/plugin-sdk/config-runtime")>(
+    "crabfork/plugin-sdk/config-runtime",
   );
   return {
     ...actual,
@@ -55,7 +55,7 @@ describe("active-memory plugin", () => {
       agent: {
         runEmbeddedPiAgent,
         session: {
-          resolveStorePath: vi.fn(() => "/tmp/openclaw-session-store.json"),
+          resolveStorePath: vi.fn(() => "/tmp/crabfork-session-store.json"),
           loadSessionStore: vi.fn(() => hoisted.sessionStore),
           saveSessionStore: vi.fn(async () => {}),
         },
@@ -80,7 +80,7 @@ describe("active-memory plugin", () => {
 
   beforeEach(async () => {
     vi.clearAllMocks();
-    stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "openclaw-active-memory-test-"));
+    stateDir = await fs.mkdtemp(path.join(os.tmpdir(), "crabfork-active-memory-test-"));
     configFile = {
       plugins: {
         entries: {
@@ -119,7 +119,7 @@ describe("active-memory plugin", () => {
     runEmbeddedPiAgent.mockResolvedValue({
       payloads: [{ text: "- lemon pepper wings\n- blue cheese" }],
     });
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
   });
 
   afterEach(async () => {
@@ -425,7 +425,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       allowedChatTypes: ["direct", "group"],
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     const result = await hooks.before_prompt_build(
       { prompt: "what wings should we order?", messages: [] },
@@ -513,7 +513,7 @@ describe("active-memory plugin", () => {
         searchMode: "inherit",
       },
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       {
@@ -602,7 +602,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       queryMode: "message",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       {
@@ -630,7 +630,7 @@ describe("active-memory plugin", () => {
       queryMode: "message",
       promptStyle: "preference-only",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       {
@@ -675,7 +675,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       thinking: "medium",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       {
@@ -701,7 +701,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       promptAppend: "Prefer stable long-term preferences over one-off events.",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       {
@@ -730,7 +730,7 @@ describe("active-memory plugin", () => {
       promptOverride: "Custom memory prompt. Return NONE or one user fact.",
       promptAppend: "Extra custom instruction.",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       {
@@ -802,7 +802,7 @@ describe("active-memory plugin", () => {
     api.pluginConfig = {
       agents: ["main"],
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       { prompt: "what wings should i order? temp transcript", messages: [] },
@@ -828,7 +828,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       modelFallbackPolicy: "resolved-only",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     const result = await hooks.before_prompt_build(
       { prompt: "what wings should i order? no fallback", messages: [] },
@@ -851,7 +851,7 @@ describe("active-memory plugin", () => {
       modelFallback: "google/gemini-3-flash",
       modelFallbackPolicy: "default-remote",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       { prompt: "what wings should i order? custom fallback", messages: [] },
@@ -878,7 +878,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       modelFallbackPolicy: "default-remote",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     const result = await hooks.before_prompt_build(
       { prompt: "what wings should i order? built-in fallback", messages: [] },
@@ -1027,7 +1027,7 @@ describe("active-memory plugin", () => {
       timeoutMs: 250,
       logging: true,
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
     let lastAbortSignal: AbortSignal | undefined;
     runEmbeddedPiAgent.mockImplementation(async (params: { abortSignal?: AbortSignal }) => {
       lastAbortSignal = params.abortSignal;
@@ -1073,7 +1073,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       logging: true,
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       { prompt: "what wings should i order? session id cache", messages: [] },
@@ -1107,7 +1107,7 @@ describe("active-memory plugin", () => {
       timeoutMs: 250,
       logging: true,
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
     runEmbeddedPiAgent.mockImplementationOnce(async (params: { timeoutMs?: number }) => {
       await new Promise((resolve) => setTimeout(resolve, (params.timeoutMs ?? 0) + 25));
       return {
@@ -1145,7 +1145,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       logging: true,
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       { prompt: "what wings should i order? log sanitization", messages: [] },
@@ -1179,7 +1179,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       logging: true,
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
     const hugeSession = `agent:main:${"x".repeat(500)}`;
 
     await hooks.before_prompt_build(
@@ -1423,7 +1423,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       queryMode: "message",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       {
@@ -1451,7 +1451,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       queryMode: "full",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       {
@@ -1482,7 +1482,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       queryMode: "recent",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       {
@@ -1536,7 +1536,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       queryMode: "recent",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       {
@@ -1578,7 +1578,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       queryMode: "recent",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       {
@@ -1611,7 +1611,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       queryMode: "recent",
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       {
@@ -1619,8 +1619,7 @@ describe("active-memory plugin", () => {
         messages: [
           {
             role: "user",
-            content:
-              "Active Memory: I really do want you to remember that I prefer aisle seats.",
+            content: "Active Memory: I really do want you to remember that I prefer aisle seats.",
           },
           {
             role: "user",
@@ -1674,7 +1673,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       maxSummaryChars: 40,
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
     runEmbeddedPiAgent.mockResolvedValueOnce({
       payloads: [
         {
@@ -1708,7 +1707,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       maxSummaryChars: 90,
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     await hooks.before_prompt_build(
       { prompt: "what wings should i order? prompt-count-check", messages: [] },
@@ -1728,7 +1727,7 @@ describe("active-memory plugin", () => {
   it("keeps subagent transcripts off disk by default by using a temp session file", async () => {
     const mkdtempSpy = vi
       .spyOn(fs, "mkdtemp")
-      .mockResolvedValue("/tmp/openclaw-active-memory-temp");
+      .mockResolvedValue("/tmp/crabfork-active-memory-temp");
     const rmSpy = vi.spyOn(fs, "rm").mockResolvedValue(undefined);
 
     await hooks.before_prompt_build(
@@ -1743,9 +1742,9 @@ describe("active-memory plugin", () => {
 
     expect(mkdtempSpy).toHaveBeenCalled();
     expect(runEmbeddedPiAgent.mock.calls.at(-1)?.[0]?.sessionFile).toBe(
-      "/tmp/openclaw-active-memory-temp/session.jsonl",
+      "/tmp/crabfork-active-memory-temp/session.jsonl",
     );
-    expect(rmSpy).toHaveBeenCalledWith("/tmp/openclaw-active-memory-temp", {
+    expect(rmSpy).toHaveBeenCalledWith("/tmp/crabfork-active-memory-temp", {
       recursive: true,
       force: true,
     });
@@ -1758,7 +1757,7 @@ describe("active-memory plugin", () => {
       transcriptDir: "active-memory-subagents",
       logging: true,
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
     const mkdirSpy = vi.spyOn(fs, "mkdir").mockResolvedValue(undefined);
     const mkdtempSpy = vi.spyOn(fs, "mkdtemp");
     const rmSpy = vi.spyOn(fs, "rm").mockResolvedValue(undefined);
@@ -1802,7 +1801,7 @@ describe("active-memory plugin", () => {
       transcriptDir: "C:/temp/escape",
       logging: true,
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
     const mkdirSpy = vi.spyOn(fs, "mkdir").mockResolvedValue(undefined);
 
     await hooks.before_prompt_build(
@@ -1839,7 +1838,7 @@ describe("active-memory plugin", () => {
       transcriptDir: "active-memory-subagents",
       logging: true,
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
     const mkdirSpy = vi.spyOn(fs, "mkdir").mockResolvedValue(undefined);
 
     await hooks.before_prompt_build(
@@ -1906,7 +1905,7 @@ describe("active-memory plugin", () => {
       agents: ["main"],
       logging: true,
     };
-    await plugin.register(api as unknown as OpenClawPluginApi);
+    await plugin.register(api as unknown as CrabforkPluginApi);
 
     for (let index = 0; index <= 1000; index += 1) {
       await hooks.before_prompt_build(

@@ -8,9 +8,9 @@ import {
 } from "./config-paths.js";
 import { readConfigFileSnapshot } from "./config.js";
 import { findLegacyConfigIssues } from "./legacy.js";
-import { buildWebSearchProviderConfig, withTempHome, writeOpenClawConfig } from "./test-helpers.js";
+import { buildWebSearchProviderConfig, withTempHome, writeCrabforkConfig } from "./test-helpers.js";
 import { validateConfigObject, validateConfigObjectRaw } from "./validation.js";
-import { OpenClawSchema } from "./zod-schema.js";
+import { CrabforkSchema } from "./zod-schema.js";
 import {
   DiscordConfigSchema,
   IMessageConfigSchema,
@@ -21,22 +21,22 @@ import { WhatsAppConfigSchema } from "./zod-schema.providers-whatsapp.js";
 
 describe("$schema key in config (#14998)", () => {
   it("accepts config with $schema string", () => {
-    const result = OpenClawSchema.safeParse({
-      $schema: "https://openclaw.ai/config.json",
+    const result = CrabforkSchema.safeParse({
+      $schema: "https://crabfork.ai/config.json",
     });
     expect(result.success).toBe(true);
     if (result.success) {
-      expect(result.data.$schema).toBe("https://openclaw.ai/config.json");
+      expect(result.data.$schema).toBe("https://crabfork.ai/config.json");
     }
   });
 
   it("accepts config without $schema", () => {
-    const result = OpenClawSchema.safeParse({});
+    const result = CrabforkSchema.safeParse({});
     expect(result.success).toBe(true);
   });
 
   it("rejects non-string $schema", () => {
-    const result = OpenClawSchema.safeParse({ $schema: 123 });
+    const result = CrabforkSchema.safeParse({ $schema: 123 });
     expect(result.success).toBe(false);
   });
 
@@ -51,7 +51,7 @@ describe("$schema key in config (#14998)", () => {
 
 describe("plugins.slots.contextEngine", () => {
   it("accepts a contextEngine slot id", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = CrabforkSchema.safeParse({
       plugins: {
         slots: {
           contextEngine: "my-context-engine",
@@ -64,7 +64,7 @@ describe("plugins.slots.contextEngine", () => {
 
 describe("auth.cooldowns auth_permanent backoff config", () => {
   it("accepts auth_permanent backoff knobs", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = CrabforkSchema.safeParse({
       auth: {
         cooldowns: {
           authPermanentBackoffMinutes: 10,
@@ -96,7 +96,7 @@ describe("ui.seamColor", () => {
 describe("gateway.controlUi.embedSandbox", () => {
   it("accepts strict, scripts, and trusted modes", () => {
     for (const mode of ["strict", "scripts", "trusted"] as const) {
-      const result = OpenClawSchema.safeParse({
+      const result = CrabforkSchema.safeParse({
         gateway: {
           controlUi: {
             embedSandbox: mode,
@@ -108,7 +108,7 @@ describe("gateway.controlUi.embedSandbox", () => {
   });
 
   it("rejects unsupported values", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = CrabforkSchema.safeParse({
       gateway: {
         controlUi: {
           embedSandbox: "yolo",
@@ -122,7 +122,7 @@ describe("gateway.controlUi.embedSandbox", () => {
 describe("gateway.controlUi.allowExternalEmbedUrls", () => {
   it("accepts boolean values", () => {
     for (const value of [true, false]) {
-      const result = OpenClawSchema.safeParse({
+      const result = CrabforkSchema.safeParse({
         gateway: {
           controlUi: {
             allowExternalEmbedUrls: value,
@@ -134,7 +134,7 @@ describe("gateway.controlUi.allowExternalEmbedUrls", () => {
   });
 
   it("rejects non-boolean values", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = CrabforkSchema.safeParse({
       gateway: {
         controlUi: {
           allowExternalEmbedUrls: "yes",
@@ -147,7 +147,7 @@ describe("gateway.controlUi.allowExternalEmbedUrls", () => {
 
 describe("plugins.entries.*.hooks.allowPromptInjection", () => {
   it("accepts boolean values", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = CrabforkSchema.safeParse({
       plugins: {
         entries: {
           "voice-call": {
@@ -162,7 +162,7 @@ describe("plugins.entries.*.hooks.allowPromptInjection", () => {
   });
 
   it("rejects non-boolean values", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = CrabforkSchema.safeParse({
       plugins: {
         entries: {
           "voice-call": {
@@ -179,7 +179,7 @@ describe("plugins.entries.*.hooks.allowPromptInjection", () => {
 
 describe("plugins.entries.*.subagent", () => {
   it("accepts trusted subagent override settings", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = CrabforkSchema.safeParse({
       plugins: {
         entries: {
           "voice-call": {
@@ -195,7 +195,7 @@ describe("plugins.entries.*.subagent", () => {
   });
 
   it("rejects invalid trusted subagent override settings", () => {
-    const result = OpenClawSchema.safeParse({
+    const result = CrabforkSchema.safeParse({
       plugins: {
         entries: {
           "voice-call": {
@@ -362,7 +362,7 @@ describe("config identity/materialization regressions", () => {
               theme: "space lobster",
               emoji: "🦞",
             },
-            groupChat: { mentionPatterns: ["@openclaw"] },
+            groupChat: { mentionPatterns: ["@crabfork"] },
           },
         ],
       },
@@ -374,7 +374,7 @@ describe("config identity/materialization regressions", () => {
     expect(res.ok).toBe(true);
     if (res.ok) {
       expect(res.config.messages?.responsePrefix).toBe("✅");
-      expect(res.config.agents?.list?.[0]?.groupChat?.mentionPatterns).toEqual(["@openclaw"]);
+      expect(res.config.agents?.list?.[0]?.groupChat?.mentionPatterns).toEqual(["@crabfork"]);
     }
   });
 
@@ -445,7 +445,7 @@ describe("config identity/materialization regressions", () => {
 
 describe("cron webhook schema", () => {
   it("accepts cron.webhookToken and legacy cron.webhook", () => {
-    const res = OpenClawSchema.safeParse({
+    const res = CrabforkSchema.safeParse({
       cron: {
         enabled: true,
         webhook: "https://example.invalid/legacy-cron-webhook",
@@ -457,7 +457,7 @@ describe("cron webhook schema", () => {
   });
 
   it("accepts cron.webhookToken SecretRef values", () => {
-    const res = OpenClawSchema.safeParse({
+    const res = CrabforkSchema.safeParse({
       cron: {
         webhook: "https://example.invalid/legacy-cron-webhook",
         webhookToken: {
@@ -472,7 +472,7 @@ describe("cron webhook schema", () => {
   });
 
   it("rejects non-http cron.webhook URLs", () => {
-    const res = OpenClawSchema.safeParse({
+    const res = CrabforkSchema.safeParse({
       cron: {
         webhook: "ftp://example.invalid/legacy-cron-webhook",
       },
@@ -482,7 +482,7 @@ describe("cron webhook schema", () => {
   });
 
   it("accepts cron.retry config", () => {
-    const res = OpenClawSchema.safeParse({
+    const res = CrabforkSchema.safeParse({
       cron: {
         retry: {
           maxAttempts: 5,
@@ -517,7 +517,7 @@ describe("cron webhook schema", () => {
       textChunkLimit: 1111,
     });
     const messages = {
-      messagePrefix: "[openclaw]",
+      messagePrefix: "[crabfork]",
       responsePrefix: "🦞",
     };
 
@@ -578,7 +578,7 @@ describe("broadcast", () => {
 
 describe("model compat config schema", () => {
   it("accepts full openai-completions compat fields", () => {
-    const res = OpenClawSchema.safeParse({
+    const res = CrabforkSchema.safeParse({
       models: {
         providers: {
           local: {
@@ -672,7 +672,7 @@ describe("config strict validation", () => {
 
   it("accepts top-level memorySearch via auto-migration and reports legacyIssues", async () => {
     await withTempHome(async (home) => {
-      await writeOpenClawConfig(home, {
+      await writeCrabforkConfig(home, {
         memorySearch: {
           provider: "local",
           fallback: "none",
@@ -696,7 +696,7 @@ describe("config strict validation", () => {
 
   it("accepts top-level heartbeat agent settings via auto-migration and reports legacyIssues", async () => {
     await withTempHome(async (home) => {
-      await writeOpenClawConfig(home, {
+      await writeCrabforkConfig(home, {
         heartbeat: {
           every: "30m",
           model: "anthropic/claude-3-5-haiku-20241022",
@@ -717,7 +717,7 @@ describe("config strict validation", () => {
 
   it("accepts top-level heartbeat visibility via auto-migration and reports legacyIssues", async () => {
     await withTempHome(async (home) => {
-      await writeOpenClawConfig(home, {
+      await writeCrabforkConfig(home, {
         heartbeat: {
           showOk: true,
           showAlerts: false,
@@ -778,7 +778,7 @@ describe("config strict validation", () => {
 
   it("accepts legacy sandbox perSession via auto-migration and reports legacyIssues", async () => {
     await withTempHome(async (home) => {
-      await writeOpenClawConfig(home, {
+      await writeCrabforkConfig(home, {
         agents: {
           defaults: {
             sandbox: {
@@ -814,12 +814,12 @@ describe("config strict validation", () => {
 
   it("does not treat resolved-only gateway.bind aliases as source-literal legacy or invalid", async () => {
     await withTempHome(async (home) => {
-      await writeOpenClawConfig(home, {
-        gateway: { bind: "${OPENCLAW_BIND}" },
+      await writeCrabforkConfig(home, {
+        gateway: { bind: "${CRABFORK_BIND}" },
       });
 
-      const prev = process.env.OPENCLAW_BIND;
-      process.env.OPENCLAW_BIND = "0.0.0.0";
+      const prev = process.env.CRABFORK_BIND;
+      process.env.CRABFORK_BIND = "0.0.0.0";
       try {
         const snap = await readConfigFileSnapshot();
         expect(snap.valid).toBe(true);
@@ -827,9 +827,9 @@ describe("config strict validation", () => {
         expect(snap.issues).toHaveLength(0);
       } finally {
         if (prev === undefined) {
-          delete process.env.OPENCLAW_BIND;
+          delete process.env.CRABFORK_BIND;
         } else {
-          process.env.OPENCLAW_BIND = prev;
+          process.env.CRABFORK_BIND = prev;
         }
       }
     });
@@ -837,7 +837,7 @@ describe("config strict validation", () => {
 
   it("still marks literal gateway.bind host aliases as legacy", async () => {
     await withTempHome(async (home) => {
-      await writeOpenClawConfig(home, {
+      await writeCrabforkConfig(home, {
         gateway: { bind: "0.0.0.0" },
       });
 

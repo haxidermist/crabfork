@@ -2,11 +2,11 @@ import {
   resolveChannelGroupRequireMention,
   resolveChannelGroupToolsPolicy,
   type GroupToolPolicyConfig,
-} from "openclaw/plugin-sdk/channel-policy";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/core";
+} from "crabfork/plugin-sdk/channel-policy";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/core";
 
 type IMessageGroupContext = {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   accountId?: string | null;
   groupId?: string | null;
   senderId?: string | null;

@@ -12,8 +12,8 @@ import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
   readStringValue,
-} from "openclaw/plugin-sdk/text-runtime";
-import { z } from "openclaw/plugin-sdk/zod";
+} from "crabfork/plugin-sdk/text-runtime";
+import { z } from "crabfork/plugin-sdk/zod";
 import {
   createFixedWindowRateLimiter,
   getPluginRuntimeGatewayRequestScope,

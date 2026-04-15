@@ -1,8 +1,8 @@
-import { loadConfig } from "openclaw/plugin-sdk/config-runtime";
-import { readChannelAllowFromStore } from "openclaw/plugin-sdk/conversation-runtime";
-import { getPluginCommandSpecs } from "openclaw/plugin-sdk/plugin-runtime";
-import { dispatchReplyWithBufferedBlockDispatcher } from "openclaw/plugin-sdk/reply-dispatch-runtime";
-import { listSkillCommandsForAgents } from "openclaw/plugin-sdk/skill-commands-runtime";
+import { loadConfig } from "crabfork/plugin-sdk/config-runtime";
+import { readChannelAllowFromStore } from "crabfork/plugin-sdk/conversation-runtime";
+import { getPluginCommandSpecs } from "crabfork/plugin-sdk/plugin-runtime";
+import { dispatchReplyWithBufferedBlockDispatcher } from "crabfork/plugin-sdk/reply-dispatch-runtime";
+import { listSkillCommandsForAgents } from "crabfork/plugin-sdk/skill-commands-runtime";
 import type { TelegramBotDeps } from "./bot-deps.js";
 import { syncTelegramMenuCommands } from "./bot-native-command-menu.js";
 

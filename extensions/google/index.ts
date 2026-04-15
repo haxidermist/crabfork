@@ -1,6 +1,6 @@
-import type { ImageGenerationProvider } from "openclaw/plugin-sdk/image-generation";
-import type { MediaUnderstandingProvider } from "openclaw/plugin-sdk/media-understanding";
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
+import type { ImageGenerationProvider } from "crabfork/plugin-sdk/image-generation";
+import type { MediaUnderstandingProvider } from "crabfork/plugin-sdk/media-understanding";
+import { definePluginEntry } from "crabfork/plugin-sdk/plugin-entry";
 import { buildGoogleGeminiCliBackend } from "./cli-backend.js";
 import { registerGoogleGeminiCliProvider } from "./gemini-cli-provider.js";
 import { buildGoogleMusicGenerationProvider } from "./music-generation-provider.js";

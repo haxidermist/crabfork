@@ -1,5 +1,5 @@
-import * as ssrf from "openclaw/plugin-sdk/ssrf-runtime";
-import { normalizeLowercaseStringOrEmpty } from "openclaw/plugin-sdk/text-runtime";
+import * as ssrf from "crabfork/plugin-sdk/ssrf-runtime";
+import { normalizeLowercaseStringOrEmpty } from "crabfork/plugin-sdk/text-runtime";
 import { vi } from "vitest";
 
 export function mockPublicPinnedHostname() {

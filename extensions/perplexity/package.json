@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/perplexity-plugin",
+  "name": "@crabfork/perplexity-plugin",
   "version": "2026.4.12",
   "private": true,
-  "description": "OpenClaw Perplexity plugin",
+  "description": "Crabfork Perplexity plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*"
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ]

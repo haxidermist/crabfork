@@ -25,44 +25,44 @@ const BLOCKED_WORKSPACE_DOTENV_KEYS = new Set([
   "NO_PROXY",
   "OPENAI_API_KEY",
   "OPENAI_API_KEYS",
-  "OPENCLAW_AGENT_DIR",
-  "OPENCLAW_ALLOW_INSECURE_PRIVATE_WS",
-  "OPENCLAW_ALLOW_PROJECT_LOCAL_BIN",
-  "OPENCLAW_BROWSER_EXECUTABLE_PATH",
-  "OPENCLAW_BROWSER_CONTROL_MODULE",
-  "OPENCLAW_BUNDLED_HOOKS_DIR",
-  "OPENCLAW_BUNDLED_PLUGINS_DIR",
-  "OPENCLAW_BUNDLED_SKILLS_DIR",
-  "OPENCLAW_CACHE_TRACE",
-  "OPENCLAW_CACHE_TRACE_FILE",
-  "OPENCLAW_CACHE_TRACE_MESSAGES",
-  "OPENCLAW_CACHE_TRACE_PROMPT",
-  "OPENCLAW_CACHE_TRACE_SYSTEM",
-  "OPENCLAW_CONFIG_PATH",
-  "OPENCLAW_GATEWAY_PASSWORD",
-  "OPENCLAW_GATEWAY_PORT",
-  "OPENCLAW_GATEWAY_SECRET",
-  "OPENCLAW_GATEWAY_TOKEN",
-  "OPENCLAW_GATEWAY_URL",
-  "OPENCLAW_HOME",
-  "OPENCLAW_LIVE_ANTHROPIC_KEY",
-  "OPENCLAW_LIVE_ANTHROPIC_KEYS",
-  "OPENCLAW_LIVE_GEMINI_KEY",
-  "OPENCLAW_LIVE_OPENAI_KEY",
-  "OPENCLAW_MPM_CATALOG_PATHS",
-  "OPENCLAW_NODE_EXEC_FALLBACK",
-  "OPENCLAW_NODE_EXEC_HOST",
-  "OPENCLAW_OAUTH_DIR",
-  "OPENCLAW_PINNED_PYTHON",
-  "OPENCLAW_PINNED_WRITE_PYTHON",
-  "OPENCLAW_PLUGIN_CATALOG_PATHS",
-  "OPENCLAW_PROFILE",
-  "OPENCLAW_RAW_STREAM",
-  "OPENCLAW_RAW_STREAM_PATH",
-  "OPENCLAW_SHOW_SECRETS",
-  "OPENCLAW_SKIP_BROWSER_CONTROL_SERVER",
-  "OPENCLAW_STATE_DIR",
-  "OPENCLAW_TEST_TAILSCALE_BINARY",
+  "CRABFORK_AGENT_DIR",
+  "CRABFORK_ALLOW_INSECURE_PRIVATE_WS",
+  "CRABFORK_ALLOW_PROJECT_LOCAL_BIN",
+  "CRABFORK_BROWSER_EXECUTABLE_PATH",
+  "CRABFORK_BROWSER_CONTROL_MODULE",
+  "CRABFORK_BUNDLED_HOOKS_DIR",
+  "CRABFORK_BUNDLED_PLUGINS_DIR",
+  "CRABFORK_BUNDLED_SKILLS_DIR",
+  "CRABFORK_CACHE_TRACE",
+  "CRABFORK_CACHE_TRACE_FILE",
+  "CRABFORK_CACHE_TRACE_MESSAGES",
+  "CRABFORK_CACHE_TRACE_PROMPT",
+  "CRABFORK_CACHE_TRACE_SYSTEM",
+  "CRABFORK_CONFIG_PATH",
+  "CRABFORK_GATEWAY_PASSWORD",
+  "CRABFORK_GATEWAY_PORT",
+  "CRABFORK_GATEWAY_SECRET",
+  "CRABFORK_GATEWAY_TOKEN",
+  "CRABFORK_GATEWAY_URL",
+  "CRABFORK_HOME",
+  "CRABFORK_LIVE_ANTHROPIC_KEY",
+  "CRABFORK_LIVE_ANTHROPIC_KEYS",
+  "CRABFORK_LIVE_GEMINI_KEY",
+  "CRABFORK_LIVE_OPENAI_KEY",
+  "CRABFORK_MPM_CATALOG_PATHS",
+  "CRABFORK_NODE_EXEC_FALLBACK",
+  "CRABFORK_NODE_EXEC_HOST",
+  "CRABFORK_OAUTH_DIR",
+  "CRABFORK_PINNED_PYTHON",
+  "CRABFORK_PINNED_WRITE_PYTHON",
+  "CRABFORK_PLUGIN_CATALOG_PATHS",
+  "CRABFORK_PROFILE",
+  "CRABFORK_RAW_STREAM",
+  "CRABFORK_RAW_STREAM_PATH",
+  "CRABFORK_SHOW_SECRETS",
+  "CRABFORK_SKIP_BROWSER_CONTROL_SERVER",
+  "CRABFORK_STATE_DIR",
+  "CRABFORK_TEST_TAILSCALE_BINARY",
   "PI_CODING_AGENT_DIR",
   "PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH",
   "UV_PYTHON",
@@ -74,10 +74,10 @@ const BLOCKED_WORKSPACE_DOTENV_PREFIXES = [
   "ANTHROPIC_API_KEY_",
   "CLAWHUB_",
   "OPENAI_API_KEY_",
-  "OPENCLAW_CLAWHUB_",
-  "OPENCLAW_DISABLE_",
-  "OPENCLAW_SKIP_",
-  "OPENCLAW_UPDATE_",
+  "CRABFORK_CLAWHUB_",
+  "CRABFORK_DISABLE_",
+  "CRABFORK_SKIP_",
+  "CRABFORK_UPDATE_",
 ];
 
 function shouldBlockWorkspaceRuntimeDotEnvKey(key: string): boolean {
@@ -85,7 +85,7 @@ function shouldBlockWorkspaceRuntimeDotEnvKey(key: string): boolean {
 }
 
 function shouldBlockRuntimeDotEnvKey(key: string): boolean {
-  // The global ~/.openclaw/.env (or OPENCLAW_STATE_DIR/.env) is a trusted
+  // The global ~/.crabfork/.env (or CRABFORK_STATE_DIR/.env) is a trusted
   // operator-controlled runtime surface. Workspace .env is untrusted and gets
   // the strict blocklist, but the trusted global fallback is allowed to set
   // runtime vars like proxy/base-url/auth values.
@@ -236,11 +236,11 @@ export function loadGlobalRuntimeDotEnvFiles(opts?: { quiet?: boolean; stateEnvP
   const stateEnvPath = opts?.stateEnvPath ?? path.join(resolveConfigDir(process.env), ".env");
   const defaultStateEnvPath = path.join(
     resolveRequiredHomeDir(process.env, os.homedir),
-    ".openclaw",
+    ".crabfork",
     ".env",
   );
   const hasExplicitNonDefaultStateDir =
-    process.env.OPENCLAW_STATE_DIR?.trim() !== undefined &&
+    process.env.CRABFORK_STATE_DIR?.trim() !== undefined &&
     path.resolve(stateEnvPath) !== path.resolve(defaultStateEnvPath);
   const parsedFiles = [
     readDotEnvFile({
@@ -255,7 +255,7 @@ export function loadGlobalRuntimeDotEnvFiles(opts?: { quiet?: boolean; stateEnvP
         filePath: path.join(
           resolveRequiredHomeDir(process.env, os.homedir),
           ".config",
-          "openclaw",
+          "crabfork",
           "gateway.env",
         ),
         shouldBlockKey: shouldBlockRuntimeDotEnvKey,
@@ -272,7 +272,7 @@ export function loadDotEnv(opts?: { quiet?: boolean }) {
   const cwdEnvPath = path.join(process.cwd(), ".env");
   loadWorkspaceDotEnvFile(cwdEnvPath, { quiet });
 
-  // Then load global fallback: ~/.openclaw/.env (or OPENCLAW_STATE_DIR/.env),
+  // Then load global fallback: ~/.crabfork/.env (or CRABFORK_STATE_DIR/.env),
   // without overriding any env vars already present.
   loadGlobalRuntimeDotEnvFiles({ quiet });
 }

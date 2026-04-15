@@ -57,7 +57,7 @@ available.
 After that, restart the gateway:
 
 ```bash
-openclaw gateway
+crabfork gateway
 ```
 
 To inspect it live in a conversation:
@@ -75,7 +75,7 @@ The safest setup is:
 2. target one conversational agent
 3. keep logging on only while tuning
 
-Start with this in `openclaw.json`:
+Start with this in `crabfork.json`:
 
 ```json5
 {
@@ -103,7 +103,7 @@ Start with this in `openclaw.json`:
 Then restart the gateway:
 
 ```bash
-openclaw gateway
+crabfork gateway
 ```
 
 What this means:
@@ -158,7 +158,7 @@ session toggles that match the output you want:
 /trace on
 ```
 
-With those enabled, OpenClaw can show:
+With those enabled, Crabfork can show:
 
 - an active memory status line such as `Active Memory: status=ok elapsed=842ms query=recent summary=34 chars` when `/verbose on`
 - a readable debug summary such as `Active Memory Debug: Lemon pepper wings with blue cheese.` when `/trace on`
@@ -394,7 +394,7 @@ Memory prompt and before the conversation context:
 promptAppend: "Prefer stable long-term preferences over one-off events."
 ```
 
-`config.promptOverride` replaces the default Active Memory prompt. OpenClaw
+`config.promptOverride` replaces the default Active Memory prompt. Crabfork
 still appends the conversation context afterward:
 
 ```json5
@@ -602,7 +602,7 @@ If active memory is not showing up where you expect:
 2. Confirm the current agent id is listed in `config.agents`.
 3. Confirm you are testing through an interactive persistent chat session.
 4. Turn on `config.logging: true` and watch the gateway logs.
-5. Verify memory search itself works with `openclaw memory status --deep`.
+5. Verify memory search itself works with `crabfork memory status --deep`.
 
 If memory hits are noisy, tighten:
 
@@ -635,7 +635,7 @@ In practice:
 - explicit provider setup is usually **not required** if auto-detection already
   resolves the provider you want and that provider is stable in your deployment
 
-If `memorySearch.provider` is unset, OpenClaw auto-detects the first available
+If `memorySearch.provider` is unset, Crabfork auto-detects the first available
 embedding provider.
 
 That can be confusing in real deployments:
@@ -659,7 +659,7 @@ In practice:
 
 - if no embedding provider can be resolved, `memory_search` may degrade to
   lexical-only retrieval
-- if an embedding provider is resolved and then fails at runtime, OpenClaw does
+- if an embedding provider is resolved and then fails at runtime, Crabfork does
   not currently guarantee a lexical fallback for that request
 - if you need deterministic provider selection, pin
   `agents.defaults.memorySearch.provider`
@@ -744,7 +744,7 @@ If Active Memory is slow, empty, or appears to switch providers unexpectedly:
   the session
 - turn on `/verbose on` if you also want the normal `🧩 Active Memory: ...`
   status line after each reply
-- run `openclaw memory status --deep` to inspect the current memory-search
+- run `crabfork memory status --deep` to inspect the current memory-search
   backend and index health
 - check `agents.defaults.memorySearch.provider` and related auth/config to make
   sure the provider you expect is actually the one that can resolve at runtime

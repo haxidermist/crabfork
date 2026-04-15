@@ -25,7 +25,7 @@ describe("matrix qa cli runtime", () => {
     });
 
     await runQaMatrixCommand({
-      repoRoot: "/tmp/openclaw",
+      repoRoot: "/tmp/crabfork",
       outputDir: ".artifacts/qa-e2e/matrix",
       providerMode: "mock-openai",
       credentialSource: "env",
@@ -33,8 +33,8 @@ describe("matrix qa cli runtime", () => {
 
     expect(runMatrixQaLive).toHaveBeenCalledWith(
       expect.objectContaining({
-        repoRoot: "/tmp/openclaw",
-        outputDir: "/tmp/openclaw/.artifacts/qa-e2e/matrix",
+        repoRoot: "/tmp/crabfork",
+        outputDir: "/tmp/crabfork/.artifacts/qa-e2e/matrix",
         providerMode: "mock-openai",
         credentialSource: "env",
       }),

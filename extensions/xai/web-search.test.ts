@@ -1,6 +1,6 @@
-import { NON_ENV_SECRETREF_MARKER } from "openclaw/plugin-sdk/provider-auth-runtime";
-import { createNonExitingRuntime } from "openclaw/plugin-sdk/runtime-env";
-import { withEnv } from "openclaw/plugin-sdk/testing";
+import { NON_ENV_SECRETREF_MARKER } from "crabfork/plugin-sdk/provider-auth-runtime";
+import { createNonExitingRuntime } from "crabfork/plugin-sdk/runtime-env";
+import { withEnv } from "crabfork/plugin-sdk/testing";
 import { describe, expect, it, vi } from "vitest";
 import { createWizardPrompter } from "../../test/helpers/wizard-prompter.js";
 import { resolveXaiCatalogEntry } from "./model-definitions.js";
@@ -105,7 +105,7 @@ describe("xai web search config resolution", () => {
         throw new Error("expected xai web search tool");
       }
 
-      await expect(maybeTool.execute({ query: "OpenClaw" })).resolves.toMatchObject({
+      await expect(maybeTool.execute({ query: "Crabfork" })).resolves.toMatchObject({
         error: "missing_xai_api_key",
       });
     });

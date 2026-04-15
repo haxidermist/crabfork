@@ -1,7 +1,7 @@
 ---
-summary: "Use NVIDIA's OpenAI-compatible API in OpenClaw"
+summary: "Use NVIDIA's OpenAI-compatible API in Crabfork"
 read_when:
-  - You want to use open models in OpenClaw for free
+  - You want to use open models in Crabfork for free
   - You need NVIDIA_API_KEY setup
 title: "NVIDIA"
 ---
@@ -21,12 +21,12 @@ open models for free. Authenticate with an API key from
   <Step title="Export the key and run onboarding">
     ```bash
     export NVIDIA_API_KEY="nvapi-..."
-    openclaw onboard --auth-choice skip
+    crabfork onboard --auth-choice skip
     ```
   </Step>
   <Step title="Set an NVIDIA model">
     ```bash
-    openclaw models set nvidia/nvidia/nemotron-3-super-120b-a12b
+    crabfork models set nvidia/nvidia/nemotron-3-super-120b-a12b
     ```
   </Step>
 </Steps>

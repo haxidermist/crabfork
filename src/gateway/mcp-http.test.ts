@@ -93,8 +93,8 @@ describe("mcp loopback server", () => {
       headers: {
         "content-type": "application/json",
         "x-session-key": "agent:main:telegram:group:chat123",
-        "x-openclaw-account-id": "work",
-        "x-openclaw-message-channel": "telegram",
+        "x-crabfork-account-id": "work",
+        "x-crabfork-message-channel": "telegram",
       },
       body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/list" }),
     });
@@ -123,8 +123,8 @@ describe("mcp loopback server", () => {
         headers: {
           "content-type": "application/json",
           "x-session-key": "agent:main:matrix:dm:test",
-          "x-openclaw-message-channel": "matrix",
-          "x-openclaw-sender-is-owner": senderIsOwner,
+          "x-crabfork-message-channel": "matrix",
+          "x-crabfork-sender-is-owner": senderIsOwner,
         },
         body: JSON.stringify({ jsonrpc: "2.0", id: 1, method: "tools/list" }),
       });
@@ -290,15 +290,15 @@ describe("createMcpLoopbackServerConfig", () => {
     const config = createMcpLoopbackServerConfig(23119) as {
       mcpServers?: Record<string, { url?: string; headers?: Record<string, string> }>;
     };
-    expect(config.mcpServers?.openclaw?.url).toBe("http://127.0.0.1:23119/mcp");
-    expect(config.mcpServers?.openclaw?.headers?.Authorization).toBe(
-      "Bearer ${OPENCLAW_MCP_TOKEN}",
+    expect(config.mcpServers?.crabfork?.url).toBe("http://127.0.0.1:23119/mcp");
+    expect(config.mcpServers?.crabfork?.headers?.Authorization).toBe(
+      "Bearer ${CRABFORK_MCP_TOKEN}",
     );
-    expect(config.mcpServers?.openclaw?.headers?.["x-openclaw-message-channel"]).toBe(
-      "${OPENCLAW_MCP_MESSAGE_CHANNEL}",
+    expect(config.mcpServers?.crabfork?.headers?.["x-crabfork-message-channel"]).toBe(
+      "${CRABFORK_MCP_MESSAGE_CHANNEL}",
     );
-    expect(config.mcpServers?.openclaw?.headers?.["x-openclaw-sender-is-owner"]).toBe(
-      "${OPENCLAW_MCP_SENDER_IS_OWNER}",
+    expect(config.mcpServers?.crabfork?.headers?.["x-crabfork-sender-is-owner"]).toBe(
+      "${CRABFORK_MCP_SENDER_IS_OWNER}",
     );
   });
 });

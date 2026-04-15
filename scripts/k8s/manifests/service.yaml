@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: openclaw
+  name: crabfork
   labels:
-    app: openclaw
+    app: crabfork
 spec:
   type: ClusterIP
   selector:
-    app: openclaw
+    app: crabfork
   ports:
     - name: gateway
       port: 18789

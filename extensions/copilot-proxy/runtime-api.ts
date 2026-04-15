@@ -1,6 +1,6 @@
-export { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
+export { definePluginEntry } from "crabfork/plugin-sdk/plugin-entry";
 export type {
-  OpenClawPluginApi,
+  CrabforkPluginApi,
   ProviderAuthContext,
   ProviderAuthResult,
-} from "openclaw/plugin-sdk/core";
+} from "crabfork/plugin-sdk/core";

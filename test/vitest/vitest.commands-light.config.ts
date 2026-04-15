@@ -7,7 +7,7 @@ export function createCommandsLightVitestConfig(env?: Record<string, string | un
     dir: "src/commands",
     env,
     exclude: unitFastTestFiles,
-    includeOpenClawRuntimeSetup: false,
+    includeCrabforkRuntimeSetup: false,
     name: "commands-light",
     passWithNoTests: true,
   });

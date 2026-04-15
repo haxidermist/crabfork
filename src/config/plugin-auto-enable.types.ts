@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "./types.openclaw.js";
+import type { CrabforkConfig } from "./types.crabfork.js";
 
 export type PluginAutoEnableCandidate =
   | {
@@ -40,7 +40,7 @@ export type PluginAutoEnableCandidate =
     };
 
 export type PluginAutoEnableResult = {
-  config: OpenClawConfig;
+  config: CrabforkConfig;
   changes: string[];
   autoEnabledReasons: Record<string, string[]>;
 };

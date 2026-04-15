@@ -1,3 +1,3 @@
-import { isRecord } from "openclaw/plugin-sdk/text-runtime";
+import { isRecord } from "crabfork/plugin-sdk/text-runtime";
 
 export { isRecord };

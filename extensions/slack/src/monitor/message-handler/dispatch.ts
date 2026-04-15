@@ -1,4 +1,4 @@
-import { resolveHumanDelayConfig } from "openclaw/plugin-sdk/agent-runtime";
+import { resolveHumanDelayConfig } from "crabfork/plugin-sdk/agent-runtime";
 import {
   createStatusReactionController,
   DEFAULT_TIMING,
@@ -6,19 +6,19 @@ import {
   logTypingFailure,
   removeAckReactionAfterReply,
   type StatusReactionAdapter,
-} from "openclaw/plugin-sdk/channel-feedback";
-import { createChannelReplyPipeline } from "openclaw/plugin-sdk/channel-reply-pipeline";
+} from "crabfork/plugin-sdk/channel-feedback";
+import { createChannelReplyPipeline } from "crabfork/plugin-sdk/channel-reply-pipeline";
 import {
   resolveChannelStreamingBlockEnabled,
   resolveChannelStreamingNativeTransport,
-} from "openclaw/plugin-sdk/channel-streaming";
-import { resolveAgentOutboundIdentity } from "openclaw/plugin-sdk/outbound-runtime";
-import { clearHistoryEntriesIfEnabled } from "openclaw/plugin-sdk/reply-history";
-import { resolveSendableOutboundReplyParts } from "openclaw/plugin-sdk/reply-payload";
-import type { ReplyDispatchKind, ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-import { danger, logVerbose, shouldLogVerbose } from "openclaw/plugin-sdk/runtime-env";
-import { resolvePinnedMainDmOwnerFromAllowlist } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeOptionalLowercaseString } from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/channel-streaming";
+import { resolveAgentOutboundIdentity } from "crabfork/plugin-sdk/outbound-runtime";
+import { clearHistoryEntriesIfEnabled } from "crabfork/plugin-sdk/reply-history";
+import { resolveSendableOutboundReplyParts } from "crabfork/plugin-sdk/reply-payload";
+import type { ReplyDispatchKind, ReplyPayload } from "crabfork/plugin-sdk/reply-runtime";
+import { danger, logVerbose, shouldLogVerbose } from "crabfork/plugin-sdk/runtime-env";
+import { resolvePinnedMainDmOwnerFromAllowlist } from "crabfork/plugin-sdk/security-runtime";
+import { normalizeOptionalLowercaseString } from "crabfork/plugin-sdk/text-runtime";
 import { reactSlackMessage, removeSlackReaction } from "../../actions.js";
 import { createSlackDraftStream } from "../../draft-stream.js";
 import { normalizeSlackOutboundText } from "../../format.js";

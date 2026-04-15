@@ -74,14 +74,14 @@ const TRANSLATE_MAX_ATTEMPTS = 2;
 const TRANSLATE_BASE_DELAY_MS = 15_000;
 const DEFAULT_PROMPT_TIMEOUT_MS = 120_000;
 const PROGRESS_HEARTBEAT_MS = 30_000;
-const ENV_PROVIDER = "OPENCLAW_CONTROL_UI_I18N_PROVIDER";
-const ENV_MODEL = "OPENCLAW_CONTROL_UI_I18N_MODEL";
-const ENV_THINKING = "OPENCLAW_CONTROL_UI_I18N_THINKING";
-const ENV_PI_EXECUTABLE = "OPENCLAW_CONTROL_UI_I18N_PI_EXECUTABLE";
-const ENV_PI_ARGS = "OPENCLAW_CONTROL_UI_I18N_PI_ARGS";
-const ENV_PI_PACKAGE_VERSION = "OPENCLAW_CONTROL_UI_I18N_PI_PACKAGE_VERSION";
-const ENV_BATCH_CHAR_BUDGET = "OPENCLAW_CONTROL_UI_I18N_BATCH_CHAR_BUDGET";
-const ENV_PROMPT_TIMEOUT = "OPENCLAW_CONTROL_UI_I18N_PROMPT_TIMEOUT";
+const ENV_PROVIDER = "CRABFORK_CONTROL_UI_I18N_PROVIDER";
+const ENV_MODEL = "CRABFORK_CONTROL_UI_I18N_MODEL";
+const ENV_THINKING = "CRABFORK_CONTROL_UI_I18N_THINKING";
+const ENV_PI_EXECUTABLE = "CRABFORK_CONTROL_UI_I18N_PI_EXECUTABLE";
+const ENV_PI_ARGS = "CRABFORK_CONTROL_UI_I18N_PI_ARGS";
+const ENV_PI_PACKAGE_VERSION = "CRABFORK_CONTROL_UI_I18N_PI_PACKAGE_VERSION";
+const ENV_BATCH_CHAR_BUDGET = "CRABFORK_CONTROL_UI_I18N_BATCH_CHAR_BUDGET";
+const ENV_PROMPT_TIMEOUT = "CRABFORK_CONTROL_UI_I18N_PROMPT_TIMEOUT";
 
 const LOCALE_ENTRIES: readonly LocaleEntry[] = [
   { locale: "zh-CN", fileName: "zh-CN.ts", exportName: "zh_CN", languageKey: "zhCN" },
@@ -99,7 +99,7 @@ const LOCALE_ENTRIES: readonly LocaleEntry[] = [
 ];
 
 const DEFAULT_GLOSSARY: readonly GlossaryEntry[] = [
-  { source: "OpenClaw", target: "OpenClaw" },
+  { source: "Crabfork", target: "Crabfork" },
   { source: "Gateway", target: "Gateway" },
   { source: "Control UI", target: "Control UI" },
   { source: "Skills", target: "Skills" },
@@ -513,7 +513,7 @@ function getPiRuntimeDir() {
   return path.join(
     homedir(),
     ".cache",
-    "openclaw",
+    "crabfork",
     "control-ui-i18n",
     "pi-runtime",
     resolvePiPackageVersion(),

@@ -5,8 +5,8 @@
  * Known-user storage is delegated to `./known-users.ts`.
  */
 
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import { formatErrorMessage } from "crabfork/plugin-sdk/error-runtime";
 import {
   getAccessToken,
   sendC2CImageMessage,
@@ -96,7 +96,7 @@ export function clearKnownUsers(accountId?: string): number {
 /** Resolve account config and send a proactive message. */
 export async function sendProactive(
   options: ProactiveSendOptions,
-  cfg: OpenClawConfig,
+  cfg: CrabforkConfig,
 ): Promise<ProactiveSendResult> {
   const {
     to,
@@ -179,7 +179,7 @@ export async function sendBulkProactiveMessage(
   recipients: string[],
   text: string,
   type: "c2c" | "group",
-  cfg: OpenClawConfig,
+  cfg: CrabforkConfig,
   accountId = resolveDefaultQQBotAccountId(cfg),
 ): Promise<Array<{ to: string; result: ProactiveSendResult }>> {
   const results: Array<{ to: string; result: ProactiveSendResult }> = [];
@@ -199,13 +199,13 @@ export async function sendBulkProactiveMessage(
  * Send a message to all known users.
  *
  * @param text Message content.
- * @param cfg OpenClaw config.
+ * @param cfg Crabfork config.
  * @param options Optional filters.
  * @returns Aggregate send statistics.
  */
 export async function broadcastMessage(
   text: string,
-  cfg: OpenClawConfig,
+  cfg: CrabforkConfig,
   options?: {
     type?: "c2c" | "group";
     accountId?: string;

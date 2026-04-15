@@ -246,11 +246,11 @@ describe("matrix driver client", () => {
       driverLocalpart: "qa-driver",
       observerLocalpart: "qa-observer",
       registrationToken: "reg-token",
-      roomName: "OpenClaw Matrix QA",
+      roomName: "Crabfork Matrix QA",
       sutLocalpart: "qa-sut",
       fetchImpl,
       topology: buildDefaultMatrixQaTopologySpec({
-        defaultRoomName: "OpenClaw Matrix QA",
+        defaultRoomName: "Crabfork Matrix QA",
       }),
     });
 

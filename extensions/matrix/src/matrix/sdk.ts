@@ -1,4 +1,7 @@
 import { EventEmitter } from "node:events";
+import type { PinnedDispatcherPolicy } from "crabfork/plugin-sdk/infra-runtime";
+import { KeyedAsyncQueue } from "crabfork/plugin-sdk/keyed-async-queue";
+import { normalizeNullableString } from "crabfork/plugin-sdk/text-runtime";
 import {
   ClientEvent,
   MatrixEventEvent,
@@ -8,9 +11,6 @@ import {
   type MatrixEvent,
 } from "matrix-js-sdk/lib/matrix.js";
 import { VerificationMethod } from "matrix-js-sdk/lib/types.js";
-import type { PinnedDispatcherPolicy } from "openclaw/plugin-sdk/infra-runtime";
-import { KeyedAsyncQueue } from "openclaw/plugin-sdk/keyed-async-queue";
-import { normalizeNullableString } from "openclaw/plugin-sdk/text-runtime";
 import type { SsrFPolicy } from "../runtime-api.js";
 import { resolveMatrixRoomKeyBackupReadinessError } from "./backup-health.js";
 import { FileBackedMatrixSyncStore } from "./client/file-sync-store.js";

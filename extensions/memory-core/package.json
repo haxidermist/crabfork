@@ -1,22 +1,22 @@
 {
-  "name": "@openclaw/memory-core",
+  "name": "@crabfork/memory-core",
   "version": "2026.4.12",
   "private": true,
-  "description": "OpenClaw core memory search plugin",
+  "description": "Crabfork core memory search plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*",
+    "crabfork": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.4.12"
+    "crabfork": ">=2026.4.12"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "crabfork": {
       "optional": true
     }
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ]

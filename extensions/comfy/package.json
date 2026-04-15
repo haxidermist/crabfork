@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/comfy-provider",
+  "name": "@crabfork/comfy-provider",
   "version": "2026.4.12",
   "private": true,
-  "description": "OpenClaw ComfyUI provider plugin",
+  "description": "Crabfork ComfyUI provider plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*"
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ]

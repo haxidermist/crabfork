@@ -19,18 +19,18 @@ import type {
   ImageGenerationProviderPlugin,
   MediaUnderstandingProviderPlugin,
   MusicGenerationProviderPlugin,
-  OpenClawPluginChannelRegistration,
-  OpenClawPluginCliCommandDescriptor,
-  OpenClawPluginCliRegistrar,
-  OpenClawPluginCommandDefinition,
-  OpenClawPluginGatewayRuntimeScopeSurface,
-  OpenClawPluginHttpRouteAuth,
-  OpenClawPluginHttpRouteHandler,
-  OpenClawPluginHttpRouteMatch,
-  OpenClawPluginReloadRegistration,
-  OpenClawPluginSecurityAuditCollector,
-  OpenClawPluginService,
-  OpenClawPluginToolFactory,
+  CrabforkPluginChannelRegistration,
+  CrabforkPluginCliCommandDescriptor,
+  CrabforkPluginCliRegistrar,
+  CrabforkPluginCommandDefinition,
+  CrabforkPluginGatewayRuntimeScopeSurface,
+  CrabforkPluginHttpRouteAuth,
+  CrabforkPluginHttpRouteHandler,
+  CrabforkPluginHttpRouteMatch,
+  CrabforkPluginReloadRegistration,
+  CrabforkPluginSecurityAuditCollector,
+  CrabforkPluginService,
+  CrabforkPluginToolFactory,
   PluginConversationBindingResolvedEvent,
   PluginHookRegistration as TypedPluginHookRegistration,
   PluginLogger,
@@ -48,7 +48,7 @@ import type {
 export type PluginToolRegistration = {
   pluginId: string;
   pluginName?: string;
-  factory: OpenClawPluginToolFactory;
+  factory: CrabforkPluginToolFactory;
   names: string[];
   optional: boolean;
   source: string;
@@ -58,9 +58,9 @@ export type PluginToolRegistration = {
 export type PluginCliRegistration = {
   pluginId: string;
   pluginName?: string;
-  register: OpenClawPluginCliRegistrar;
+  register: CrabforkPluginCliRegistrar;
   commands: string[];
-  descriptors: OpenClawPluginCliCommandDescriptor[];
+  descriptors: CrabforkPluginCliCommandDescriptor[];
   source: string;
   rootDir?: string;
 };
@@ -68,10 +68,10 @@ export type PluginCliRegistration = {
 export type PluginHttpRouteRegistration = {
   pluginId?: string;
   path: string;
-  handler: OpenClawPluginHttpRouteHandler;
-  auth: OpenClawPluginHttpRouteAuth;
-  match: OpenClawPluginHttpRouteMatch;
-  gatewayRuntimeScopeSurface?: OpenClawPluginGatewayRuntimeScopeSurface;
+  handler: CrabforkPluginHttpRouteHandler;
+  auth: CrabforkPluginHttpRouteAuth;
+  match: CrabforkPluginHttpRouteMatch;
+  gatewayRuntimeScopeSurface?: CrabforkPluginGatewayRuntimeScopeSurface;
   source?: string;
 };
 
@@ -163,7 +163,7 @@ export type PluginHookRegistration = {
 export type PluginServiceRegistration = {
   pluginId: string;
   pluginName?: string;
-  service: OpenClawPluginService;
+  service: CrabforkPluginService;
   source: string;
   rootDir?: string;
 };
@@ -171,7 +171,7 @@ export type PluginServiceRegistration = {
 export type PluginReloadRegistration = {
   pluginId: string;
   pluginName?: string;
-  registration: OpenClawPluginReloadRegistration;
+  registration: CrabforkPluginReloadRegistration;
   source: string;
   rootDir?: string;
 };
@@ -179,7 +179,7 @@ export type PluginReloadRegistration = {
 export type PluginNodeHostCommandRegistration = {
   pluginId: string;
   pluginName?: string;
-  command: import("./types.js").OpenClawPluginNodeHostCommand;
+  command: import("./types.js").CrabforkPluginNodeHostCommand;
   source: string;
   rootDir?: string;
 };
@@ -187,7 +187,7 @@ export type PluginNodeHostCommandRegistration = {
 export type PluginSecurityAuditCollectorRegistration = {
   pluginId: string;
   pluginName?: string;
-  collector: OpenClawPluginSecurityAuditCollector;
+  collector: CrabforkPluginSecurityAuditCollector;
   source: string;
   rootDir?: string;
 };
@@ -195,7 +195,7 @@ export type PluginSecurityAuditCollectorRegistration = {
 export type PluginCommandRegistration = {
   pluginId: string;
   pluginName?: string;
-  command: OpenClawPluginCommandDefinition;
+  command: CrabforkPluginCommandDefinition;
   source: string;
   rootDir?: string;
 };
@@ -304,11 +304,11 @@ export type PluginRegistryParams = {
 };
 
 export type PluginRegistrationMode = import("./types.js").PluginRegistrationMode;
-export type OpenClawPluginNodeHostCommand = import("./types.js").OpenClawPluginNodeHostCommand;
-export type OpenClawPluginToolContext = import("./types.js").OpenClawPluginToolContext;
-export type OpenClawPluginHttpRouteParams = import("./types.js").OpenClawPluginHttpRouteParams;
-export type OpenClawPluginHookOptions = import("./types.js").OpenClawPluginHookOptions;
+export type CrabforkPluginNodeHostCommand = import("./types.js").CrabforkPluginNodeHostCommand;
+export type CrabforkPluginToolContext = import("./types.js").CrabforkPluginToolContext;
+export type CrabforkPluginHttpRouteParams = import("./types.js").CrabforkPluginHttpRouteParams;
+export type CrabforkPluginHookOptions = import("./types.js").CrabforkPluginHookOptions;
 export type PluginHookHandlerMap = import("./types.js").PluginHookHandlerMap;
-export type OpenClawPluginApi = import("./types.js").OpenClawPluginApi;
+export type CrabforkPluginApi = import("./types.js").CrabforkPluginApi;
 export type TypedPluginHook = TypedPluginHookRegistration;
-export type OpenClawPluginChannelReg = OpenClawPluginChannelRegistration;
+export type CrabforkPluginChannelReg = CrabforkPluginChannelRegistration;

@@ -1,1 +1,1 @@
-export { extractToolPayload as extractQaToolPayload } from "openclaw/plugin-sdk/tool-payload";
+export { extractToolPayload as extractQaToolPayload } from "crabfork/plugin-sdk/tool-payload";

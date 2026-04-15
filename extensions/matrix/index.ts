@@ -1,5 +1,5 @@
-import { defineBundledChannelEntry } from "openclaw/plugin-sdk/channel-entry-contract";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import { defineBundledChannelEntry } from "crabfork/plugin-sdk/channel-entry-contract";
+import { formatErrorMessage } from "crabfork/plugin-sdk/error-runtime";
 import { registerMatrixCliMetadata } from "./cli-metadata.js";
 
 export default defineBundledChannelEntry({

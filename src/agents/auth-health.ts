@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../config/types.openclaw.js";
+import type { CrabforkConfig } from "../config/types.crabfork.js";
 import {
   type AuthCredentialReasonCode,
   type AuthProfileCredential,
@@ -100,7 +100,7 @@ function buildProfileHealth(params: {
   profileId: string;
   credential: AuthProfileCredential;
   store: AuthProfileStore;
-  cfg?: OpenClawConfig;
+  cfg?: CrabforkConfig;
   now: number;
   warnAfterMs: number;
 }): AuthProfileHealth {
@@ -188,7 +188,7 @@ function buildProfileHealth(params: {
 
 export function buildAuthHealthSummary(params: {
   store: AuthProfileStore;
-  cfg?: OpenClawConfig;
+  cfg?: CrabforkConfig;
   warnAfterMs?: number;
   providers?: string[];
 }): AuthHealthSummary {

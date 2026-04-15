@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: openclaw-home-pvc
+  name: crabfork-home-pvc
   labels:
-    app: openclaw
+    app: crabfork
 spec:
   accessModes:
     - ReadWriteOnce

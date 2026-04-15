@@ -1,1 +1,1 @@
-export { resolvePreferredOpenClawTmpDir } from "../../infra/tmp-openclaw-dir.js";
+export { resolvePreferredCrabforkTmpDir } from "../../infra/tmp-crabfork-dir.js";

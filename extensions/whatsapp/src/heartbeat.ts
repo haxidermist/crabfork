@@ -1,9 +1,9 @@
 import { resolveWhatsAppAccount } from "./accounts.js";
-import type { OpenClawConfig } from "./runtime-api.js";
+import type { CrabforkConfig } from "./runtime-api.js";
 import { loadWhatsAppChannelRuntime } from "./shared.js";
 
 export async function checkWhatsAppHeartbeatReady(params: {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   accountId?: string;
   deps?: {
     webAuthExists?: (authDir: string) => Promise<boolean>;

@@ -29,7 +29,7 @@ const cachedFacadeModuleLocationsByKey = new Map<
   } | null
 >();
 let facadeLoaderJitiFactory: PluginJitiLoaderFactory | undefined;
-let cachedOpenClawPackageRoot: string | undefined;
+let cachedCrabforkPackageRoot: string | undefined;
 
 function getJitiFactory() {
   if (facadeLoaderJitiFactory) {
@@ -40,16 +40,16 @@ function getJitiFactory() {
   return facadeLoaderJitiFactory;
 }
 
-function getOpenClawPackageRoot() {
-  if (cachedOpenClawPackageRoot) {
-    return cachedOpenClawPackageRoot;
+function getCrabforkPackageRoot() {
+  if (cachedCrabforkPackageRoot) {
+    return cachedCrabforkPackageRoot;
   }
-  cachedOpenClawPackageRoot =
+  cachedCrabforkPackageRoot =
     resolveLoaderPackageRoot({
       modulePath: fileURLToPath(import.meta.url),
       moduleUrl: import.meta.url,
     }) ?? fileURLToPath(new URL("../..", import.meta.url));
-  return cachedOpenClawPackageRoot;
+  return cachedCrabforkPackageRoot;
 }
 
 function createFacadeResolutionKey(params: { dirName: string; artifactBasename: string }): string {
@@ -67,10 +67,10 @@ function resolveFacadeModuleLocationUncached(params: {
     const modulePath =
       resolveBundledPluginSourcePublicSurfacePath({
         ...params,
-        sourceRoot: bundledPluginsDir ?? path.resolve(getOpenClawPackageRoot(), "extensions"),
+        sourceRoot: bundledPluginsDir ?? path.resolve(getCrabforkPackageRoot(), "extensions"),
       }) ??
       resolveBundledPluginPublicSurfacePath({
-        rootDir: getOpenClawPackageRoot(),
+        rootDir: getCrabforkPackageRoot(),
         ...(bundledPluginsDir ? { bundledPluginsDir } : {}),
         dirName: params.dirName,
         artifactBasename: params.artifactBasename,
@@ -81,13 +81,13 @@ function resolveFacadeModuleLocationUncached(params: {
         boundaryRoot:
           bundledPluginsDir && modulePath.startsWith(path.resolve(bundledPluginsDir) + path.sep)
             ? path.resolve(bundledPluginsDir)
-            : getOpenClawPackageRoot(),
+            : getCrabforkPackageRoot(),
       };
     }
     return null;
   }
   const modulePath = resolveBundledPluginPublicSurfacePath({
-    rootDir: getOpenClawPackageRoot(),
+    rootDir: getCrabforkPackageRoot(),
     ...(bundledPluginsDir ? { bundledPluginsDir } : {}),
     dirName: params.dirName,
     artifactBasename: params.artifactBasename,
@@ -100,7 +100,7 @@ function resolveFacadeModuleLocationUncached(params: {
     boundaryRoot:
       bundledPluginsDir && modulePath.startsWith(path.resolve(bundledPluginsDir) + path.sep)
         ? path.resolve(bundledPluginsDir)
-        : getOpenClawPackageRoot(),
+        : getCrabforkPackageRoot(),
   };
 }
 
@@ -209,8 +209,8 @@ export function loadFacadeModuleAtLocationSync<T extends object>(params: {
     absolutePath: params.location.modulePath,
     rootPath: params.location.boundaryRoot,
     boundaryLabel:
-      params.location.boundaryRoot === getOpenClawPackageRoot()
-        ? "OpenClaw package root"
+      params.location.boundaryRoot === getCrabforkPackageRoot()
+        ? "Crabfork package root"
         : (() => {
             const bundledDir = resolveBundledPluginsDir();
             return bundledDir &&
@@ -276,7 +276,7 @@ export function resetFacadeLoaderStateForTest(): void {
   jitiLoaders.clear();
   cachedFacadeModuleLocationsByKey.clear();
   facadeLoaderJitiFactory = undefined;
-  cachedOpenClawPackageRoot = undefined;
+  cachedCrabforkPackageRoot = undefined;
 }
 
 export function setFacadeLoaderJitiFactoryForTest(

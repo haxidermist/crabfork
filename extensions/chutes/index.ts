@@ -1,13 +1,13 @@
-import { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
+import { definePluginEntry } from "crabfork/plugin-sdk/plugin-entry";
 import {
   resolveOAuthApiKeyMarker,
   type ProviderAuthContext,
   type ProviderAuthResult,
-} from "openclaw/plugin-sdk/provider-auth";
-import { buildOauthProviderAuthResult } from "openclaw/plugin-sdk/provider-auth";
-import { createProviderApiKeyAuthMethod } from "openclaw/plugin-sdk/provider-auth-api-key";
-import { loginChutes } from "openclaw/plugin-sdk/provider-auth-login";
-import { normalizeOptionalString, readStringValue } from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/provider-auth";
+import { buildOauthProviderAuthResult } from "crabfork/plugin-sdk/provider-auth";
+import { createProviderApiKeyAuthMethod } from "crabfork/plugin-sdk/provider-auth-api-key";
+import { loginChutes } from "crabfork/plugin-sdk/provider-auth-login";
+import { normalizeOptionalString, readStringValue } from "crabfork/plugin-sdk/text-runtime";
 import {
   CHUTES_DEFAULT_MODEL_REF,
   applyChutesApiKeyConfig,

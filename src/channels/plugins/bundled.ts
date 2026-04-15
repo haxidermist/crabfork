@@ -1,7 +1,7 @@
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { resolveCrabforkPackageRootSync } from "../../infra/crabfork-root.js";
 import { formatErrorMessage } from "../../infra/errors.js";
-import { resolveOpenClawPackageRootSync } from "../../infra/openclaw-root.js";
 import { createSubsystemLogger } from "../../logging/subsystem.js";
 import {
   listBundledChannelPluginMetadata,
@@ -42,8 +42,8 @@ type GeneratedBundledChannelEntry = {
 };
 
 const log = createSubsystemLogger("channels");
-const OPENCLAW_PACKAGE_ROOT =
-  resolveOpenClawPackageRootSync({
+const CRABFORK_PACKAGE_ROOT =
+  resolveCrabforkPackageRootSync({
     argv1: process.argv[1],
     cwd: process.cwd(),
     moduleUrl: import.meta.url.startsWith("file:") ? import.meta.url : undefined,
@@ -104,7 +104,7 @@ function resolveBundledChannelBoundaryRoot(params: {
   modulePath: string;
 }): string {
   const distRoot = path.resolve(
-    OPENCLAW_PACKAGE_ROOT,
+    CRABFORK_PACKAGE_ROOT,
     "dist",
     "extensions",
     params.metadata.dirName,
@@ -112,7 +112,7 @@ function resolveBundledChannelBoundaryRoot(params: {
   if (params.modulePath === distRoot || params.modulePath.startsWith(`${distRoot}${path.sep}`)) {
     return distRoot;
   }
-  return path.resolve(OPENCLAW_PACKAGE_ROOT, "extensions", params.metadata.dirName);
+  return path.resolve(CRABFORK_PACKAGE_ROOT, "extensions", params.metadata.dirName);
 }
 
 function resolveGeneratedBundledChannelModulePath(params: {
@@ -123,7 +123,7 @@ function resolveGeneratedBundledChannelModulePath(params: {
     return null;
   }
   const resolved = resolveBundledChannelGeneratedPath(
-    OPENCLAW_PACKAGE_ROOT,
+    CRABFORK_PACKAGE_ROOT,
     params.entry,
     params.metadata.dirName,
   );

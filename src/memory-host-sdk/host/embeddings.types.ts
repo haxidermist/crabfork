@@ -1,4 +1,4 @@
-import type { OpenClawConfig } from "../../config/types.openclaw.js";
+import type { CrabforkConfig } from "../../config/types.crabfork.js";
 import type { SecretInput } from "../../config/types.secrets.js";
 import type { EmbeddingInput } from "./embedding-inputs.js";
 
@@ -34,7 +34,7 @@ export type GeminiTaskType =
   | "FACT_VERIFICATION";
 
 export type EmbeddingProviderOptions = {
-  config: OpenClawConfig;
+  config: CrabforkConfig;
   agentDir?: string;
   provider: EmbeddingProviderRequest;
   remote?: {

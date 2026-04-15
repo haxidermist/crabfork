@@ -1,18 +1,18 @@
 ---
-summary: "Redirect: flow commands live under `openclaw tasks flow`"
+summary: "Redirect: flow commands live under `crabfork tasks flow`"
 read_when:
-  - You encounter openclaw flows in older docs or release notes
+  - You encounter crabfork flows in older docs or release notes
 title: "flows (redirect)"
 ---
 
-# `openclaw tasks flow`
+# `crabfork tasks flow`
 
-Flow commands are subcommands of `openclaw tasks`, not a standalone `flows` command.
+Flow commands are subcommands of `crabfork tasks`, not a standalone `flows` command.
 
 ```bash
-openclaw tasks flow list [--json]
-openclaw tasks flow show <lookup>
-openclaw tasks flow cancel <lookup>
+crabfork tasks flow list [--json]
+crabfork tasks flow show <lookup>
+crabfork tasks flow cancel <lookup>
 ```
 
 For full documentation see [Task Flow](/automation/taskflow) and the [tasks CLI reference](/cli/index#tasks).

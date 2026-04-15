@@ -9,7 +9,7 @@ import {
 } from "./provider-openai-codex-oauth-tls.js";
 
 const manualInputPromptMessage = "Paste the authorization code (or full redirect URL):";
-const openAICodexOAuthOriginator = "openclaw";
+const openAICodexOAuthOriginator = "crabfork";
 
 export async function loginOpenAICodexOAuth(params: {
   prompter: WizardPrompter;
@@ -74,7 +74,7 @@ export async function loginOpenAICodexOAuth(params: {
   } catch (err) {
     spin.stop("OpenAI OAuth failed");
     runtime.error(String(err));
-    await prompter.note("Trouble with OAuth? See https://docs.openclaw.ai/start/faq", "OAuth help");
+    await prompter.note("Trouble with OAuth? See https://docs.crabfork.ai/start/faq", "OAuth help");
     throw err;
   }
 }

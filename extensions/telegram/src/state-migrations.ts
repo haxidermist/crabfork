@@ -1,7 +1,7 @@
 import fs from "node:fs";
-import type { ChannelLegacyStateMigrationPlan } from "openclaw/plugin-sdk/channel-contract";
-import { resolveChannelAllowFromPath } from "openclaw/plugin-sdk/channel-pairing";
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
+import type { ChannelLegacyStateMigrationPlan } from "crabfork/plugin-sdk/channel-contract";
+import { resolveChannelAllowFromPath } from "crabfork/plugin-sdk/channel-pairing";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
 import { resolveDefaultTelegramAccountId } from "./accounts.js";
 
 function fileExists(pathValue: string): boolean {
@@ -13,7 +13,7 @@ function fileExists(pathValue: string): boolean {
 }
 
 export function detectTelegramLegacyStateMigrations(params: {
-  cfg: OpenClawConfig;
+  cfg: CrabforkConfig;
   env: NodeJS.ProcessEnv;
 }): ChannelLegacyStateMigrationPlan[] {
   const legacyPath = resolveChannelAllowFromPath("telegram", params.env);

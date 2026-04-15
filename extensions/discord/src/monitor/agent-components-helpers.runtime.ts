@@ -1,5 +1,5 @@
 export {
   readStoreAllowFromForDmPolicy,
   resolvePinnedMainDmOwnerFromAllowlist,
-} from "openclaw/plugin-sdk/security-runtime";
-export { upsertChannelPairingRequest } from "openclaw/plugin-sdk/conversation-runtime";
+} from "crabfork/plugin-sdk/security-runtime";
+export { upsertChannelPairingRequest } from "crabfork/plugin-sdk/conversation-runtime";

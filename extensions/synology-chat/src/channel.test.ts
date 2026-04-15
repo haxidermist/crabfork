@@ -215,7 +215,7 @@ describe("createSynologyChatPlugin", () => {
 
       expect(mockSendMessage).toHaveBeenCalledWith(
         "https://nas/incoming",
-        "OpenClaw: your access has been approved.",
+        "Crabfork: your access has been approved.",
         "USER1",
         true,
       );

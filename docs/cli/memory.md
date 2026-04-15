@@ -1,5 +1,5 @@
 ---
-summary: "CLI reference for `openclaw memory` (status/index/search/promote/promote-explain/rem-harness)"
+summary: "CLI reference for `crabfork memory` (status/index/search/promote/promote-explain/rem-harness)"
 read_when:
   - You want to index or search semantic memory
   - You’re debugging memory availability or indexing
@@ -7,7 +7,7 @@ read_when:
 title: "memory"
 ---
 
-# `openclaw memory`
+# `crabfork memory`
 
 Manage semantic memory indexing and search.
 Provided by the active memory plugin (default: `memory-core`; set `plugins.slots.memory = "none"` to disable).
@@ -22,24 +22,24 @@ Related:
 ## Examples
 
 ```bash
-openclaw memory status
-openclaw memory status --deep
-openclaw memory status --fix
-openclaw memory index --force
-openclaw memory search "meeting notes"
-openclaw memory search --query "deployment" --max-results 20
-openclaw memory promote --limit 10 --min-score 0.75
-openclaw memory promote --apply
-openclaw memory promote --json --min-recall-count 0 --min-unique-queries 0
-openclaw memory promote-explain "router vlan"
-openclaw memory promote-explain "router vlan" --json
-openclaw memory rem-harness
-openclaw memory rem-harness --json
-openclaw memory status --json
-openclaw memory status --deep --index
-openclaw memory status --deep --index --verbose
-openclaw memory status --agent main
-openclaw memory index --agent main --verbose
+crabfork memory status
+crabfork memory status --deep
+crabfork memory status --fix
+crabfork memory index --force
+crabfork memory search "meeting notes"
+crabfork memory search --query "deployment" --max-results 20
+crabfork memory promote --limit 10 --min-score 0.75
+crabfork memory promote --apply
+crabfork memory promote --json --min-recall-count 0 --min-unique-queries 0
+crabfork memory promote-explain "router vlan"
+crabfork memory promote-explain "router vlan" --json
+crabfork memory rem-harness
+crabfork memory rem-harness --json
+crabfork memory status --json
+crabfork memory status --deep --index
+crabfork memory status --deep --index --verbose
+crabfork memory status --agent main
+crabfork memory index --agent main --verbose
 ```
 
 ## Options
@@ -75,7 +75,7 @@ openclaw memory index --agent main --verbose
 Preview and apply short-term memory promotions.
 
 ```bash
-openclaw memory promote [--apply] [--limit <n>] [--include-promoted]
+crabfork memory promote [--apply] [--limit <n>] [--include-promoted]
 ```
 
 - `--apply` -- write promotions to `MEMORY.md` (default: preview only).
@@ -86,7 +86,7 @@ Full options:
 
 - Ranks short-term candidates from `memory/YYYY-MM-DD.md` using weighted promotion signals (`frequency`, `relevance`, `query diversity`, `recency`, `consolidation`, `conceptual richness`).
 - Uses short-term signals from both memory recalls and daily-ingestion passes, plus light/REM phase reinforcement signals.
-- When dreaming is enabled, `memory-core` auto-manages one cron job that runs a full sweep (`light -> REM -> deep`) in the background (no manual `openclaw cron add` required).
+- When dreaming is enabled, `memory-core` auto-manages one cron job that runs a full sweep (`light -> REM -> deep`) in the background (no manual `crabfork cron add` required).
 - `--agent <id>`: scope to a single agent (default: the default agent).
 - `--limit <n>`: max candidates to return/apply.
 - `--min-score <n>`: minimum weighted promotion score.
@@ -101,7 +101,7 @@ Full options:
 Explain a specific promotion candidate and its score breakdown.
 
 ```bash
-openclaw memory promote-explain <selector> [--agent <id>] [--include-promoted] [--json]
+crabfork memory promote-explain <selector> [--agent <id>] [--include-promoted] [--json]
 ```
 
 - `<selector>`: candidate key, path fragment, or snippet fragment to look up.
@@ -114,7 +114,7 @@ openclaw memory promote-explain <selector> [--agent <id>] [--include-promoted] [
 Preview REM reflections, candidate truths, and deep promotion output without writing anything.
 
 ```bash
-openclaw memory rem-harness [--agent <id>] [--include-promoted] [--json]
+crabfork memory rem-harness [--agent <id>] [--include-promoted] [--json]
 ```
 
 - `--agent <id>`: scope to a single agent (default: the default agent).

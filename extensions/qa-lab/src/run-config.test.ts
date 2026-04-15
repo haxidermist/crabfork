@@ -96,8 +96,8 @@ describe("qa run config", () => {
   });
 
   it("anchors generated run output dirs under the provided repo root", () => {
-    const outputDir = createQaRunOutputDir("/tmp/openclaw-repo");
-    expect(outputDir.startsWith("/tmp/openclaw-repo/.artifacts/qa-e2e/lab-")).toBe(true);
+    const outputDir = createQaRunOutputDir("/tmp/crabfork-repo");
+    expect(outputDir.startsWith("/tmp/crabfork-repo/.artifacts/qa-e2e/lab-")).toBe(true);
   });
 
   it("prefers the Codex OAuth default when the runtime resolver says it is available", () => {

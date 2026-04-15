@@ -1,4 +1,4 @@
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
+import { normalizeOptionalString } from "crabfork/plugin-sdk/text-runtime";
 
 const VERIFICATION_EVENT_PREFIX = "m.key.verification.";
 const VERIFICATION_REQUEST_MSGTYPE = "m.key.verification.request";

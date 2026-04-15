@@ -1,14 +1,14 @@
 import type { WebClient as SlackWebClient } from "@slack/web-api";
-import { normalizeHostname } from "openclaw/plugin-sdk/host-runtime";
-import { fetchWithRuntimeDispatcher } from "openclaw/plugin-sdk/infra-runtime";
-import type { FetchLike } from "openclaw/plugin-sdk/media-runtime";
-import { fetchRemoteMedia } from "openclaw/plugin-sdk/media-runtime";
-import { saveMediaBuffer } from "openclaw/plugin-sdk/media-runtime";
-import { resolveRequestUrl } from "openclaw/plugin-sdk/request-url";
+import { normalizeHostname } from "crabfork/plugin-sdk/host-runtime";
+import { fetchWithRuntimeDispatcher } from "crabfork/plugin-sdk/infra-runtime";
+import type { FetchLike } from "crabfork/plugin-sdk/media-runtime";
+import { fetchRemoteMedia } from "crabfork/plugin-sdk/media-runtime";
+import { saveMediaBuffer } from "crabfork/plugin-sdk/media-runtime";
+import { resolveRequestUrl } from "crabfork/plugin-sdk/request-url";
 import {
   normalizeLowercaseStringOrEmpty,
   normalizeOptionalLowercaseString,
-} from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/text-runtime";
 import type { SlackAttachment, SlackFile } from "../types.js";
 
 function isSlackHostname(hostname: string): boolean {

@@ -180,7 +180,7 @@ function createProps(overrides: Partial<ChatProps> = {}): ChatProps {
     error: null,
     sessions: createSessions(),
     focusMode: false,
-    assistantName: "OpenClaw",
+    assistantName: "Crabfork",
     assistantAvatar: null,
     localMediaPreviewRoots: [],
     onRefresh: () => undefined,
@@ -501,7 +501,7 @@ describe("chat view", () => {
           assistantName: "Assistant",
           assistantAvatar: "A",
           assistantAvatarUrl: null,
-          basePath: "/openclaw/",
+          basePath: "/crabfork/",
         }),
       ),
       container,
@@ -511,7 +511,7 @@ describe("chat view", () => {
       ".agent-chat__welcome .agent-chat__avatar--logo img",
     );
     expect(logoImage).not.toBeNull();
-    expect(logoImage?.getAttribute("src")).toBe("/openclaw/favicon.svg");
+    expect(logoImage?.getAttribute("src")).toBe("/crabfork/favicon.svg");
   });
 
   it("keeps grouped assistant avatar fallbacks under the mounted base path", () => {
@@ -522,7 +522,7 @@ describe("chat view", () => {
           assistantName: "Assistant",
           assistantAvatar: "A",
           assistantAvatarUrl: null,
-          basePath: "/openclaw/",
+          basePath: "/crabfork/",
           messages: [
             {
               role: "assistant",
@@ -539,7 +539,7 @@ describe("chat view", () => {
       ".chat-group.assistant .chat-avatar--logo",
     );
     expect(groupedLogo).not.toBeNull();
-    expect(groupedLogo?.getAttribute("src")).toBe("/openclaw/favicon.svg");
+    expect(groupedLogo?.getAttribute("src")).toBe("/crabfork/favicon.svg");
   });
 
   it("keeps the persisted overview locale selected before i18n hydration finishes", async () => {
@@ -829,7 +829,7 @@ describe("chat view", () => {
 
   it("opens delete confirm on the left for user messages", () => {
     try {
-      getSafeLocalStorage()?.removeItem("openclaw:skipDeleteConfirm");
+      getSafeLocalStorage()?.removeItem("crabfork:skipDeleteConfirm");
     } catch {
       /* noop */
     }
@@ -862,7 +862,7 @@ describe("chat view", () => {
 
   it("opens delete confirm on the right for assistant messages", () => {
     try {
-      getSafeLocalStorage()?.removeItem("openclaw:skipDeleteConfirm");
+      getSafeLocalStorage()?.removeItem("crabfork:skipDeleteConfirm");
     } catch {
       /* noop */
     }
@@ -1716,7 +1716,7 @@ describe("chat view", () => {
                 view: {
                   backend: "canvas",
                   id: "cv_inline",
-                  url: "/__openclaw__/canvas/documents/cv_inline/index.html",
+                  url: "/__crabfork__/canvas/documents/cv_inline/index.html",
                   title: "Inline demo",
                   preferred_height: 360,
                 },
@@ -1735,7 +1735,7 @@ describe("chat view", () => {
     const iframe = container.querySelector<HTMLIFrameElement>(".chat-tool-card__preview-frame");
     expect(iframe).not.toBeNull();
     expect(iframe?.getAttribute("sandbox")).toBe("allow-scripts");
-    expect(iframe?.getAttribute("src")).toBe("/__openclaw__/canvas/documents/cv_inline/index.html");
+    expect(iframe?.getAttribute("src")).toBe("/__crabfork__/canvas/documents/cv_inline/index.html");
     expect(container.textContent).toContain("Inline canvas result.");
     expect(container.textContent).toContain("Inline demo");
     expect(container.textContent).toContain("Raw details");
@@ -1767,7 +1767,7 @@ describe("chat view", () => {
                 view: {
                   backend: "canvas",
                   id: "cv_inline_isolated",
-                  url: "/__openclaw__/canvas/documents/cv_inline_isolated/index.html",
+                  url: "/__crabfork__/canvas/documents/cv_inline_isolated/index.html",
                   title: "Inline demo",
                   preferred_height: 360,
                 },
@@ -1813,7 +1813,7 @@ describe("chat view", () => {
                 view: {
                   backend: "canvas",
                   id: "cv_inline_visible",
-                  url: "/__openclaw__/canvas/documents/cv_inline_visible/index.html",
+                  url: "/__crabfork__/canvas/documents/cv_inline_visible/index.html",
                   title: "Inline demo",
                   preferred_height: 360,
                 },
@@ -1870,7 +1870,7 @@ describe("chat view", () => {
                 view: {
                   backend: "canvas",
                   id: "cv_nearest_turn",
-                  url: "/__openclaw__/canvas/documents/cv_nearest_turn/index.html",
+                  url: "/__crabfork__/canvas/documents/cv_nearest_turn/index.html",
                   title: "Nearest turn demo",
                   preferred_height: 320,
                 },
@@ -1924,7 +1924,7 @@ describe("chat view", () => {
                   view: {
                     backend: "canvas",
                     id: "cv_generic_inline",
-                    url: "/__openclaw__/canvas/documents/cv_generic_inline/index.html",
+                    url: "/__crabfork__/canvas/documents/cv_generic_inline/index.html",
                     title: "Inline generic preview",
                     preferred_height: 420,
                   },
@@ -1999,16 +1999,16 @@ describe("chat view", () => {
       renderChat(
         createProps({
           showToolCalls: false,
-          basePath: "/openclaw",
+          basePath: "/crabfork",
           assistantAttachmentAuthToken: "session-token",
-          localMediaPreviewRoots: ["/tmp/openclaw"],
+          localMediaPreviewRoots: ["/tmp/crabfork"],
           onRequestUpdate: () => render(template(), container),
           messages: [
             {
               id: "assistant-local-media-inline",
               role: "assistant",
               content:
-                "Local image\nMEDIA:/tmp/openclaw/test image.png\nMEDIA:/tmp/openclaw/test-doc.pdf",
+                "Local image\nMEDIA:/tmp/crabfork/test image.png\nMEDIA:/tmp/crabfork/test-doc.pdf",
               timestamp: Date.now(),
             },
           ],
@@ -2022,7 +2022,7 @@ describe("chat view", () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "/openclaw/__openclaw__/assistant-media?source=%2Ftmp%2Fopenclaw%2Ftest+image.png&token=session-token&meta=1",
+      "/crabfork/__crabfork__/assistant-media?source=%2Ftmp%2Fcrabfork%2Ftest+image.png&token=session-token&meta=1",
       expect.objectContaining({ credentials: "same-origin", method: "GET" }),
     );
 
@@ -2031,10 +2031,10 @@ describe("chat view", () => {
       ".chat-assistant-attachment-card__link",
     );
     expect(image?.getAttribute("src")).toBe(
-      "/openclaw/__openclaw__/assistant-media?source=%2Ftmp%2Fopenclaw%2Ftest+image.png&token=session-token",
+      "/crabfork/__crabfork__/assistant-media?source=%2Ftmp%2Fcrabfork%2Ftest+image.png&token=session-token",
     );
     expect(docLink?.getAttribute("href")).toBe(
-      "/openclaw/__openclaw__/assistant-media?source=%2Ftmp%2Fopenclaw%2Ftest-doc.pdf&token=session-token",
+      "/crabfork/__crabfork__/assistant-media?source=%2Ftmp%2Fcrabfork%2Ftest-doc.pdf&token=session-token",
     );
     expect(container.textContent).not.toContain("test image.png");
     vi.unstubAllGlobals();
@@ -2059,15 +2059,15 @@ describe("chat view", () => {
         renderChat(
           createProps({
             showToolCalls: false,
-            basePath: "/openclaw",
+            basePath: "/crabfork",
             assistantAttachmentAuthToken: token,
-            localMediaPreviewRoots: ["/tmp/openclaw"],
+            localMediaPreviewRoots: ["/tmp/crabfork"],
             onRequestUpdate: () => renderWithToken(token),
             messages: [
               {
                 id: "assistant-local-media-auth-refresh",
                 role: "assistant",
-                content: "Local image\nMEDIA:/tmp/openclaw/test image.png",
+                content: "Local image\nMEDIA:/tmp/crabfork/test image.png",
                 timestamp: Date.now(),
               },
             ],
@@ -2090,12 +2090,12 @@ describe("chat view", () => {
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(fetchMock).toHaveBeenNthCalledWith(
       1,
-      "/openclaw/__openclaw__/assistant-media?source=%2Ftmp%2Fopenclaw%2Ftest+image.png&meta=1",
+      "/crabfork/__crabfork__/assistant-media?source=%2Ftmp%2Fcrabfork%2Ftest+image.png&meta=1",
       expect.objectContaining({ credentials: "same-origin", method: "GET" }),
     );
     expect(fetchMock).toHaveBeenNthCalledWith(
       2,
-      "/openclaw/__openclaw__/assistant-media?source=%2Ftmp%2Fopenclaw%2Ftest+image.png&token=fresh-token&meta=1",
+      "/crabfork/__crabfork__/assistant-media?source=%2Ftmp%2Fcrabfork%2Ftest+image.png&token=fresh-token&meta=1",
       expect.objectContaining({ credentials: "same-origin", method: "GET" }),
     );
     expect(container.querySelector(".chat-message-image")).not.toBeNull();
@@ -2110,14 +2110,14 @@ describe("chat view", () => {
       renderChat(
         createProps({
           showToolCalls: false,
-          basePath: "/openclaw",
-          localMediaPreviewRoots: ["/tmp/openclaw"],
+          basePath: "/crabfork",
+          localMediaPreviewRoots: ["/tmp/crabfork"],
           messages: [
             {
               id: "assistant-same-origin-media-inline",
               role: "assistant",
               content:
-                "Inline\nMEDIA:/media/inbound/test-image.png\nMEDIA:/__openclaw__/media/test-doc.pdf",
+                "Inline\nMEDIA:/media/inbound/test-image.png\nMEDIA:/__crabfork__/media/test-doc.pdf",
               timestamp: Date.now(),
             },
           ],
@@ -2131,7 +2131,7 @@ describe("chat view", () => {
       ".chat-assistant-attachment-card__link",
     );
     expect(image?.getAttribute("src")).toBe("/media/inbound/test-image.png");
-    expect(docLink?.getAttribute("href")).toBe("/__openclaw__/media/test-doc.pdf");
+    expect(docLink?.getAttribute("href")).toBe("/__crabfork__/media/test-doc.pdf");
     expect(container.textContent).not.toContain("Unavailable");
   });
 
@@ -2142,8 +2142,8 @@ describe("chat view", () => {
       renderChat(
         createProps({
           showToolCalls: false,
-          basePath: "/openclaw",
-          localMediaPreviewRoots: ["/tmp/openclaw"],
+          basePath: "/crabfork",
+          localMediaPreviewRoots: ["/tmp/crabfork"],
           messages: [
             {
               id: "assistant-blocked-local-media",
@@ -2182,14 +2182,14 @@ describe("chat view", () => {
       renderChat(
         createProps({
           showToolCalls: false,
-          basePath: "/openclaw",
-          localMediaPreviewRoots: ["C:\\tmp\\openclaw"],
+          basePath: "/crabfork",
+          localMediaPreviewRoots: ["C:\\tmp\\crabfork"],
           onRequestUpdate: () => undefined,
           messages: [
             {
               id: "assistant-windows-file-url",
               role: "assistant",
-              content: "Windows image\nMEDIA:file:///C:/tmp/openclaw/test%20image.png",
+              content: "Windows image\nMEDIA:file:///C:/tmp/crabfork/test%20image.png",
               timestamp: Date.now(),
             },
           ],
@@ -2203,7 +2203,7 @@ describe("chat view", () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "/openclaw/__openclaw__/assistant-media?source=%2FC%3A%2Ftmp%2Fopenclaw%2Ftest%2520image.png&meta=1",
+      "/crabfork/__crabfork__/assistant-media?source=%2FC%3A%2Ftmp%2Fcrabfork%2Ftest%2520image.png&meta=1",
       expect.objectContaining({ credentials: "same-origin", method: "GET" }),
     );
     expect(container.textContent).not.toContain("Outside allowed folders");
@@ -2227,7 +2227,7 @@ describe("chat view", () => {
       renderChat(
         createProps({
           showToolCalls: false,
-          basePath: "/openclaw",
+          basePath: "/crabfork",
           localMediaPreviewRoots: ["c:\\users\\test\\pictures"],
           onRequestUpdate: () => undefined,
           messages: [
@@ -2248,7 +2248,7 @@ describe("chat view", () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "/openclaw/__openclaw__/assistant-media?source=C%3A%5CUsers%5CTest%5CPictures%5Ctest+image.png&meta=1",
+      "/crabfork/__crabfork__/assistant-media?source=C%3A%5CUsers%5CTest%5CPictures%5Ctest+image.png&meta=1",
       expect.objectContaining({ credentials: "same-origin", method: "GET" }),
     );
     expect(container.textContent).not.toContain("Outside allowed folders");
@@ -2276,14 +2276,14 @@ describe("chat view", () => {
         renderChat(
           createProps({
             showToolCalls: false,
-            basePath: "/openclaw",
-            localMediaPreviewRoots: ["/tmp/openclaw"],
+            basePath: "/crabfork",
+            localMediaPreviewRoots: ["/tmp/crabfork"],
             onRequestUpdate: renderMessage,
             messages: [
               {
                 id: "assistant-local-media-retry-after-unavailable",
                 role: "assistant",
-                content: "Local image\nMEDIA:/tmp/openclaw/test image.png",
+                content: "Local image\nMEDIA:/tmp/crabfork/test image.png",
                 timestamp: Date.now(),
               },
             ],
@@ -2328,7 +2328,7 @@ describe("chat view", () => {
       renderChat(
         createProps({
           showToolCalls: false,
-          basePath: "/openclaw",
+          basePath: "/crabfork",
           localMediaPreviewRoots: ["/Users/test/Pictures"],
           onRequestUpdate: () => undefined,
           messages: [
@@ -2360,7 +2360,7 @@ describe("chat view", () => {
     await new Promise((resolve) => setTimeout(resolve, 0));
 
     expect(fetchMock).toHaveBeenCalledWith(
-      "/openclaw/__openclaw__/assistant-media?source=%7E%2FPictures%2Ftest+image.png&meta=1",
+      "/crabfork/__crabfork__/assistant-media?source=%7E%2FPictures%2Ftest+image.png&meta=1",
       expect.objectContaining({ credentials: "same-origin", method: "GET" }),
     );
     expect(container.textContent).not.toContain("Outside allowed folders");
@@ -2372,7 +2372,7 @@ describe("chat view", () => {
     render(
       renderChat(
         createProps({
-          canvasHostUrl: "http://127.0.0.1:19003/__openclaw__/cap/cap_123",
+          canvasHostUrl: "http://127.0.0.1:19003/__crabfork__/cap/cap_123",
           messages: [
             {
               id: "assistant-scoped-canvas",
@@ -2387,7 +2387,7 @@ describe("chat view", () => {
                     render: "url",
                     viewId: "cv_inline_scoped",
                     title: "Scoped preview",
-                    url: "/__openclaw__/canvas/documents/cv_inline_scoped/index.html",
+                    url: "/__crabfork__/canvas/documents/cv_inline_scoped/index.html",
                     preferredHeight: 320,
                   },
                 },
@@ -2402,7 +2402,7 @@ describe("chat view", () => {
 
     const iframe = container.querySelector(".chat-tool-card__preview-frame");
     expect(iframe?.getAttribute("src")).toBe(
-      "http://127.0.0.1:19003/__openclaw__/cap/cap_123/__openclaw__/canvas/documents/cv_inline_scoped/index.html",
+      "http://127.0.0.1:19003/__crabfork__/cap/cap_123/__crabfork__/canvas/documents/cv_inline_scoped/index.html",
     );
   });
 
@@ -2441,7 +2441,7 @@ describe("chat view", () => {
                     view: {
                       backend: "canvas",
                       id: "cv_canvas_live_history",
-                      url: "/__openclaw__/canvas/documents/cv_canvas_live_history/index.html",
+                      url: "/__crabfork__/canvas/documents/cv_canvas_live_history/index.html",
                       title: "Live history preview",
                       preferred_height: 420,
                     },
@@ -2467,7 +2467,7 @@ describe("chat view", () => {
                     render: "url",
                     viewId: "cv_canvas_live_history",
                     title: "Live history preview",
-                    url: "/__openclaw__/canvas/documents/cv_canvas_live_history/index.html",
+                    url: "/__crabfork__/canvas/documents/cv_canvas_live_history/index.html",
                     preferredHeight: 420,
                   },
                   rawText: JSON.stringify({
@@ -2475,7 +2475,7 @@ describe("chat view", () => {
                     view: {
                       backend: "canvas",
                       id: "cv_canvas_live_history",
-                      url: "/__openclaw__/canvas/documents/cv_canvas_live_history/index.html",
+                      url: "/__crabfork__/canvas/documents/cv_canvas_live_history/index.html",
                     },
                     presentation: {
                       target: "assistant_message",
@@ -2535,7 +2535,7 @@ describe("chat view", () => {
                     view: {
                       backend: "canvas",
                       id: "cv_streamed_artifact",
-                      url: "/__openclaw__/canvas/documents/cv_streamed_artifact/index.html",
+                      url: "/__crabfork__/canvas/documents/cv_streamed_artifact/index.html",
                       title: "Streamed demo",
                       preferred_height: 320,
                     },

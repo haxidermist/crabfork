@@ -2,7 +2,7 @@ export {
   DEFAULT_ACCOUNT_ID,
   normalizeAccountId,
   normalizeOptionalAccountId,
-} from "openclaw/plugin-sdk/account-id";
+} from "crabfork/plugin-sdk/account-id";
 export {
   createActionGate,
   jsonResult,
@@ -11,9 +11,9 @@ export {
   readStringArrayParam,
   readStringParam,
   ToolAuthorizationError,
-} from "openclaw/plugin-sdk/channel-actions";
-export { buildChannelConfigSchema } from "openclaw/plugin-sdk/channel-config-primitives";
-export type { ChannelPlugin } from "openclaw/plugin-sdk/channel-core";
+} from "crabfork/plugin-sdk/channel-actions";
+export { buildChannelConfigSchema } from "crabfork/plugin-sdk/channel-config-primitives";
+export type { ChannelPlugin } from "crabfork/plugin-sdk/channel-core";
 export type {
   BaseProbeResult,
   ChannelDirectoryEntry,
@@ -26,30 +26,30 @@ export type {
   ChannelResolveKind,
   ChannelResolveResult,
   ChannelToolSend,
-} from "openclaw/plugin-sdk/channel-contract";
+} from "crabfork/plugin-sdk/channel-contract";
 export {
   formatLocationText,
   logInboundDrop,
   toLocationContext,
   type NormalizedLocation,
-} from "openclaw/plugin-sdk/channel-inbound";
-export { resolveAckReaction, logTypingFailure } from "openclaw/plugin-sdk/channel-feedback";
-export type { ChannelSetupInput } from "openclaw/plugin-sdk/setup";
+} from "crabfork/plugin-sdk/channel-inbound";
+export { resolveAckReaction, logTypingFailure } from "crabfork/plugin-sdk/channel-feedback";
+export type { ChannelSetupInput } from "crabfork/plugin-sdk/setup";
 export type {
-  OpenClawConfig,
+  CrabforkConfig,
   ContextVisibilityMode,
   DmPolicy,
   GroupPolicy,
-} from "openclaw/plugin-sdk/config-runtime";
-export type { GroupToolPolicyConfig } from "openclaw/plugin-sdk/config-runtime";
-export type { WizardPrompter } from "openclaw/plugin-sdk/matrix-runtime-shared";
-export type { SecretInput } from "openclaw/plugin-sdk/secret-input";
+} from "crabfork/plugin-sdk/config-runtime";
+export type { GroupToolPolicyConfig } from "crabfork/plugin-sdk/config-runtime";
+export type { WizardPrompter } from "crabfork/plugin-sdk/matrix-runtime-shared";
+export type { SecretInput } from "crabfork/plugin-sdk/secret-input";
 export {
   GROUP_POLICY_BLOCKED_LABEL,
   resolveAllowlistProviderRuntimeGroupPolicy,
   resolveDefaultGroupPolicy,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/config-runtime";
+} from "crabfork/plugin-sdk/config-runtime";
 export {
   addWildcardAllowFrom,
   formatDocsLink,
@@ -59,8 +59,8 @@ export {
   promptAccountId,
   promptChannelAccessConfig,
   splitSetupEntries,
-} from "openclaw/plugin-sdk/setup";
-export type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
+} from "crabfork/plugin-sdk/setup";
+export type { RuntimeEnv } from "crabfork/plugin-sdk/runtime";
 export {
   assertHttpUrlTargetsPrivateNetwork,
   closeDispatcher,
@@ -71,43 +71,43 @@ export {
   ssrfPolicyFromAllowPrivateNetwork,
   type LookupFn,
   type SsrFPolicy,
-} from "openclaw/plugin-sdk/ssrf-runtime";
-export { dispatchReplyFromConfigWithSettledDispatcher } from "openclaw/plugin-sdk/inbound-reply-dispatch";
+} from "crabfork/plugin-sdk/ssrf-runtime";
+export { dispatchReplyFromConfigWithSettledDispatcher } from "crabfork/plugin-sdk/inbound-reply-dispatch";
 export {
   ensureConfiguredAcpBindingReady,
   resolveConfiguredAcpBindingRecord,
-} from "openclaw/plugin-sdk/acp-binding-runtime";
+} from "crabfork/plugin-sdk/acp-binding-runtime";
 export {
   buildProbeChannelStatusSummary,
   collectStatusIssuesFromLastError,
   PAIRING_APPROVED_MESSAGE,
-} from "openclaw/plugin-sdk/channel-status";
+} from "crabfork/plugin-sdk/channel-status";
 export {
   getSessionBindingService,
   resolveThreadBindingIdleTimeoutMsForChannel,
   resolveThreadBindingMaxAgeMsForChannel,
-} from "openclaw/plugin-sdk/conversation-runtime";
-export { resolveOutboundSendDep } from "openclaw/plugin-sdk/outbound-runtime";
-export { resolveAgentIdFromSessionKey } from "openclaw/plugin-sdk/routing";
-export { chunkTextForOutbound } from "openclaw/plugin-sdk/text-chunking";
-export { createChannelReplyPipeline } from "openclaw/plugin-sdk/channel-reply-pipeline";
-export { loadOutboundMediaFromUrl } from "openclaw/plugin-sdk/outbound-media";
-export { normalizePollInput, type PollInput } from "openclaw/plugin-sdk/media-runtime";
-export { writeJsonFileAtomically } from "openclaw/plugin-sdk/json-store";
+} from "crabfork/plugin-sdk/conversation-runtime";
+export { resolveOutboundSendDep } from "crabfork/plugin-sdk/outbound-runtime";
+export { resolveAgentIdFromSessionKey } from "crabfork/plugin-sdk/routing";
+export { chunkTextForOutbound } from "crabfork/plugin-sdk/text-chunking";
+export { createChannelReplyPipeline } from "crabfork/plugin-sdk/channel-reply-pipeline";
+export { loadOutboundMediaFromUrl } from "crabfork/plugin-sdk/outbound-media";
+export { normalizePollInput, type PollInput } from "crabfork/plugin-sdk/media-runtime";
+export { writeJsonFileAtomically } from "crabfork/plugin-sdk/json-store";
 export {
   buildChannelKeyCandidates,
   resolveChannelEntryMatch,
-} from "openclaw/plugin-sdk/channel-targets";
+} from "crabfork/plugin-sdk/channel-targets";
 export {
   evaluateGroupRouteAccessForPolicy,
   resolveSenderScopedGroupPolicy,
-} from "openclaw/plugin-sdk/channel-policy";
+} from "crabfork/plugin-sdk/channel-policy";
 export {
   formatZonedTimestamp,
   type PluginRuntime,
   type RuntimeLogger,
-} from "openclaw/plugin-sdk/matrix-runtime-shared";
-export type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
+} from "crabfork/plugin-sdk/matrix-runtime-shared";
+export type { ReplyPayload } from "crabfork/plugin-sdk/reply-runtime";
 // resolveMatrixAccountStringValues already comes from plugin-sdk/matrix.
 // Re-exporting auth-precedence here makes Jiti try to define the same export twice.
 

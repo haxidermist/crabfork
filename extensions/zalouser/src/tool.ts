@@ -1,6 +1,6 @@
 import { Type } from "@sinclair/typebox";
-import type { AnyAgentTool, OpenClawPluginToolContext } from "openclaw/plugin-sdk/core";
-import { formatErrorMessage } from "openclaw/plugin-sdk/error-runtime";
+import type { AnyAgentTool, CrabforkPluginToolContext } from "crabfork/plugin-sdk/core";
+import { formatErrorMessage } from "crabfork/plugin-sdk/error-runtime";
 import { sendImageZalouser, sendLinkZalouser, sendMessageZalouser } from "./send.js";
 import { parseZalouserOutboundTarget } from "./session-route.js";
 import {
@@ -51,7 +51,7 @@ type ToolParams = {
   url?: string;
 };
 
-type ZalouserToolContext = Pick<OpenClawPluginToolContext, "deliveryContext">;
+type ZalouserToolContext = Pick<CrabforkPluginToolContext, "deliveryContext">;
 
 function json(payload: unknown): AgentToolResult {
   return {

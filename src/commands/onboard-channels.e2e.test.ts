@@ -11,7 +11,7 @@ import {
 } from "../commands/channel-setup/plugin-install.js";
 import { getChannelSetupWizardAdapter } from "../commands/channel-setup/registry.js";
 import type { ChannelSetupWizardAdapter } from "../commands/channel-setup/types.js";
-import type { OpenClawConfig } from "../config/config.js";
+import type { CrabforkConfig } from "../config/config.js";
 import { createEmptyPluginRegistry } from "../plugins/registry.js";
 import { setActivePluginRegistry } from "../plugins/runtime.js";
 import { createChannelTestPluginBase, createTestRegistry } from "../test-utils/channel-plugins.js";
@@ -53,7 +53,7 @@ let setupChannels: SetupChannels;
 type SetupChannelsOptions = Parameters<SetupChannels>[3];
 
 function runSetupChannels(
-  cfg: OpenClawConfig,
+  cfg: CrabforkConfig,
   prompter: WizardPrompter,
   options?: SetupChannelsOptions,
 ) {
@@ -90,7 +90,7 @@ function createUnexpectedQuickstartPrompter(select: WizardPrompter["select"]) {
   };
 }
 
-function createTelegramCfg(botToken: string, enabled?: boolean): OpenClawConfig {
+function createTelegramCfg(botToken: string, enabled?: boolean): CrabforkConfig {
   return {
     channels: {
       telegram: {
@@ -98,13 +98,13 @@ function createTelegramCfg(botToken: string, enabled?: boolean): OpenClawConfig 
         ...(typeof enabled === "boolean" ? { enabled } : {}),
       },
     },
-  } as OpenClawConfig;
+  } as CrabforkConfig;
 }
 
 function createMSTeamsCatalogEntry(): ChannelPluginCatalogEntry {
   return {
     id: "external-chat",
-    pluginId: "@openclaw/external-chat-plugin",
+    pluginId: "@crabfork/external-chat-plugin",
     meta: {
       id: "external-chat",
       label: "External Chat",
@@ -113,7 +113,7 @@ function createMSTeamsCatalogEntry(): ChannelPluginCatalogEntry {
       blurb: "external chat channel",
     },
     install: {
-      npmSpec: "@openclaw/external-chat",
+      npmSpec: "@crabfork/external-chat",
     },
   };
 }
@@ -195,7 +195,7 @@ function createMatrixQuickstartPrompter(notes: string[]): WizardPrompter {
       return "matrix-token";
     }
     if (message === "Matrix device name (optional)") {
-      return "OpenClaw Gateway";
+      return "Crabfork Gateway";
     }
     throw new Error(`unexpected text prompt: ${message}`);
   });
@@ -246,7 +246,7 @@ function setMinimalOnboardingRegistryForTests(): void {
               cfg,
               input,
             }: {
-              cfg: OpenClawConfig;
+              cfg: CrabforkConfig;
               input: { token?: string };
             }) =>
               ({
@@ -258,14 +258,14 @@ function setMinimalOnboardingRegistryForTests(): void {
                     ...(input.token ? { botToken: input.token } : {}),
                   },
                 },
-              }) as OpenClawConfig,
+              }) as CrabforkConfig,
           },
           setupWizard: {
             channel: "telegram",
             status: {
               configuredLabel: "configured",
               unconfiguredLabel: "not configured",
-              resolveConfigured: ({ cfg }: { cfg: OpenClawConfig }) =>
+              resolveConfigured: ({ cfg }: { cfg: CrabforkConfig }) =>
                 Boolean(cfg.channels?.telegram?.botToken),
             },
             credentials: [
@@ -276,7 +276,7 @@ function setMinimalOnboardingRegistryForTests(): void {
                 envPrompt: "Use TELEGRAM_BOT_TOKEN from env?",
                 keepPrompt: "Keep current Telegram bot token?",
                 inputPrompt: "Enter Telegram bot token",
-                inspect: ({ cfg }: { cfg: OpenClawConfig }) => ({
+                inspect: ({ cfg }: { cfg: CrabforkConfig }) => ({
                   accountConfigured: Boolean(cfg.channels?.telegram?.botToken),
                   hasConfiguredValue: Boolean(cfg.channels?.telegram?.botToken),
                 }),
@@ -299,7 +299,7 @@ function setMinimalOnboardingRegistryForTests(): void {
               cfg,
               input,
             }: {
-              cfg: OpenClawConfig;
+              cfg: CrabforkConfig;
               input: { account?: string; name?: string };
             }) =>
               ({
@@ -313,16 +313,16 @@ function setMinimalOnboardingRegistryForTests(): void {
                     linked: false,
                   },
                 },
-              }) as OpenClawConfig,
+              }) as CrabforkConfig,
           },
           setupWizard: {
             channel: "whatsapp",
             status: {
               configuredLabel: "configured",
               unconfiguredLabel: "not linked",
-              resolveConfigured: ({ cfg }: { cfg: OpenClawConfig }) =>
+              resolveConfigured: ({ cfg }: { cfg: CrabforkConfig }) =>
                 Boolean((cfg.channels?.whatsapp as { account?: string } | undefined)?.account),
-              resolveSelectionHint: async ({ cfg }: { cfg: OpenClawConfig }) =>
+              resolveSelectionHint: async ({ cfg }: { cfg: CrabforkConfig }) =>
                 (cfg.channels?.whatsapp as { account?: string } | undefined)?.account
                   ? "configured"
                   : "not linked",
@@ -333,7 +333,7 @@ function setMinimalOnboardingRegistryForTests(): void {
                 inputKey: "account",
                 message: "Your personal WhatsApp number",
                 required: true,
-                applySet: ({ cfg, value }: { cfg: OpenClawConfig; value: string }) =>
+                applySet: ({ cfg, value }: { cfg: CrabforkConfig; value: string }) =>
                   ({
                     ...cfg,
                     channels: {
@@ -343,7 +343,7 @@ function setMinimalOnboardingRegistryForTests(): void {
                         account: value,
                       },
                     },
-                  }) as OpenClawConfig,
+                  }) as CrabforkConfig,
               },
             ],
           },
@@ -374,7 +374,7 @@ type PatchedSetupAdapterFields = {
 
 function createMSTeamsPluginRegistryEntry(params?: { includeSetupWizard?: boolean }) {
   return {
-    pluginId: "@openclaw/external-chat-plugin",
+    pluginId: "@crabfork/external-chat-plugin",
     source: "test",
     plugin: {
       id: "external-chat",
@@ -430,7 +430,7 @@ function patchTelegramAdapter(overrides: ChannelSetupWizardAdapterPatch) {
     ...overrides,
     getStatus:
       overrides.getStatus ??
-      vi.fn(async ({ cfg }: { cfg: OpenClawConfig }) => ({
+      vi.fn(async ({ cfg }: { cfg: CrabforkConfig }) => ({
         channel: "telegram",
         configured: Boolean(cfg.channels?.telegram?.botToken),
         statusLines: [],
@@ -499,10 +499,10 @@ async function expectQuickstartPickerSkipsWithoutRuntime() {
   });
 
   await expect(
-    runSetupChannels({} as OpenClawConfig, prompter, {
+    runSetupChannels({} as CrabforkConfig, prompter, {
       quickstartDefaults: true,
     }),
-  ).resolves.toEqual({} as OpenClawConfig);
+  ).resolves.toEqual({} as CrabforkConfig);
 
   expect(select).toHaveBeenCalledWith(
     expect.objectContaining({ message: "Select channel (QuickStart)" }),
@@ -560,7 +560,7 @@ async function runQuickstartTelegramSetupWithInteractive(params: {
   );
 
   try {
-    const cfg = await runSetupChannels({} as OpenClawConfig, prompter, {
+    const cfg = await runSetupChannels({} as CrabforkConfig, prompter, {
       quickstartDefaults: true,
       onSelection: selection,
       onAccountId,
@@ -622,7 +622,7 @@ vi.mock("../commands/channel-setup/plugin-install.js", async () => {
   const actual = await vi.importActual("../commands/channel-setup/plugin-install.js");
   return {
     ...(actual as Record<string, unknown>),
-    ensureChannelSetupPluginInstalled: vi.fn(async ({ cfg }: { cfg: OpenClawConfig }) => ({
+    ensureChannelSetupPluginInstalled: vi.fn(async ({ cfg }: { cfg: CrabforkConfig }) => ({
       cfg,
       installed: true,
     })),
@@ -671,7 +671,7 @@ describe("setupChannels", () => {
       text: text as unknown as WizardPrompter["text"],
     });
 
-    await runSetupChannels({} as OpenClawConfig, prompter, {
+    await runSetupChannels({} as CrabforkConfig, prompter, {
       quickstartDefaults: true,
       forceAllowFromChannels: ["whatsapp"],
     });
@@ -692,7 +692,7 @@ describe("setupChannels", () => {
 
       const notes: string[] = [];
       const prompter = createMatrixQuickstartPrompter(notes);
-      const cfg = await runSetupChannels({} as OpenClawConfig, prompter, {
+      const cfg = await runSetupChannels({} as CrabforkConfig, prompter, {
         quickstartDefaults: true,
       });
 
@@ -700,7 +700,7 @@ describe("setupChannels", () => {
         enabled: true,
         homeserver: "https://matrix.example.org",
         accessToken: "matrix-token",
-        deviceName: "OpenClaw Gateway",
+        deviceName: "Crabfork Gateway",
         encryption: false,
       });
       expect(notes.join("\n")).not.toContain("matrix does not support guided setup yet.");
@@ -732,7 +732,7 @@ describe("setupChannels", () => {
       text: text as unknown as WizardPrompter["text"],
     });
 
-    const cfg = await runSetupChannels({} as OpenClawConfig, prompter, {
+    const cfg = await runSetupChannels({} as CrabforkConfig, prompter, {
       quickstartDefaults: true,
     });
 
@@ -761,7 +761,7 @@ describe("setupChannels", () => {
       text,
     });
 
-    await runSetupChannels({} as OpenClawConfig, prompter);
+    await runSetupChannels({} as CrabforkConfig, prompter);
 
     const sawPrimer = note.mock.calls.some(
       ([message, title]) =>
@@ -803,7 +803,7 @@ describe("setupChannels", () => {
       text,
     });
 
-    await runSetupChannels({} as OpenClawConfig, prompter);
+    await runSetupChannels({} as CrabforkConfig, prompter);
 
     const primerMessage =
       note.mock.calls.find(([, title]) => title === "How channels work")?.[0] ?? "";
@@ -853,7 +853,7 @@ describe("setupChannels", () => {
       text,
     });
 
-    await runSetupChannels({} as OpenClawConfig, prompter);
+    await runSetupChannels({} as CrabforkConfig, prompter);
 
     expect(select).toHaveBeenCalledWith(expect.objectContaining({ message: "Select a channel" }));
     expect(multiselect).not.toHaveBeenCalled();
@@ -902,7 +902,7 @@ describe("setupChannels", () => {
       text,
     });
 
-    await runSetupChannels({} as OpenClawConfig, prompter);
+    await runSetupChannels({} as CrabforkConfig, prompter);
 
     expect(select).toHaveBeenCalledWith(expect.objectContaining({ message: "Select a channel" }));
     expect(
@@ -944,17 +944,17 @@ describe("setupChannels", () => {
         },
         plugins: {
           entries: {
-            "@openclaw/external-chat-plugin": { enabled: true },
+            "@crabfork/external-chat-plugin": { enabled: true },
           },
         },
-      } as OpenClawConfig,
+      } as CrabforkConfig,
       prompter,
     );
 
     expect(loadChannelSetupPluginRegistrySnapshotForChannel).toHaveBeenCalledWith(
       expect.objectContaining({
         channel: "external-chat",
-        pluginId: "@openclaw/external-chat-plugin",
+        pluginId: "@crabfork/external-chat-plugin",
       }),
     );
     expect(multiselect).not.toHaveBeenCalled();
@@ -999,7 +999,7 @@ describe("setupChannels", () => {
       text,
     });
 
-    await runSetupChannels({} as OpenClawConfig, prompter);
+    await runSetupChannels({} as CrabforkConfig, prompter);
 
     expect(select).toHaveBeenCalledWith(expect.objectContaining({ message: "Select a channel" }));
     expect(multiselect).not.toHaveBeenCalled();
@@ -1011,7 +1011,7 @@ describe("setupChannels", () => {
     manifestRegistryMocks.loadPluginManifestRegistry.mockReturnValue({
       plugins: [
         {
-          id: "@openclaw/external-chat-plugin",
+          id: "@crabfork/external-chat-plugin",
           channels: ["external-chat"],
         } as never,
       ],
@@ -1034,13 +1034,13 @@ describe("setupChannels", () => {
       text,
     });
 
-    await runSetupChannels({} as OpenClawConfig, prompter);
+    await runSetupChannels({} as CrabforkConfig, prompter);
 
     expect(ensureChannelSetupPluginInstalled).not.toHaveBeenCalled();
     expect(loadChannelSetupPluginRegistrySnapshotForChannel).toHaveBeenCalledWith(
       expect.objectContaining({
         channel: "external-chat",
-        pluginId: "@openclaw/external-chat-plugin",
+        pluginId: "@crabfork/external-chat-plugin",
       }),
     );
     expect(multiselect).not.toHaveBeenCalled();
@@ -1054,7 +1054,7 @@ describe("setupChannels", () => {
         accountId,
         enabled,
       }: {
-        cfg: OpenClawConfig;
+        cfg: CrabforkConfig;
         accountId: string;
         enabled: boolean;
       }) => ({
@@ -1102,7 +1102,7 @@ describe("setupChannels", () => {
               },
               capabilities: { chatTypes: ["direct"] },
               config: {
-                listAccountIds: (cfg: OpenClawConfig) =>
+                listAccountIds: (cfg: CrabforkConfig) =>
                   Object.keys(
                     (
                       cfg.channels?.["external-chat"] as
@@ -1110,7 +1110,7 @@ describe("setupChannels", () => {
                         | undefined
                     )?.accounts ?? {},
                   ),
-                resolveAccount: (cfg: OpenClawConfig, accountId: string) =>
+                resolveAccount: (cfg: CrabforkConfig, accountId: string) =>
                   (
                     cfg.channels?.["external-chat"] as
                       | {
@@ -1125,7 +1125,7 @@ describe("setupChannels", () => {
                 status: {
                   configuredLabel: "configured",
                   unconfiguredLabel: "needs setup",
-                  resolveConfigured: ({ cfg }: { cfg: OpenClawConfig }) =>
+                  resolveConfigured: ({ cfg }: { cfg: CrabforkConfig }) =>
                     Boolean(
                       (cfg.channels?.["external-chat"] as { tenantId?: string } | undefined)
                         ?.tenantId,
@@ -1182,7 +1182,7 @@ describe("setupChannels", () => {
             "external-chat": { enabled: true },
           },
         },
-      } as OpenClawConfig,
+      } as CrabforkConfig,
       prompter,
       { allowDisable: true },
     );
@@ -1277,14 +1277,14 @@ describe("setupChannels", () => {
   });
 
   it("applies configureInteractive result cfg/account updates", async () => {
-    const configureInteractive = vi.fn(async ({ cfg }: { cfg: OpenClawConfig }) => ({
+    const configureInteractive = vi.fn(async ({ cfg }: { cfg: CrabforkConfig }) => ({
       cfg: {
         ...cfg,
         channels: {
           ...cfg.channels,
           telegram: { ...cfg.channels?.telegram, botToken: "new-token" },
         },
-      } as OpenClawConfig,
+      } as CrabforkConfig,
       accountId: "acct-1",
     }));
     const configure = createUnexpectedConfigureCall(
@@ -1303,14 +1303,14 @@ describe("setupChannels", () => {
   });
 
   it("uses configureWhenConfigured when channel is already configured", async () => {
-    const configureWhenConfigured = vi.fn(async ({ cfg }: { cfg: OpenClawConfig }) => ({
+    const configureWhenConfigured = vi.fn(async ({ cfg }: { cfg: CrabforkConfig }) => ({
       cfg: {
         ...cfg,
         channels: {
           ...cfg.channels,
           telegram: { ...cfg.channels?.telegram, botToken: "updated-token" },
         },
-      } as OpenClawConfig,
+      } as CrabforkConfig,
       accountId: "acct-2",
     }));
     const { cfg, selection, onAccountId, configure } = await runConfiguredTelegramSetup({

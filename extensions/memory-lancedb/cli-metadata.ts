@@ -1,4 +1,4 @@
-import { definePluginEntry } from "openclaw/plugin-sdk/core";
+import { definePluginEntry } from "crabfork/plugin-sdk/core";
 
 export default definePluginEntry({
   id: "memory-lancedb",

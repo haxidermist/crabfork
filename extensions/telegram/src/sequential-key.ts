@@ -3,10 +3,10 @@ import {
   listChatCommands,
   maybeResolveTextAlias,
   normalizeCommandBody,
-} from "openclaw/plugin-sdk/command-auth";
-import { parseExecApprovalCommandText } from "openclaw/plugin-sdk/infra-runtime";
-import { isAbortRequestText } from "openclaw/plugin-sdk/reply-runtime";
-import { isBtwRequestText } from "openclaw/plugin-sdk/reply-runtime";
+} from "crabfork/plugin-sdk/command-auth";
+import { parseExecApprovalCommandText } from "crabfork/plugin-sdk/infra-runtime";
+import { isAbortRequestText } from "crabfork/plugin-sdk/reply-runtime";
+import { isBtwRequestText } from "crabfork/plugin-sdk/reply-runtime";
 import { resolveTelegramForumThreadId } from "./bot/helpers.js";
 
 export type TelegramSequentialKeyContext = {

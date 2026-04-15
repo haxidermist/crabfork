@@ -1,2 +1,2 @@
-export { definePluginEntry } from "openclaw/plugin-sdk/plugin-entry";
-export type { OpenClawPluginApi, PluginRuntime } from "openclaw/plugin-sdk/core";
+export { definePluginEntry } from "crabfork/plugin-sdk/plugin-entry";
+export type { CrabforkPluginApi, PluginRuntime } from "crabfork/plugin-sdk/core";

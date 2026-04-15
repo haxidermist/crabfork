@@ -3,11 +3,11 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "$ROOT_DIR/scripts/lib/live-docker-auth.sh"
-IMAGE_NAME="${OPENCLAW_IMAGE:-openclaw:local}"
-LIVE_IMAGE_NAME="${OPENCLAW_LIVE_IMAGE:-${IMAGE_NAME}-live}"
-CONFIG_DIR="${OPENCLAW_CONFIG_DIR:-$HOME/.openclaw}"
-WORKSPACE_DIR="${OPENCLAW_WORKSPACE_DIR:-$HOME/.openclaw/workspace}"
-PROFILE_FILE="${OPENCLAW_PROFILE_FILE:-$HOME/.profile}"
+IMAGE_NAME="${CRABFORK_IMAGE:-crabfork:local}"
+LIVE_IMAGE_NAME="${CRABFORK_LIVE_IMAGE:-${IMAGE_NAME}-live}"
+CONFIG_DIR="${CRABFORK_CONFIG_DIR:-$HOME/.crabfork}"
+WORKSPACE_DIR="${CRABFORK_WORKSPACE_DIR:-$HOME/.crabfork/workspace}"
+PROFILE_FILE="${CRABFORK_PROFILE_FILE:-$HOME/.profile}"
 
 PROFILE_MOUNT=()
 if [[ -f "$PROFILE_FILE" ]]; then
@@ -16,23 +16,23 @@ fi
 
 AUTH_DIRS=()
 AUTH_FILES=()
-if [[ -n "${OPENCLAW_DOCKER_AUTH_DIRS:-}" ]]; then
+if [[ -n "${CRABFORK_DOCKER_AUTH_DIRS:-}" ]]; then
   while IFS= read -r auth_dir; do
     [[ -n "$auth_dir" ]] || continue
     AUTH_DIRS+=("$auth_dir")
-  done < <(openclaw_live_collect_auth_dirs)
+  done < <(crabfork_live_collect_auth_dirs)
   while IFS= read -r auth_file; do
     [[ -n "$auth_file" ]] || continue
     AUTH_FILES+=("$auth_file")
-  done < <(openclaw_live_collect_auth_files)
-elif [[ -n "${OPENCLAW_LIVE_PROVIDERS:-}" || -n "${OPENCLAW_LIVE_GATEWAY_PROVIDERS:-}" ]]; then
+  done < <(crabfork_live_collect_auth_files)
+elif [[ -n "${CRABFORK_LIVE_PROVIDERS:-}" || -n "${CRABFORK_LIVE_GATEWAY_PROVIDERS:-}" ]]; then
   while IFS= read -r auth_dir; do
     [[ -n "$auth_dir" ]] || continue
     AUTH_DIRS+=("$auth_dir")
   done < <(
     {
-      openclaw_live_collect_auth_dirs_from_csv "${OPENCLAW_LIVE_PROVIDERS:-}"
-      openclaw_live_collect_auth_dirs_from_csv "${OPENCLAW_LIVE_GATEWAY_PROVIDERS:-}"
+      crabfork_live_collect_auth_dirs_from_csv "${CRABFORK_LIVE_PROVIDERS:-}"
+      crabfork_live_collect_auth_dirs_from_csv "${CRABFORK_LIVE_GATEWAY_PROVIDERS:-}"
     } | awk '!seen[$0]++'
   )
   while IFS= read -r auth_file; do
@@ -40,27 +40,27 @@ elif [[ -n "${OPENCLAW_LIVE_PROVIDERS:-}" || -n "${OPENCLAW_LIVE_GATEWAY_PROVIDE
     AUTH_FILES+=("$auth_file")
   done < <(
     {
-      openclaw_live_collect_auth_files_from_csv "${OPENCLAW_LIVE_PROVIDERS:-}"
-      openclaw_live_collect_auth_files_from_csv "${OPENCLAW_LIVE_GATEWAY_PROVIDERS:-}"
+      crabfork_live_collect_auth_files_from_csv "${CRABFORK_LIVE_PROVIDERS:-}"
+      crabfork_live_collect_auth_files_from_csv "${CRABFORK_LIVE_GATEWAY_PROVIDERS:-}"
     } | awk '!seen[$0]++'
   )
 else
   while IFS= read -r auth_dir; do
     [[ -n "$auth_dir" ]] || continue
     AUTH_DIRS+=("$auth_dir")
-  done < <(openclaw_live_collect_auth_dirs)
+  done < <(crabfork_live_collect_auth_dirs)
   while IFS= read -r auth_file; do
     [[ -n "$auth_file" ]] || continue
     AUTH_FILES+=("$auth_file")
-  done < <(openclaw_live_collect_auth_files)
+  done < <(crabfork_live_collect_auth_files)
 fi
 AUTH_DIRS_CSV=""
 if ((${#AUTH_DIRS[@]} > 0)); then
-  AUTH_DIRS_CSV="$(openclaw_live_join_csv "${AUTH_DIRS[@]}")"
+  AUTH_DIRS_CSV="$(crabfork_live_join_csv "${AUTH_DIRS[@]}")"
 fi
 AUTH_FILES_CSV=""
 if ((${#AUTH_FILES[@]} > 0)); then
-  AUTH_FILES_CSV="$(openclaw_live_join_csv "${AUTH_FILES[@]}")"
+  AUTH_FILES_CSV="$(crabfork_live_join_csv "${AUTH_FILES[@]}")"
 fi
 
 EXTERNAL_AUTH_MOUNTS=()
@@ -84,8 +84,8 @@ fi
 read -r -d '' LIVE_TEST_CMD <<'EOF' || true
 set -euo pipefail
 [ -f "$HOME/.profile" ] && source "$HOME/.profile" || true
-IFS=',' read -r -a auth_dirs <<<"${OPENCLAW_DOCKER_AUTH_DIRS_RESOLVED:-}"
-IFS=',' read -r -a auth_files <<<"${OPENCLAW_DOCKER_AUTH_FILES_RESOLVED:-}"
+IFS=',' read -r -a auth_dirs <<<"${CRABFORK_DOCKER_AUTH_DIRS_RESOLVED:-}"
+IFS=',' read -r -a auth_files <<<"${CRABFORK_DOCKER_AUTH_FILES_RESOLVED:-}"
 if ((${#auth_dirs[@]} > 0)); then
   for auth_dir in "${auth_dirs[@]}"; do
     [ -n "$auth_dir" ] || continue
@@ -112,10 +112,10 @@ cleanup() {
 }
 trap cleanup EXIT
 source /src/scripts/lib/live-docker-stage.sh
-openclaw_live_stage_source_tree "$tmp_dir"
-openclaw_live_link_runtime_tree "$tmp_dir"
-openclaw_live_stage_state_dir "$tmp_dir/.openclaw-state"
-openclaw_live_prepare_staged_config
+crabfork_live_stage_source_tree "$tmp_dir"
+crabfork_live_link_runtime_tree "$tmp_dir"
+crabfork_live_stage_state_dir "$tmp_dir/.crabfork-state"
+crabfork_live_prepare_staged_config
 cd "$tmp_dir"
 pnpm test:live:models-profiles
 EOF
@@ -131,22 +131,22 @@ docker run --rm -t \
   -e COREPACK_ENABLE_DOWNLOAD_PROMPT=0 \
   -e HOME=/home/node \
   -e NODE_OPTIONS=--disable-warning=ExperimentalWarning \
-  -e OPENCLAW_SKIP_CHANNELS=1 \
-  -e OPENCLAW_SUPPRESS_NOTES=1 \
-  -e OPENCLAW_DOCKER_AUTH_DIRS_RESOLVED="$AUTH_DIRS_CSV" \
-  -e OPENCLAW_DOCKER_AUTH_FILES_RESOLVED="$AUTH_FILES_CSV" \
-  -e OPENCLAW_LIVE_TEST=1 \
-  -e OPENCLAW_LIVE_MODELS="${OPENCLAW_LIVE_MODELS:-modern}" \
-  -e OPENCLAW_LIVE_PROVIDERS="${OPENCLAW_LIVE_PROVIDERS:-}" \
-  -e OPENCLAW_LIVE_MAX_MODELS="${OPENCLAW_LIVE_MAX_MODELS:-12}" \
-  -e OPENCLAW_LIVE_MODEL_TIMEOUT_MS="${OPENCLAW_LIVE_MODEL_TIMEOUT_MS:-}" \
-  -e OPENCLAW_LIVE_REQUIRE_PROFILE_KEYS="${OPENCLAW_LIVE_REQUIRE_PROFILE_KEYS:-}" \
-  -e OPENCLAW_LIVE_GATEWAY_MODELS="${OPENCLAW_LIVE_GATEWAY_MODELS:-}" \
-  -e OPENCLAW_LIVE_GATEWAY_PROVIDERS="${OPENCLAW_LIVE_GATEWAY_PROVIDERS:-}" \
-  -e OPENCLAW_LIVE_GATEWAY_MAX_MODELS="${OPENCLAW_LIVE_GATEWAY_MAX_MODELS:-}" \
+  -e CRABFORK_SKIP_CHANNELS=1 \
+  -e CRABFORK_SUPPRESS_NOTES=1 \
+  -e CRABFORK_DOCKER_AUTH_DIRS_RESOLVED="$AUTH_DIRS_CSV" \
+  -e CRABFORK_DOCKER_AUTH_FILES_RESOLVED="$AUTH_FILES_CSV" \
+  -e CRABFORK_LIVE_TEST=1 \
+  -e CRABFORK_LIVE_MODELS="${CRABFORK_LIVE_MODELS:-modern}" \
+  -e CRABFORK_LIVE_PROVIDERS="${CRABFORK_LIVE_PROVIDERS:-}" \
+  -e CRABFORK_LIVE_MAX_MODELS="${CRABFORK_LIVE_MAX_MODELS:-12}" \
+  -e CRABFORK_LIVE_MODEL_TIMEOUT_MS="${CRABFORK_LIVE_MODEL_TIMEOUT_MS:-}" \
+  -e CRABFORK_LIVE_REQUIRE_PROFILE_KEYS="${CRABFORK_LIVE_REQUIRE_PROFILE_KEYS:-}" \
+  -e CRABFORK_LIVE_GATEWAY_MODELS="${CRABFORK_LIVE_GATEWAY_MODELS:-}" \
+  -e CRABFORK_LIVE_GATEWAY_PROVIDERS="${CRABFORK_LIVE_GATEWAY_PROVIDERS:-}" \
+  -e CRABFORK_LIVE_GATEWAY_MAX_MODELS="${CRABFORK_LIVE_GATEWAY_MAX_MODELS:-}" \
   -v "$ROOT_DIR":/src:ro \
-  -v "$CONFIG_DIR":/home/node/.openclaw \
-  -v "$WORKSPACE_DIR":/home/node/.openclaw/workspace \
+  -v "$CONFIG_DIR":/home/node/.crabfork \
+  -v "$WORKSPACE_DIR":/home/node/.crabfork/workspace \
   "${EXTERNAL_AUTH_MOUNTS[@]}" \
   "${PROFILE_MOUNT[@]}" \
   "$LIVE_IMAGE_NAME" \

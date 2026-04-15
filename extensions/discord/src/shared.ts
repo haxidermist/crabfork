@@ -1,8 +1,8 @@
-import { describeAccountSnapshot } from "openclaw/plugin-sdk/account-helpers";
-import { formatAllowFromLowercase } from "openclaw/plugin-sdk/allow-from";
-import { adaptScopedAccountAccessor } from "openclaw/plugin-sdk/channel-config-helpers";
-import { createScopedChannelConfigAdapter } from "openclaw/plugin-sdk/channel-config-helpers";
-import type { ChannelDoctorAdapter } from "openclaw/plugin-sdk/channel-contract";
+import { describeAccountSnapshot } from "crabfork/plugin-sdk/account-helpers";
+import { formatAllowFromLowercase } from "crabfork/plugin-sdk/allow-from";
+import { adaptScopedAccountAccessor } from "crabfork/plugin-sdk/channel-config-helpers";
+import { createScopedChannelConfigAdapter } from "crabfork/plugin-sdk/channel-config-helpers";
+import type { ChannelDoctorAdapter } from "crabfork/plugin-sdk/channel-contract";
 import { inspectDiscordAccount } from "./account-inspect.js";
 import {
   listDiscordAccountIds,

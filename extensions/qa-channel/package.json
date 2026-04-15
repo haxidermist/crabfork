@@ -1,22 +1,22 @@
 {
-  "name": "@openclaw/qa-channel",
+  "name": "@crabfork/qa-channel",
   "version": "2026.4.12",
   "private": true,
-  "description": "OpenClaw QA synthetic channel plugin",
+  "description": "Crabfork QA synthetic channel plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*",
+    "crabfork": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.4.12"
+    "crabfork": ">=2026.4.12"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "crabfork": {
       "optional": true
     }
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ],
@@ -28,7 +28,7 @@
       "detailLabel": "QA Channel",
       "docsPath": "/channels/qa-channel",
       "docsLabel": "qa-channel",
-      "blurb": "Synthetic Slack-class transport for automated OpenClaw QA scenarios.",
+      "blurb": "Synthetic Slack-class transport for automated Crabfork QA scenarios.",
       "systemImage": "checklist",
       "order": 999,
       "exposure": {

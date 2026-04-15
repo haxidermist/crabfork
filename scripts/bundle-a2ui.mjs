@@ -12,7 +12,7 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const hashFile = path.join(rootDir, "src", "canvas-host", "a2ui", ".bundle.hash");
 const outputFile = path.join(rootDir, "src", "canvas-host", "a2ui", "a2ui.bundle.js");
 const a2uiRendererDir = path.join(rootDir, "vendor", "a2ui", "renderers", "lit");
-const a2uiAppDir = path.join(rootDir, "apps", "shared", "OpenClawKit", "Tools", "CanvasA2UI");
+const a2uiAppDir = path.join(rootDir, "apps", "shared", "CrabforkKit", "Tools", "CanvasA2UI");
 const uiPackageFile = path.join(rootDir, "ui", "package.json");
 const bundleDependencyIds = ["lit", "@lit/context", "@lit-labs/signals", "signal-utils"];
 const repoInputPaths = [uiPackageFile, a2uiRendererDir, a2uiAppDir];
@@ -69,7 +69,7 @@ export function getBundleHashRepoInputPaths(repoRoot = rootDir) {
   return [
     path.join(repoRoot, "ui", "package.json"),
     path.join(repoRoot, "vendor", "a2ui", "renderers", "lit"),
-    path.join(repoRoot, "apps", "shared", "OpenClawKit", "Tools", "CanvasA2UI"),
+    path.join(repoRoot, "apps", "shared", "CrabforkKit", "Tools", "CanvasA2UI"),
   ];
 }
 
@@ -197,9 +197,9 @@ async function main() {
       console.log("A2UI sources missing; keeping prebuilt bundle.");
       return;
     }
-    if (process.env.OPENCLAW_SPARSE_PROFILE || process.env.OPENCLAW_A2UI_SKIP_MISSING === "1") {
+    if (process.env.CRABFORK_SPARSE_PROFILE || process.env.CRABFORK_A2UI_SKIP_MISSING === "1") {
       console.error(
-        "A2UI sources missing; skipping bundle because OPENCLAW_A2UI_SKIP_MISSING=1 or OPENCLAW_SPARSE_PROFILE is set.",
+        "A2UI sources missing; skipping bundle because CRABFORK_A2UI_SKIP_MISSING=1 or CRABFORK_SPARSE_PROFILE is set.",
       );
       return;
     }

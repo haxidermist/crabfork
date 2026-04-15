@@ -8,4 +8,4 @@ export {
   isSilentReplyText,
   resolveTextChunkLimit,
   SILENT_REPLY_TOKEN,
-} from "openclaw/plugin-sdk/reply-runtime";
+} from "crabfork/plugin-sdk/reply-runtime";

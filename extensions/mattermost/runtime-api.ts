@@ -10,18 +10,18 @@ export type {
   ChannelPlugin,
   ChatType,
   HistoryEntry,
-  OpenClawConfig,
-  OpenClawPluginApi,
+  CrabforkConfig,
+  CrabforkPluginApi,
   PluginRuntime,
-} from "openclaw/plugin-sdk/core";
-export type { RuntimeEnv } from "openclaw/plugin-sdk/runtime";
-export type { ReplyPayload } from "openclaw/plugin-sdk/reply-runtime";
-export type { ModelsProviderData } from "openclaw/plugin-sdk/command-auth";
+} from "crabfork/plugin-sdk/core";
+export type { RuntimeEnv } from "crabfork/plugin-sdk/runtime";
+export type { ReplyPayload } from "crabfork/plugin-sdk/reply-runtime";
+export type { ModelsProviderData } from "crabfork/plugin-sdk/command-auth";
 export type {
   BlockStreamingCoalesceConfig,
   DmPolicy,
   GroupPolicy,
-} from "openclaw/plugin-sdk/config-runtime";
+} from "crabfork/plugin-sdk/config-runtime";
 export {
   DEFAULT_ACCOUNT_ID,
   buildChannelConfigSchema,
@@ -29,16 +29,16 @@ export {
   parseStrictPositiveInteger,
   resolveClientIp,
   isTrustedProxyAddress,
-} from "openclaw/plugin-sdk/core";
-export { buildComputedAccountStatusSnapshot } from "openclaw/plugin-sdk/channel-status";
-export { createAccountStatusSink } from "openclaw/plugin-sdk/channel-lifecycle";
-export { buildAgentMediaPayload } from "openclaw/plugin-sdk/agent-media-payload";
+} from "crabfork/plugin-sdk/core";
+export { buildComputedAccountStatusSnapshot } from "crabfork/plugin-sdk/channel-status";
+export { createAccountStatusSink } from "crabfork/plugin-sdk/channel-lifecycle";
+export { buildAgentMediaPayload } from "crabfork/plugin-sdk/agent-media-payload";
 export {
   buildModelsProviderData,
   listSkillCommandsForAgents,
   resolveControlCommandGate,
   resolveStoredModelOverride,
-} from "openclaw/plugin-sdk/command-auth";
+} from "crabfork/plugin-sdk/command-auth";
 export {
   GROUP_POLICY_BLOCKED_LABEL,
   isDangerousNameMatchingEnabled,
@@ -47,43 +47,43 @@ export {
   resolveDefaultGroupPolicy,
   resolveStorePath,
   warnMissingProviderGroupPolicyFallbackOnce,
-} from "openclaw/plugin-sdk/config-runtime";
-export { formatInboundFromLabel } from "openclaw/plugin-sdk/channel-inbound";
-export { logInboundDrop } from "openclaw/plugin-sdk/channel-inbound";
-export { createChannelPairingController } from "openclaw/plugin-sdk/channel-pairing";
+} from "crabfork/plugin-sdk/config-runtime";
+export { formatInboundFromLabel } from "crabfork/plugin-sdk/channel-inbound";
+export { logInboundDrop } from "crabfork/plugin-sdk/channel-inbound";
+export { createChannelPairingController } from "crabfork/plugin-sdk/channel-pairing";
 export {
   DM_GROUP_ACCESS_REASON,
   readStoreAllowFromForDmPolicy,
   resolveDmGroupAccessWithLists,
   resolveEffectiveAllowFromLists,
-} from "openclaw/plugin-sdk/channel-policy";
-export { evaluateSenderGroupAccessForPolicy } from "openclaw/plugin-sdk/group-access";
-export { createChannelReplyPipeline } from "openclaw/plugin-sdk/channel-reply-pipeline";
-export { logTypingFailure } from "openclaw/plugin-sdk/channel-feedback";
-export { loadOutboundMediaFromUrl } from "openclaw/plugin-sdk/outbound-media";
-export { rawDataToString } from "openclaw/plugin-sdk/browser-node-runtime";
-export { chunkTextForOutbound } from "openclaw/plugin-sdk/text-chunking";
+} from "crabfork/plugin-sdk/channel-policy";
+export { evaluateSenderGroupAccessForPolicy } from "crabfork/plugin-sdk/group-access";
+export { createChannelReplyPipeline } from "crabfork/plugin-sdk/channel-reply-pipeline";
+export { logTypingFailure } from "crabfork/plugin-sdk/channel-feedback";
+export { loadOutboundMediaFromUrl } from "crabfork/plugin-sdk/outbound-media";
+export { rawDataToString } from "crabfork/plugin-sdk/browser-node-runtime";
+export { chunkTextForOutbound } from "crabfork/plugin-sdk/text-chunking";
 export {
   DEFAULT_GROUP_HISTORY_LIMIT,
   buildPendingHistoryContextFromMap,
   clearHistoryEntriesIfEnabled,
   recordPendingHistoryEntryIfEnabled,
-} from "openclaw/plugin-sdk/reply-history";
-export { normalizeAccountId, resolveThreadSessionKeys } from "openclaw/plugin-sdk/routing";
-export { resolveAllowlistMatchSimple } from "openclaw/plugin-sdk/allow-from";
-export { registerPluginHttpRoute } from "openclaw/plugin-sdk/webhook-targets";
+} from "crabfork/plugin-sdk/reply-history";
+export { normalizeAccountId, resolveThreadSessionKeys } from "crabfork/plugin-sdk/routing";
+export { resolveAllowlistMatchSimple } from "crabfork/plugin-sdk/allow-from";
+export { registerPluginHttpRoute } from "crabfork/plugin-sdk/webhook-targets";
 export {
   isRequestBodyLimitError,
   readRequestBodyWithLimit,
-} from "openclaw/plugin-sdk/webhook-ingress";
+} from "crabfork/plugin-sdk/webhook-ingress";
 export {
   applyAccountNameToChannelSection,
   applySetupAccountConfigPatch,
   migrateBaseNameToDefaultAccount,
-} from "openclaw/plugin-sdk/setup";
+} from "crabfork/plugin-sdk/setup";
 export {
   getAgentScopedMediaLocalRoots,
   resolveChannelMediaMaxBytes,
-} from "openclaw/plugin-sdk/media-runtime";
-export { normalizeProviderId } from "openclaw/plugin-sdk/provider-model-shared";
+} from "crabfork/plugin-sdk/media-runtime";
+export { normalizeProviderId } from "crabfork/plugin-sdk/provider-model-shared";
 export { setMattermostRuntime } from "./src/runtime.js";

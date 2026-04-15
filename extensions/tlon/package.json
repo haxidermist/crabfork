@@ -1,7 +1,7 @@
 {
-  "name": "@openclaw/tlon",
+  "name": "@crabfork/tlon",
   "version": "2026.4.12",
-  "description": "OpenClaw Tlon/Urbit channel plugin",
+  "description": "Crabfork Tlon/Urbit channel plugin",
   "type": "module",
   "dependencies": {
     "@aws-sdk/client-s3": "3.1028.0",
@@ -10,18 +10,18 @@
     "@urbit/aura": "^3.0.0"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*",
-    "openclaw": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*",
+    "crabfork": "workspace:*"
   },
   "peerDependencies": {
-    "openclaw": ">=2026.4.12"
+    "crabfork": ">=2026.4.12"
   },
   "peerDependenciesMeta": {
-    "openclaw": {
+    "crabfork": {
       "optional": true
     }
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ],
@@ -37,7 +37,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@openclaw/tlon",
+      "npmSpec": "@crabfork/tlon",
       "defaultChoice": "npm",
       "minHostVersion": ">=2026.4.10"
     }

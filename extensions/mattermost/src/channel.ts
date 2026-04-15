@@ -1,22 +1,22 @@
 import { Type } from "@sinclair/typebox";
-import { createMessageToolButtonsSchema } from "openclaw/plugin-sdk/channel-actions";
+import { createMessageToolButtonsSchema } from "crabfork/plugin-sdk/channel-actions";
 import type {
   ChannelMessageActionAdapter,
   ChannelMessageActionName,
   ChannelMessageToolDiscovery,
-} from "openclaw/plugin-sdk/channel-contract";
-import { createChatChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-import { createLoggedPairingApprovalNotifier } from "openclaw/plugin-sdk/channel-pairing";
-import { createRestrictSendersChannelSecurity } from "openclaw/plugin-sdk/channel-policy";
-import { createChannelDirectoryAdapter } from "openclaw/plugin-sdk/directory-runtime";
-import { buildPassiveProbedChannelStatusSummary } from "openclaw/plugin-sdk/extension-shared";
-import { createLazyRuntimeModule } from "openclaw/plugin-sdk/lazy-runtime";
-import { isPrivateNetworkOptInEnabled } from "openclaw/plugin-sdk/ssrf-runtime";
+} from "crabfork/plugin-sdk/channel-contract";
+import { createChatChannelPlugin } from "crabfork/plugin-sdk/channel-core";
+import { createLoggedPairingApprovalNotifier } from "crabfork/plugin-sdk/channel-pairing";
+import { createRestrictSendersChannelSecurity } from "crabfork/plugin-sdk/channel-policy";
+import { createChannelDirectoryAdapter } from "crabfork/plugin-sdk/directory-runtime";
+import { buildPassiveProbedChannelStatusSummary } from "crabfork/plugin-sdk/extension-shared";
+import { createLazyRuntimeModule } from "crabfork/plugin-sdk/lazy-runtime";
+import { isPrivateNetworkOptInEnabled } from "crabfork/plugin-sdk/ssrf-runtime";
 import {
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/status-helpers";
+import { normalizeOptionalString } from "crabfork/plugin-sdk/text-runtime";
 import { mattermostApprovalAuth } from "./approval-auth.js";
 import {
   chunkTextForOutbound,
@@ -431,7 +431,7 @@ export const mattermostPlugin: ChannelPlugin<ResolvedMattermostAccount> = create
   pairing: {
     text: {
       idLabel: "mattermostUserId",
-      message: "OpenClaw: your access has been approved.",
+      message: "Crabfork: your access has been approved.",
       normalizeAllowEntry: (entry) => normalizeAllowEntry(entry),
       notify: createLoggedPairingApprovalNotifier(
         ({ id }) => `[mattermost] User ${id} approved for pairing`,

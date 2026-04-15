@@ -1,10 +1,10 @@
 import { RateLimitError } from "@buape/carbon";
+import { loadWebMediaRaw } from "crabfork/plugin-sdk/web-media";
 import { ChannelType, Routes } from "discord-api-types/v10";
-import { loadWebMediaRaw } from "openclaw/plugin-sdk/web-media";
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import { makeDiscordRest } from "./send.test-harness.js";
 
-vi.mock("openclaw/plugin-sdk/web-media", async () => {
+vi.mock("crabfork/plugin-sdk/web-media", async () => {
   const { discordWebMediaMockFactory } = await import("./send.test-harness.js");
   return discordWebMediaMockFactory();
 });
@@ -68,7 +68,7 @@ afterEach(() => {
 });
 
 afterAll(() => {
-  vi.doUnmock("openclaw/plugin-sdk/web-media");
+  vi.doUnmock("crabfork/plugin-sdk/web-media");
 });
 
 describe("sendMessageDiscord", () => {
@@ -347,8 +347,8 @@ describe("uploadStickerDiscord", () => {
     await uploadStickerDiscord(
       {
         guildId: "g1",
-        name: "openclaw_wave",
-        description: "OpenClaw waving",
+        name: "crabfork_wave",
+        description: "Crabfork waving",
         tags: "👋",
         mediaUrl: "file:///tmp/wave.png",
       },
@@ -358,8 +358,8 @@ describe("uploadStickerDiscord", () => {
       Routes.guildStickers("g1"),
       expect.objectContaining({
         body: {
-          name: "openclaw_wave",
-          description: "OpenClaw waving",
+          name: "crabfork_wave",
+          description: "Crabfork waving",
           tags: "👋",
           files: [
             expect.objectContaining({

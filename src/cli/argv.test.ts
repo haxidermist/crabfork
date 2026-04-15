@@ -20,47 +20,47 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "help flag",
-      argv: ["node", "openclaw", "--help"],
+      argv: ["node", "crabfork", "--help"],
       expected: true,
     },
     {
       name: "version flag",
-      argv: ["node", "openclaw", "-V"],
+      argv: ["node", "crabfork", "-V"],
       expected: true,
     },
     {
       name: "normal command",
-      argv: ["node", "openclaw", "status"],
+      argv: ["node", "crabfork", "status"],
       expected: false,
     },
     {
       name: "root -v alias",
-      argv: ["node", "openclaw", "-v"],
+      argv: ["node", "crabfork", "-v"],
       expected: true,
     },
     {
       name: "root -v alias with profile",
-      argv: ["node", "openclaw", "--profile", "work", "-v"],
+      argv: ["node", "crabfork", "--profile", "work", "-v"],
       expected: true,
     },
     {
       name: "root -v alias with log-level",
-      argv: ["node", "openclaw", "--log-level", "debug", "-v"],
+      argv: ["node", "crabfork", "--log-level", "debug", "-v"],
       expected: true,
     },
     {
       name: "subcommand -v should not be treated as version",
-      argv: ["node", "openclaw", "acp", "-v"],
+      argv: ["node", "crabfork", "acp", "-v"],
       expected: false,
     },
     {
       name: "root -v alias with equals profile",
-      argv: ["node", "openclaw", "--profile=work", "-v"],
+      argv: ["node", "crabfork", "--profile=work", "-v"],
       expected: true,
     },
     {
       name: "subcommand path after global root flags should not be treated as version",
-      argv: ["node", "openclaw", "--dev", "skills", "list", "-v"],
+      argv: ["node", "crabfork", "--dev", "skills", "list", "-v"],
       expected: false,
     },
   ])("detects help/version flags: $name", ({ argv, expected }) => {
@@ -70,27 +70,27 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "root --version",
-      argv: ["node", "openclaw", "--version"],
+      argv: ["node", "crabfork", "--version"],
       expected: true,
     },
     {
       name: "root -V",
-      argv: ["node", "openclaw", "-V"],
+      argv: ["node", "crabfork", "-V"],
       expected: true,
     },
     {
       name: "root -v alias with profile",
-      argv: ["node", "openclaw", "--profile", "work", "-v"],
+      argv: ["node", "crabfork", "--profile", "work", "-v"],
       expected: true,
     },
     {
       name: "subcommand version flag",
-      argv: ["node", "openclaw", "status", "--version"],
+      argv: ["node", "crabfork", "status", "--version"],
       expected: false,
     },
     {
       name: "unknown root flag with version",
-      argv: ["node", "openclaw", "--unknown", "--version"],
+      argv: ["node", "crabfork", "--unknown", "--version"],
       expected: false,
     },
   ])("detects root-only version invocations: $name", ({ argv, expected }) => {
@@ -100,42 +100,42 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "root --help",
-      argv: ["node", "openclaw", "--help"],
+      argv: ["node", "crabfork", "--help"],
       expected: true,
     },
     {
       name: "root -h",
-      argv: ["node", "openclaw", "-h"],
+      argv: ["node", "crabfork", "-h"],
       expected: true,
     },
     {
       name: "root --help with profile",
-      argv: ["node", "openclaw", "--profile", "work", "--help"],
+      argv: ["node", "crabfork", "--profile", "work", "--help"],
       expected: true,
     },
     {
       name: "subcommand --help",
-      argv: ["node", "openclaw", "status", "--help"],
+      argv: ["node", "crabfork", "status", "--help"],
       expected: false,
     },
     {
       name: "help before subcommand token",
-      argv: ["node", "openclaw", "--help", "status"],
+      argv: ["node", "crabfork", "--help", "status"],
       expected: false,
     },
     {
       name: "help after -- terminator",
-      argv: ["node", "openclaw", "nodes", "invoke", "--", "device.status", "--help"],
+      argv: ["node", "crabfork", "nodes", "invoke", "--", "device.status", "--help"],
       expected: false,
     },
     {
       name: "unknown root flag before help",
-      argv: ["node", "openclaw", "--unknown", "--help"],
+      argv: ["node", "crabfork", "--unknown", "--help"],
       expected: false,
     },
     {
       name: "unknown root flag after help",
-      argv: ["node", "openclaw", "--help", "--unknown"],
+      argv: ["node", "crabfork", "--help", "--unknown"],
       expected: false,
     },
   ])("detects root-only help invocations: $name", ({ argv, expected }) => {
@@ -145,17 +145,17 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "single command with trailing flag",
-      argv: ["node", "openclaw", "status", "--json"],
+      argv: ["node", "crabfork", "status", "--json"],
       expected: ["status"],
     },
     {
       name: "two-part command",
-      argv: ["node", "openclaw", "agents", "list"],
+      argv: ["node", "crabfork", "agents", "list"],
       expected: ["agents", "list"],
     },
     {
       name: "terminator cuts parsing",
-      argv: ["node", "openclaw", "status", "--", "ignored"],
+      argv: ["node", "crabfork", "status", "--", "ignored"],
       expected: ["status"],
     },
   ])("extracts command path: $name", ({ argv, expected }) => {
@@ -167,7 +167,7 @@ describe("argv helpers", () => {
       getCommandPathWithRootOptions(
         [
           "node",
-          "openclaw",
+          "crabfork",
           "--profile",
           "work",
           "--container",
@@ -184,7 +184,7 @@ describe("argv helpers", () => {
   it("extracts routed config get positionals with interleaved root options", () => {
     expect(
       getCommandPositionalsWithRootOptions(
-        ["node", "openclaw", "config", "get", "--log-level", "debug", "update.channel", "--json"],
+        ["node", "crabfork", "config", "get", "--log-level", "debug", "update.channel", "--json"],
         {
           commandPath: ["config", "get"],
           booleanFlags: ["--json"],
@@ -196,7 +196,7 @@ describe("argv helpers", () => {
   it("extracts routed config unset positionals with interleaved root options", () => {
     expect(
       getCommandPositionalsWithRootOptions(
-        ["node", "openclaw", "config", "unset", "--profile", "work", "update.channel"],
+        ["node", "crabfork", "config", "unset", "--profile", "work", "update.channel"],
         {
           commandPath: ["config", "unset"],
         },
@@ -207,7 +207,7 @@ describe("argv helpers", () => {
   it("returns null when routed command sees unknown options", () => {
     expect(
       getCommandPositionalsWithRootOptions(
-        ["node", "openclaw", "config", "get", "--mystery", "value", "update.channel"],
+        ["node", "crabfork", "config", "get", "--mystery", "value", "update.channel"],
         {
           commandPath: ["config", "get"],
           booleanFlags: ["--json"],
@@ -219,17 +219,17 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "returns first command token",
-      argv: ["node", "openclaw", "agents", "list"],
+      argv: ["node", "crabfork", "agents", "list"],
       expected: "agents",
     },
     {
       name: "returns null when no command exists",
-      argv: ["node", "openclaw"],
+      argv: ["node", "crabfork"],
       expected: null,
     },
     {
       name: "skips known root option values",
-      argv: ["node", "openclaw", "--log-level", "debug", "status"],
+      argv: ["node", "crabfork", "--log-level", "debug", "status"],
       expected: "status",
     },
   ])("returns primary command: $name", ({ argv, expected }) => {
@@ -239,13 +239,13 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "detects flag before terminator",
-      argv: ["node", "openclaw", "status", "--json"],
+      argv: ["node", "crabfork", "status", "--json"],
       flag: "--json",
       expected: true,
     },
     {
       name: "ignores flag after terminator",
-      argv: ["node", "openclaw", "--", "--json"],
+      argv: ["node", "crabfork", "--", "--json"],
       flag: "--json",
       expected: false,
     },
@@ -256,27 +256,27 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "value in next token",
-      argv: ["node", "openclaw", "status", "--timeout", "5000"],
+      argv: ["node", "crabfork", "status", "--timeout", "5000"],
       expected: "5000",
     },
     {
       name: "value in equals form",
-      argv: ["node", "openclaw", "status", "--timeout=2500"],
+      argv: ["node", "crabfork", "status", "--timeout=2500"],
       expected: "2500",
     },
     {
       name: "missing value",
-      argv: ["node", "openclaw", "status", "--timeout"],
+      argv: ["node", "crabfork", "status", "--timeout"],
       expected: null,
     },
     {
       name: "next token is another flag",
-      argv: ["node", "openclaw", "status", "--timeout", "--json"],
+      argv: ["node", "crabfork", "status", "--timeout", "--json"],
       expected: null,
     },
     {
       name: "flag appears after terminator",
-      argv: ["node", "openclaw", "--", "--timeout=99"],
+      argv: ["node", "crabfork", "--", "--timeout=99"],
       expected: undefined,
     },
   ])("extracts flag values: $name", ({ argv, expected }) => {
@@ -284,9 +284,9 @@ describe("argv helpers", () => {
   });
 
   it("parses verbose flags", () => {
-    expect(getVerboseFlag(["node", "openclaw", "status", "--verbose"])).toBe(true);
-    expect(getVerboseFlag(["node", "openclaw", "status", "--debug"])).toBe(false);
-    expect(getVerboseFlag(["node", "openclaw", "status", "--debug"], { includeDebug: true })).toBe(
+    expect(getVerboseFlag(["node", "crabfork", "status", "--verbose"])).toBe(true);
+    expect(getVerboseFlag(["node", "crabfork", "status", "--debug"])).toBe(false);
+    expect(getVerboseFlag(["node", "crabfork", "status", "--debug"], { includeDebug: true })).toBe(
       true,
     );
   });
@@ -294,22 +294,22 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "missing flag",
-      argv: ["node", "openclaw", "status"],
+      argv: ["node", "crabfork", "status"],
       expected: undefined,
     },
     {
       name: "missing value",
-      argv: ["node", "openclaw", "status", "--timeout"],
+      argv: ["node", "crabfork", "status", "--timeout"],
       expected: null,
     },
     {
       name: "valid positive integer",
-      argv: ["node", "openclaw", "status", "--timeout", "5000"],
+      argv: ["node", "crabfork", "status", "--timeout", "5000"],
       expected: 5000,
     },
     {
       name: "invalid integer",
-      argv: ["node", "openclaw", "status", "--timeout", "nope"],
+      argv: ["node", "crabfork", "status", "--timeout", "nope"],
       expected: undefined,
     },
   ])("parses positive integer flag values: $name", ({ argv, expected }) => {
@@ -319,63 +319,63 @@ describe("argv helpers", () => {
   it.each([
     {
       name: "keeps plain node argv",
-      rawArgs: ["node", "openclaw", "status"],
-      expected: ["node", "openclaw", "status"],
+      rawArgs: ["node", "crabfork", "status"],
+      expected: ["node", "crabfork", "status"],
     },
     {
       name: "keeps version-suffixed node binary",
-      rawArgs: ["node-22", "openclaw", "status"],
-      expected: ["node-22", "openclaw", "status"],
+      rawArgs: ["node-22", "crabfork", "status"],
+      expected: ["node-22", "crabfork", "status"],
     },
     {
       name: "keeps windows versioned node exe",
-      rawArgs: ["node-22.2.0.exe", "openclaw", "status"],
-      expected: ["node-22.2.0.exe", "openclaw", "status"],
+      rawArgs: ["node-22.2.0.exe", "crabfork", "status"],
+      expected: ["node-22.2.0.exe", "crabfork", "status"],
     },
     {
       name: "keeps dotted node binary",
-      rawArgs: ["node-22.2", "openclaw", "status"],
-      expected: ["node-22.2", "openclaw", "status"],
+      rawArgs: ["node-22.2", "crabfork", "status"],
+      expected: ["node-22.2", "crabfork", "status"],
     },
     {
       name: "keeps dotted node exe",
-      rawArgs: ["node-22.2.exe", "openclaw", "status"],
-      expected: ["node-22.2.exe", "openclaw", "status"],
+      rawArgs: ["node-22.2.exe", "crabfork", "status"],
+      expected: ["node-22.2.exe", "crabfork", "status"],
     },
     {
       name: "keeps absolute versioned node path",
-      rawArgs: ["/usr/bin/node-22.2.0", "openclaw", "status"],
-      expected: ["/usr/bin/node-22.2.0", "openclaw", "status"],
+      rawArgs: ["/usr/bin/node-22.2.0", "crabfork", "status"],
+      expected: ["/usr/bin/node-22.2.0", "crabfork", "status"],
     },
     {
       name: "keeps node24 shorthand",
-      rawArgs: ["node24", "openclaw", "status"],
-      expected: ["node24", "openclaw", "status"],
+      rawArgs: ["node24", "crabfork", "status"],
+      expected: ["node24", "crabfork", "status"],
     },
     {
       name: "keeps absolute node24 shorthand",
-      rawArgs: ["/usr/bin/node24", "openclaw", "status"],
-      expected: ["/usr/bin/node24", "openclaw", "status"],
+      rawArgs: ["/usr/bin/node24", "crabfork", "status"],
+      expected: ["/usr/bin/node24", "crabfork", "status"],
     },
     {
       name: "keeps windows node24 exe",
-      rawArgs: ["node24.exe", "openclaw", "status"],
-      expected: ["node24.exe", "openclaw", "status"],
+      rawArgs: ["node24.exe", "crabfork", "status"],
+      expected: ["node24.exe", "crabfork", "status"],
     },
     {
       name: "keeps nodejs binary",
-      rawArgs: ["nodejs", "openclaw", "status"],
-      expected: ["nodejs", "openclaw", "status"],
+      rawArgs: ["nodejs", "crabfork", "status"],
+      expected: ["nodejs", "crabfork", "status"],
     },
     {
       name: "prefixes fallback when first arg is not a node launcher",
-      rawArgs: ["node-dev", "openclaw", "status"],
-      expected: ["node", "openclaw", "node-dev", "openclaw", "status"],
+      rawArgs: ["node-dev", "crabfork", "status"],
+      expected: ["node", "crabfork", "node-dev", "crabfork", "status"],
     },
     {
       name: "prefixes fallback when raw args start at program name",
-      rawArgs: ["openclaw", "status"],
-      expected: ["node", "openclaw", "status"],
+      rawArgs: ["crabfork", "status"],
+      expected: ["node", "crabfork", "status"],
     },
     {
       name: "keeps bun execution argv",
@@ -384,7 +384,7 @@ describe("argv helpers", () => {
     },
   ] as const)("builds parse argv from raw args: $name", ({ rawArgs, expected }) => {
     const parsed = buildParseArgv({
-      programName: "openclaw",
+      programName: "crabfork",
       rawArgs: [...rawArgs],
     });
     expect(parsed).toEqual([...expected]);
@@ -392,24 +392,24 @@ describe("argv helpers", () => {
 
   it("builds parse argv from fallback args", () => {
     const fallbackArgv = buildParseArgv({
-      programName: "openclaw",
+      programName: "crabfork",
       fallbackArgv: ["status"],
     });
-    expect(fallbackArgv).toEqual(["node", "openclaw", "status"]);
+    expect(fallbackArgv).toEqual(["node", "crabfork", "status"]);
   });
 
   it.each([
-    { argv: ["node", "openclaw", "status"], expected: false },
-    { argv: ["node", "openclaw", "health"], expected: false },
-    { argv: ["node", "openclaw", "sessions"], expected: false },
-    { argv: ["node", "openclaw", "config", "get", "update"], expected: false },
-    { argv: ["node", "openclaw", "config", "unset", "update"], expected: false },
-    { argv: ["node", "openclaw", "models", "list"], expected: false },
-    { argv: ["node", "openclaw", "models", "status"], expected: false },
-    { argv: ["node", "openclaw", "update", "status", "--json"], expected: false },
-    { argv: ["node", "openclaw", "agent", "--message", "hi"], expected: false },
-    { argv: ["node", "openclaw", "agents", "list"], expected: true },
-    { argv: ["node", "openclaw", "message", "send"], expected: true },
+    { argv: ["node", "crabfork", "status"], expected: false },
+    { argv: ["node", "crabfork", "health"], expected: false },
+    { argv: ["node", "crabfork", "sessions"], expected: false },
+    { argv: ["node", "crabfork", "config", "get", "update"], expected: false },
+    { argv: ["node", "crabfork", "config", "unset", "update"], expected: false },
+    { argv: ["node", "crabfork", "models", "list"], expected: false },
+    { argv: ["node", "crabfork", "models", "status"], expected: false },
+    { argv: ["node", "crabfork", "update", "status", "--json"], expected: false },
+    { argv: ["node", "crabfork", "agent", "--message", "hi"], expected: false },
+    { argv: ["node", "crabfork", "agents", "list"], expected: true },
+    { argv: ["node", "crabfork", "message", "send"], expected: true },
   ] as const)("decides when to migrate state: $argv", ({ argv, expected }) => {
     expect(shouldMigrateState([...argv])).toBe(expected);
   });

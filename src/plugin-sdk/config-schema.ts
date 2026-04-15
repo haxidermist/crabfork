@@ -1,2 +1,2 @@
-/** Root OpenClaw configuration Zod schema — the full `openclaw.json` shape. */
-export { OpenClawSchema } from "../config/zod-schema.js";
+/** Root Crabfork configuration Zod schema — the full `crabfork.json` shape. */
+export { CrabforkSchema } from "../config/zod-schema.js";

@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/kilocode-provider",
+  "name": "@crabfork/kilocode-provider",
   "version": "2026.4.12",
   "private": true,
-  "description": "OpenClaw Kilo Gateway provider plugin",
+  "description": "Crabfork Kilo Gateway provider plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*"
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ]

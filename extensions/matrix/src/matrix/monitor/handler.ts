@@ -1,12 +1,12 @@
-import { resolveControlCommandGate } from "openclaw/plugin-sdk/command-auth";
+import { resolveControlCommandGate } from "crabfork/plugin-sdk/command-auth";
 import {
   loadSessionStore,
   resolveChannelContextVisibilityMode,
   resolveSessionStoreEntry,
-} from "openclaw/plugin-sdk/config-runtime";
-import { getSessionBindingService } from "openclaw/plugin-sdk/conversation-runtime";
-import { evaluateSupplementalContextVisibility } from "openclaw/plugin-sdk/security-runtime";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/config-runtime";
+import { getSessionBindingService } from "crabfork/plugin-sdk/conversation-runtime";
+import { evaluateSupplementalContextVisibility } from "crabfork/plugin-sdk/security-runtime";
+import { normalizeOptionalString } from "crabfork/plugin-sdk/text-runtime";
 import type {
   CoreConfig,
   MatrixRoomConfig,
@@ -38,7 +38,7 @@ import {
   sendReadReceiptMatrix,
   sendTypingMatrix,
 } from "../send.js";
-import { MATRIX_OPENCLAW_FINALIZED_PREVIEW_KEY } from "../send/types.js";
+import { MATRIX_CRABFORK_FINALIZED_PREVIEW_KEY } from "../send/types.js";
 import { resolveMatrixStoredSessionMeta } from "../session-store-metadata.js";
 import { resolveMatrixMonitorAccessState } from "./access-state.js";
 import { resolveMatrixAckReactionConfig } from "./ack-config.js";
@@ -100,7 +100,7 @@ async function redactMatrixDraftEvent(
 }
 
 function buildMatrixFinalizedPreviewContent(): Record<string, unknown> {
-  return { [MATRIX_OPENCLAW_FINALIZED_PREVIEW_KEY]: true };
+  return { [MATRIX_CRABFORK_FINALIZED_PREVIEW_KEY]: true };
 }
 
 export type MatrixMonitorHandlerParams = {

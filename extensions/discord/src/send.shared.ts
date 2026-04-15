@@ -6,20 +6,20 @@ import {
   type MessagePayloadObject,
   type TopLevelComponents,
 } from "@buape/carbon";
-import { PollLayoutType } from "discord-api-types/payloads/v10";
-import type { RESTAPIPoll } from "discord-api-types/rest/v10";
-import { Routes, type APIChannel, type APIEmbed } from "discord-api-types/v10";
-import { buildOutboundMediaLoadOptions } from "openclaw/plugin-sdk/media-runtime";
-import { extensionForMime } from "openclaw/plugin-sdk/media-runtime";
+import { buildOutboundMediaLoadOptions } from "crabfork/plugin-sdk/media-runtime";
+import { extensionForMime } from "crabfork/plugin-sdk/media-runtime";
 import {
   normalizePollDurationHours,
   normalizePollInput,
   type PollInput,
-} from "openclaw/plugin-sdk/media-runtime";
-import type { ChunkMode } from "openclaw/plugin-sdk/reply-chunking";
-import { resolveTextChunksWithFallback } from "openclaw/plugin-sdk/reply-payload";
-import type { RetryRunner } from "openclaw/plugin-sdk/retry-runtime";
-import { loadWebMedia } from "openclaw/plugin-sdk/web-media";
+} from "crabfork/plugin-sdk/media-runtime";
+import type { ChunkMode } from "crabfork/plugin-sdk/reply-chunking";
+import { resolveTextChunksWithFallback } from "crabfork/plugin-sdk/reply-payload";
+import type { RetryRunner } from "crabfork/plugin-sdk/retry-runtime";
+import { loadWebMedia } from "crabfork/plugin-sdk/web-media";
+import { PollLayoutType } from "discord-api-types/payloads/v10";
+import type { RESTAPIPoll } from "discord-api-types/rest/v10";
+import { Routes, type APIChannel, type APIEmbed } from "discord-api-types/v10";
 import { chunkDiscordTextWithMode } from "./chunk.js";
 import { createDiscordClient, resolveDiscordRest } from "./client.js";
 import { fetchChannelPermissionsDiscord, isThreadChannelType } from "./send.permissions.js";

@@ -8,16 +8,16 @@ import {
 
 describe("gh-read helpers", () => {
   it("finds repo from gh args", () => {
-    expect(parseRepoArg(["pr", "view", "42", "-R", "openclaw/openclaw"])).toBe("openclaw/openclaw");
-    expect(parseRepoArg(["run", "list", "--repo=openclaw/docs"])).toBe("openclaw/docs");
+    expect(parseRepoArg(["pr", "view", "42", "-R", "crabfork/crabfork"])).toBe("crabfork/crabfork");
+    expect(parseRepoArg(["run", "list", "--repo=crabfork/docs"])).toBe("crabfork/docs");
     expect(parseRepoArg(["pr", "view", "42"])).toBeNull();
   });
 
   it("normalizes repo strings from common git formats", () => {
-    expect(normalizeRepo("openclaw/openclaw")).toBe("openclaw/openclaw");
-    expect(normalizeRepo("github.com/openclaw/openclaw")).toBe("openclaw/openclaw");
-    expect(normalizeRepo("https://github.com/openclaw/openclaw.git")).toBe("openclaw/openclaw");
-    expect(normalizeRepo("git@github.com:openclaw/openclaw.git")).toBe("openclaw/openclaw");
+    expect(normalizeRepo("crabfork/crabfork")).toBe("crabfork/crabfork");
+    expect(normalizeRepo("github.com/crabfork/crabfork")).toBe("crabfork/crabfork");
+    expect(normalizeRepo("https://github.com/crabfork/crabfork.git")).toBe("crabfork/crabfork");
+    expect(normalizeRepo("git@github.com:crabfork/crabfork.git")).toBe("crabfork/crabfork");
     expect(normalizeRepo("invalid")).toBeNull();
   });
 

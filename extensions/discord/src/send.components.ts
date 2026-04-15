@@ -4,9 +4,9 @@ import {
   type MessagePayloadObject,
   type RequestClient,
 } from "@buape/carbon";
+import { loadConfig, type CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import { recordChannelActivity } from "crabfork/plugin-sdk/infra-runtime";
 import { ChannelType, Routes } from "discord-api-types/v10";
-import { loadConfig, type OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import { recordChannelActivity } from "openclaw/plugin-sdk/infra-runtime";
 import { resolveDiscordAccount } from "./accounts.js";
 import { registerDiscordComponentEntries } from "./components-registry.js";
 import {
@@ -141,7 +141,7 @@ function collapseClassicComponentText(spec: DiscordComponentMessageSpec): string
 }
 
 type DiscordComponentSendOpts = {
-  cfg?: OpenClawConfig;
+  cfg?: CrabforkConfig;
   accountId?: string;
   token?: string;
   rest?: RequestClient;

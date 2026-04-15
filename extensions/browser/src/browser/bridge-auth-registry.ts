@@ -1,4 +1,4 @@
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
+import { normalizeOptionalString } from "crabfork/plugin-sdk/text-runtime";
 
 type BridgeAuth = {
   token?: string;

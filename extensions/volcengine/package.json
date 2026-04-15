@@ -1,13 +1,13 @@
 {
-  "name": "@openclaw/volcengine-provider",
+  "name": "@crabfork/volcengine-provider",
   "version": "2026.4.12",
   "private": true,
-  "description": "OpenClaw Volcengine provider plugin",
+  "description": "Crabfork Volcengine provider plugin",
   "type": "module",
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*"
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ]

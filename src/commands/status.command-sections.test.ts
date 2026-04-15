@@ -50,8 +50,8 @@ describe("status.command-sections", () => {
     expect(lines).toContain("    critical detail");
     expect(lines).toContain("    muted(Fix: fix it)");
     expect(lines).toContain("muted(… +1 more)");
-    expect(lines.at(-2)).toBe("muted(Full report: cmd:openclaw security audit)");
-    expect(lines.at(-1)).toBe("muted(Deep probe: cmd:openclaw security audit --deep)");
+    expect(lines.at(-2)).toBe("muted(Full report: cmd:crabfork security audit)");
+    expect(lines.at(-1)).toBe("muted(Deep probe: cmd:crabfork security audit --deep)");
   });
 
   it("builds verbose sessions rows and empty fallback rows", () => {
@@ -147,14 +147,14 @@ describe("status.command-sections", () => {
         gatewayReachable: false,
       }),
     ).toEqual([
-      "FAQ: https://docs.openclaw.ai/faq",
-      "Troubleshooting: https://docs.openclaw.ai/troubleshooting",
+      "FAQ: https://docs.crabfork.ai/faq",
+      "Troubleshooting: https://docs.crabfork.ai/troubleshooting",
       "",
       "warn(upgrade ready)",
       "Next steps:",
-      "  Need to share?      cmd:openclaw status --all",
-      "  Need to debug live? cmd:openclaw logs --follow",
-      "  Fix reachability first: cmd:openclaw gateway probe",
+      "  Need to share?      cmd:crabfork status --all",
+      "  Need to debug live? cmd:crabfork logs --follow",
+      "  Fix reachability first: cmd:crabfork gateway probe",
     ]);
   });
 
@@ -182,9 +182,9 @@ describe("status.command-sections", () => {
       }),
     ).toEqual([
       "warn(Gateway pairing approval required.)",
-      "muted(Recovery: cmd:openclaw devices approve req-123)",
-      "muted(Fallback: cmd:openclaw devices approve --latest)",
-      "muted(Inspect: cmd:openclaw devices list)",
+      "muted(Recovery: cmd:crabfork devices approve req-123)",
+      "muted(Fallback: cmd:crabfork devices approve --latest)",
+      "muted(Inspect: cmd:crabfork devices list)",
     ]);
   });
 

@@ -1,15 +1,15 @@
 {
-  "name": "@openclaw/acpx",
+  "name": "@crabfork/acpx",
   "version": "2026.4.12",
-  "description": "OpenClaw ACP runtime backend",
+  "description": "Crabfork ACP runtime backend",
   "type": "module",
   "dependencies": {
     "acpx": "0.5.3"
   },
   "devDependencies": {
-    "@openclaw/plugin-sdk": "workspace:*"
+    "@crabfork/plugin-sdk": "workspace:*"
   },
-  "openclaw": {
+  "crabfork": {
     "extensions": [
       "./index.ts"
     ]

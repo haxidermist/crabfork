@@ -1,5 +1,5 @@
 // Manual facade. Keep loader boundary explicit.
-type FacadeModule = typeof import("@openclaw/qa-channel/api.js");
+type FacadeModule = typeof import("@crabfork/qa-channel/api.js");
 import {
   createLazyFacadeObjectValue,
   loadBundledPluginPublicSurfaceModuleSync,
@@ -63,25 +63,25 @@ export const sendQaBusMessage: FacadeModule["sendQaBusMessage"] = ((...args) =>
 export const setQaChannelRuntime: FacadeModule["setQaChannelRuntime"] = ((...args) =>
   loadFacadeModule().setQaChannelRuntime(...args)) as FacadeModule["setQaChannelRuntime"];
 
-export type QaBusAttachment = import("@openclaw/qa-channel/api.js").QaBusAttachment;
-export type QaBusConversation = import("@openclaw/qa-channel/api.js").QaBusConversation;
-export type QaBusConversationKind = import("@openclaw/qa-channel/api.js").QaBusConversationKind;
-export type QaBusCreateThreadInput = import("@openclaw/qa-channel/api.js").QaBusCreateThreadInput;
-export type QaBusDeleteMessageInput = import("@openclaw/qa-channel/api.js").QaBusDeleteMessageInput;
-export type QaBusEditMessageInput = import("@openclaw/qa-channel/api.js").QaBusEditMessageInput;
-export type QaBusEvent = import("@openclaw/qa-channel/api.js").QaBusEvent;
+export type QaBusAttachment = import("@crabfork/qa-channel/api.js").QaBusAttachment;
+export type QaBusConversation = import("@crabfork/qa-channel/api.js").QaBusConversation;
+export type QaBusConversationKind = import("@crabfork/qa-channel/api.js").QaBusConversationKind;
+export type QaBusCreateThreadInput = import("@crabfork/qa-channel/api.js").QaBusCreateThreadInput;
+export type QaBusDeleteMessageInput = import("@crabfork/qa-channel/api.js").QaBusDeleteMessageInput;
+export type QaBusEditMessageInput = import("@crabfork/qa-channel/api.js").QaBusEditMessageInput;
+export type QaBusEvent = import("@crabfork/qa-channel/api.js").QaBusEvent;
 export type QaBusInboundMessageInput =
-  import("@openclaw/qa-channel/api.js").QaBusInboundMessageInput;
-export type QaBusMessage = import("@openclaw/qa-channel/api.js").QaBusMessage;
+  import("@crabfork/qa-channel/api.js").QaBusInboundMessageInput;
+export type QaBusMessage = import("@crabfork/qa-channel/api.js").QaBusMessage;
 export type QaBusOutboundMessageInput =
-  import("@openclaw/qa-channel/api.js").QaBusOutboundMessageInput;
-export type QaBusPollInput = import("@openclaw/qa-channel/api.js").QaBusPollInput;
-export type QaBusPollResult = import("@openclaw/qa-channel/api.js").QaBusPollResult;
+  import("@crabfork/qa-channel/api.js").QaBusOutboundMessageInput;
+export type QaBusPollInput = import("@crabfork/qa-channel/api.js").QaBusPollInput;
+export type QaBusPollResult = import("@crabfork/qa-channel/api.js").QaBusPollResult;
 export type QaBusReactToMessageInput =
-  import("@openclaw/qa-channel/api.js").QaBusReactToMessageInput;
-export type QaBusReadMessageInput = import("@openclaw/qa-channel/api.js").QaBusReadMessageInput;
+  import("@crabfork/qa-channel/api.js").QaBusReactToMessageInput;
+export type QaBusReadMessageInput = import("@crabfork/qa-channel/api.js").QaBusReadMessageInput;
 export type QaBusSearchMessagesInput =
-  import("@openclaw/qa-channel/api.js").QaBusSearchMessagesInput;
-export type QaBusStateSnapshot = import("@openclaw/qa-channel/api.js").QaBusStateSnapshot;
-export type QaBusThread = import("@openclaw/qa-channel/api.js").QaBusThread;
-export type QaBusWaitForInput = import("@openclaw/qa-channel/api.js").QaBusWaitForInput;
+  import("@crabfork/qa-channel/api.js").QaBusSearchMessagesInput;
+export type QaBusStateSnapshot = import("@crabfork/qa-channel/api.js").QaBusStateSnapshot;
+export type QaBusThread = import("@crabfork/qa-channel/api.js").QaBusThread;
+export type QaBusWaitForInput = import("@crabfork/qa-channel/api.js").QaBusWaitForInput;

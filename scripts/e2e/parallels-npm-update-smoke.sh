@@ -16,7 +16,7 @@ PYTHON_BIN="${PYTHON_BIN:-}"
 PACKAGE_SPEC=""
 UPDATE_TARGET=""
 JSON_OUTPUT=0
-RUN_DIR="$(mktemp -d /tmp/openclaw-parallels-npm-update.XXXXXX)"
+RUN_DIR="$(mktemp -d /tmp/crabfork-parallels-npm-update.XXXXXX)"
 MAIN_TGZ_DIR="$(mktemp -d)"
 MAIN_TGZ_PATH=""
 WINDOWS_UPDATE_SCRIPT_PATH=""
@@ -98,10 +98,10 @@ usage() {
 Usage: bash scripts/e2e/parallels-npm-update-smoke.sh [options]
 
 Options:
-  --package-spec <npm-spec>  Baseline npm package spec. Default: openclaw@latest
-  --update-target <target>    Target passed to guest 'openclaw update --tag'.
+  --package-spec <npm-spec>  Baseline npm package spec. Default: crabfork@latest
+  --update-target <target>    Target passed to guest 'crabfork update --tag'.
                              Default: host-served tgz packed from current checkout.
-                             Examples: latest, beta, 2026.4.10, http://host/openclaw.tgz
+                             Examples: latest, beta, 2026.4.10, http://host/crabfork.tgz
   --provider <openai|anthropic|minimax>
                              Provider auth/model lane. Default: openai
   --api-key-env <var>        Host env var name for provider API key.
@@ -241,7 +241,7 @@ PY
 }
 
 resolve_latest_version() {
-  npm view openclaw version --userconfig "$(mktemp)"
+  npm view crabfork version --userconfig "$(mktemp)"
 }
 
 vm_status() {
@@ -330,7 +330,7 @@ pack_main_tgz() {
     npm pack --ignore-scripts --json --pack-destination "$MAIN_TGZ_DIR" \
       | "$PYTHON_BIN" -c 'import json, sys; data = json.load(sys.stdin); print(data[-1]["filename"])'
   )"
-  MAIN_TGZ_PATH="$MAIN_TGZ_DIR/openclaw-main-$CURRENT_HEAD_SHORT.tgz"
+  MAIN_TGZ_PATH="$MAIN_TGZ_DIR/crabfork-main-$CURRENT_HEAD_SHORT.tgz"
   cp "$MAIN_TGZ_DIR/$pkg" "$MAIN_TGZ_PATH"
 }
 
@@ -342,8 +342,8 @@ resolve_current_head() {
 resolve_registry_target_version() {
   local target="$1"
   local spec="$target"
-  if [[ "$spec" != openclaw@* ]]; then
-    spec="openclaw@$spec"
+  if [[ "$spec" != crabfork@* ]]; then
+    spec="crabfork@$spec"
   fi
   npm view "$spec" version 2>/dev/null || true
 }
@@ -354,7 +354,7 @@ is_explicit_package_target() {
 }
 
 write_windows_update_script() {
-  WINDOWS_UPDATE_SCRIPT_PATH="$MAIN_TGZ_DIR/openclaw-main-update.ps1"
+  WINDOWS_UPDATE_SCRIPT_PATH="$MAIN_TGZ_DIR/crabfork-main-update.ps1"
   cat >"$WINDOWS_UPDATE_SCRIPT_PATH" <<'EOF'
 param(
   [Parameter(Mandatory = $true)][string]$UpdateTarget,
@@ -388,7 +388,7 @@ function Invoke-Logged {
   try {
     $ErrorActionPreference = 'Continue'
     $PSNativeCommandUseErrorActionPreference = $false
-    # Merge native stderr into stdout before logging so npm/openclaw warnings do not
+    # Merge native stderr into stdout before logging so npm/crabfork warnings do not
     # surface as PowerShell error records and abort a healthy in-place update.
     $output = & $Command *>&1
     $exitCode = $LASTEXITCODE
@@ -437,7 +437,7 @@ function Invoke-CaptureLogged {
 
 function Wait-GatewayRpcReady {
   param(
-    [Parameter(Mandatory = $true)][string]$OpenClawPath,
+    [Parameter(Mandatory = $true)][string]$CrabforkPath,
     [int]$Attempts = 20,
     [int]$SleepSeconds = 3
   )
@@ -445,7 +445,7 @@ function Wait-GatewayRpcReady {
   for ($attempt = 1; $attempt -le $Attempts; $attempt++) {
     Write-ProgressLog "update.gateway-status.attempt-$attempt"
     try {
-      Invoke-Logged 'openclaw gateway status' { & $OpenClawPath gateway status --deep --require-rpc }
+      Invoke-Logged 'crabfork gateway status' { & $CrabforkPath gateway status --deep --require-rpc }
       return
     } catch {
       if ($attempt -ge $Attempts) {
@@ -457,13 +457,13 @@ function Wait-GatewayRpcReady {
   }
 }
 
-function Stop-OpenClawGatewayProcesses {
+function Stop-CrabforkGatewayProcesses {
   Write-ProgressLog 'update.stop-old-gateway'
   $patterns = @(
-    'openclaw-gateway',
-    'openclaw.*gateway --port 18789',
-    'openclaw.*gateway run',
-    'openclaw\.mjs gateway',
+    'crabfork-gateway',
+    'crabfork.*gateway --port 18789',
+    'crabfork.*gateway run',
+    'crabfork\.mjs gateway',
     'dist\\index\.js gateway --port 18789'
   )
   Get-CimInstance Win32_Process -ErrorAction SilentlyContinue |
@@ -494,7 +494,7 @@ function Stop-OpenClawGatewayProcesses {
 
 function Restart-GatewayWithRecovery {
   param(
-    [Parameter(Mandatory = $true)][string]$OpenClawPath
+    [Parameter(Mandatory = $true)][string]$CrabforkPath
   )
 
   $restartFailed = $false
@@ -505,7 +505,7 @@ function Restart-GatewayWithRecovery {
       ExitCode = $LASTEXITCODE
       Output = ($output | Out-String).Trim()
     }
-  } -ArgumentList $OpenClawPath
+  } -ArgumentList $CrabforkPath
 
   $restartCompleted = Wait-Job $restartJob -Timeout 20
   if ($null -ne $restartCompleted) {
@@ -516,59 +516,59 @@ function Restart-GatewayWithRecovery {
     if ($restartResult.ExitCode -ne 0) {
       $restartFailed = $true
       Write-ProgressLog 'update.restart-gateway.soft-fail'
-      "openclaw gateway restart failed with exit code $($restartResult.ExitCode)" | Tee-Object -FilePath $LogPath -Append | Out-Null
+      "crabfork gateway restart failed with exit code $($restartResult.ExitCode)" | Tee-Object -FilePath $LogPath -Append | Out-Null
     }
   } else {
     $restartFailed = $true
     Stop-Job $restartJob -ErrorAction SilentlyContinue
     Write-ProgressLog 'update.restart-gateway.timeout'
-    'openclaw gateway restart timed out after 20s; continuing to RPC readiness checks' | Tee-Object -FilePath $LogPath -Append | Out-Null
+    'crabfork gateway restart timed out after 20s; continuing to RPC readiness checks' | Tee-Object -FilePath $LogPath -Append | Out-Null
   }
   Remove-Job $restartJob -Force -ErrorAction SilentlyContinue
 
   Write-ProgressLog 'update.gateway-status'
   try {
-    Wait-GatewayRpcReady -OpenClawPath $OpenClawPath
+    Wait-GatewayRpcReady -CrabforkPath $CrabforkPath
     return
   } catch {
     if (-not $restartFailed) {
       throw
     }
     Write-ProgressLog 'update.gateway-start-recover'
-    Invoke-Logged 'openclaw gateway start' { & $OpenClawPath gateway start }
+    Invoke-Logged 'crabfork gateway start' { & $CrabforkPath gateway start }
     Write-ProgressLog 'update.gateway-status-recover'
-    Wait-GatewayRpcReady -OpenClawPath $OpenClawPath
+    Wait-GatewayRpcReady -CrabforkPath $CrabforkPath
   }
 }
 
 try {
-  $env:PATH = "$env:LOCALAPPDATA\OpenClaw\deps\portable-git\cmd;$env:LOCALAPPDATA\OpenClaw\deps\portable-git\mingw64\bin;$env:LOCALAPPDATA\OpenClaw\deps\portable-git\usr\bin;$env:PATH"
+  $env:PATH = "$env:LOCALAPPDATA\Crabfork\deps\portable-git\cmd;$env:LOCALAPPDATA\Crabfork\deps\portable-git\mingw64\bin;$env:LOCALAPPDATA\Crabfork\deps\portable-git\usr\bin;$env:PATH"
   Remove-Item $LogPath, $DonePath -Force -ErrorAction SilentlyContinue
   Write-ProgressLog 'update.start'
   Set-Item -Path ('Env:' + $ProviderKeyEnv) -Value $ProviderKey
-  $openclaw = Join-Path $env:APPDATA 'npm\openclaw.cmd'
-  Stop-OpenClawGatewayProcesses
-  Write-ProgressLog 'update.openclaw-update'
-  Invoke-Logged 'openclaw update' { & $openclaw update --tag $UpdateTarget --yes --json }
+  $crabfork = Join-Path $env:APPDATA 'npm\crabfork.cmd'
+  Stop-CrabforkGatewayProcesses
+  Write-ProgressLog 'update.crabfork-update'
+  Invoke-Logged 'crabfork update' { & $crabfork update --tag $UpdateTarget --yes --json }
   Write-ProgressLog 'update.verify-version'
-  $version = Invoke-CaptureLogged 'openclaw --version' { & $openclaw --version }
+  $version = Invoke-CaptureLogged 'crabfork --version' { & $crabfork --version }
   if ($ExpectedNeedle -and $version -notmatch [regex]::Escape($ExpectedNeedle)) {
     throw "version mismatch: expected substring $ExpectedNeedle"
   }
   Write-ProgressLog $version
   Write-ProgressLog 'update.status'
-  Invoke-Logged 'openclaw update status' { & $openclaw update status --json }
+  Invoke-Logged 'crabfork update status' { & $crabfork update status --json }
   Write-ProgressLog 'update.set-model'
-  Invoke-Logged 'openclaw models set' { & $openclaw models set $ModelId }
+  Invoke-Logged 'crabfork models set' { & $crabfork models set $ModelId }
   # Windows can keep the old hashed dist modules alive across in-place global npm upgrades.
   # Restart the gateway/service before verifying status or the next agent turn.
   # Current login-item restarts can report failure before the background service
   # is fully observable again, so verify readiness separately and fall back to
   # an explicit start only if the RPC endpoint never returns.
   Write-ProgressLog 'update.restart-gateway'
-  Restart-GatewayWithRecovery -OpenClawPath $openclaw
+  Restart-GatewayWithRecovery -CrabforkPath $crabfork
   Write-ProgressLog 'update.agent-turn'
-  Invoke-CaptureLogged 'openclaw agent' { & $openclaw agent --agent main --session-id $SessionId --message 'Reply with exact ASCII text OK only.' --json } | Out-Null
+  Invoke-CaptureLogged 'crabfork agent' { & $crabfork agent --agent main --session-id $SessionId --message 'Reply with exact ASCII text OK only.' --json } | Out-Null
   $exitCode = $LASTEXITCODE
   if ($null -eq $exitCode) {
     $exitCode = 0
@@ -595,7 +595,7 @@ start_server() {
   (
     cd "$MAIN_TGZ_DIR"
     exec "$PYTHON_BIN" -m http.server "$HOST_PORT" --bind 0.0.0.0
-  ) >/tmp/openclaw-parallels-npm-update-http.log 2>&1 &
+  ) >/tmp/crabfork-parallels-npm-update-http.log 2>&1 &
   SERVER_PID=$!
   sleep 1
   kill -0 "$SERVER_PID" >/dev/null 2>&1 || die "failed to start host HTTP server"
@@ -705,8 +705,8 @@ import re
 import sys
 
 text = pathlib.Path(sys.argv[1]).read_text(encoding="utf-8", errors="replace")
-matches = re.findall(r"OpenClaw [^\r\n]+", text)
-matches = [match for match in matches if re.search(r"OpenClaw \d", match)]
+matches = re.findall(r"Crabfork [^\r\n]+", text)
+matches = [match for match in matches if re.search(r"Crabfork \d", match)]
 print(matches[-1] if matches else "")
 PY
 }
@@ -788,10 +788,10 @@ run_windows_script_via_log() {
   local runner_name log_name done_name done_status launcher_state guest_log
   local start_seconds poll_deadline startup_checked poll_rc state_rc log_rc
   local log_state_path
-  runner_name="openclaw-update-$RANDOM-$RANDOM.ps1"
-  log_name="openclaw-update-$RANDOM-$RANDOM.log"
-  done_name="openclaw-update-$RANDOM-$RANDOM.done"
-  log_state_path="$(mktemp "${TMPDIR:-/tmp}/openclaw-update-log-state.XXXXXX")"
+  runner_name="crabfork-update-$RANDOM-$RANDOM.ps1"
+  log_name="crabfork-update-$RANDOM-$RANDOM.log"
+  done_name="crabfork-update-$RANDOM-$RANDOM.done"
+  log_state_path="$(mktemp "${TMPDIR:-/tmp}/crabfork-update-log-state.XXXXXX")"
   : >"$log_state_path"
   start_seconds="$SECONDS"
   poll_deadline=$((SECONDS + 900))
@@ -908,7 +908,7 @@ PY
 run_macos_update() {
   local update_target="$1"
   local expected_needle="$2"
-  cat <<EOF | prlctl exec "$MACOS_VM" /usr/bin/tee /tmp/openclaw-main-update.sh >/dev/null
+  cat <<EOF | prlctl exec "$MACOS_VM" /usr/bin/tee /tmp/crabfork-main-update.sh >/dev/null
 set -euo pipefail
 export PATH=/opt/homebrew/bin:/opt/homebrew/opt/node/bin:/opt/homebrew/sbin:/usr/bin:/bin:/usr/sbin:/sbin
 if [ -z "\${HOME:-}" ]; then export HOME="/Users/\$(id -un)"; fi
@@ -917,23 +917,23 @@ if [ -z "\${$API_KEY_ENV:-}" ]; then
   exit 1
 fi
 cd "\$HOME"
-stop_openclaw_gateway_processes() {
-  /opt/homebrew/bin/openclaw gateway stop >/dev/null 2>&1 || true
-  /usr/bin/pkill -9 -f openclaw-gateway || true
-  /usr/bin/pkill -9 -f 'openclaw gateway run' || true
-  /usr/bin/pkill -9 -f 'openclaw.mjs gateway' || true
+stop_crabfork_gateway_processes() {
+  /opt/homebrew/bin/crabfork gateway stop >/dev/null 2>&1 || true
+  /usr/bin/pkill -9 -f crabfork-gateway || true
+  /usr/bin/pkill -9 -f 'crabfork gateway run' || true
+  /usr/bin/pkill -9 -f 'crabfork.mjs gateway' || true
   for pid in \$(/usr/sbin/lsof -tiTCP:18789 -sTCP:LISTEN 2>/dev/null || true); do
     /bin/kill -9 "\$pid" 2>/dev/null || true
   done
 }
 # Stop the pre-update gateway before replacing the package. Otherwise the old
 # host can observe new plugin metadata mid-update and abort config validation.
-stop_openclaw_gateway_processes
-/opt/homebrew/bin/openclaw update --tag "$update_target" --yes --json
+stop_crabfork_gateway_processes
+/opt/homebrew/bin/crabfork update --tag "$update_target" --yes --json
 # Same-guest npm upgrades can leave the old gateway process holding the old
 # bundled plugin host version. Stop it before post-update config commands.
-stop_openclaw_gateway_processes
-version="\$(/opt/homebrew/bin/openclaw --version)"
+stop_crabfork_gateway_processes
+version="\$(/opt/homebrew/bin/crabfork --version)"
 printf '%s\n' "\$version"
 if [ -n "$expected_needle" ]; then
   case "\$version" in
@@ -944,26 +944,26 @@ if [ -n "$expected_needle" ]; then
       ;;
   esac
 fi
-/opt/homebrew/bin/openclaw update status --json
-/opt/homebrew/bin/openclaw models set "$MODEL_ID"
+/opt/homebrew/bin/crabfork update status --json
+/opt/homebrew/bin/crabfork models set "$MODEL_ID"
 # Same-guest npm upgrades can leave launchd holding the old gateway process or
 # module graph briefly; wait for a fresh RPC-ready restart before the agent turn.
 # Fresh npm installs may not have a launchd service yet, so fall back to the
 # same manual gateway launch used by the fresh macOS lane.
-/opt/homebrew/bin/openclaw gateway restart || true
+/opt/homebrew/bin/crabfork gateway restart || true
 gateway_ready=0
 for _ in 1 2 3 4 5 6 7 8; do
-  if /opt/homebrew/bin/openclaw gateway status --deep --require-rpc >/dev/null 2>&1; then
+  if /opt/homebrew/bin/crabfork gateway status --deep --require-rpc >/dev/null 2>&1; then
     gateway_ready=1
     break
   fi
   sleep 2
 done
 if [ "\$gateway_ready" != "1" ]; then
-  stop_openclaw_gateway_processes
-  /opt/homebrew/bin/openclaw gateway run --bind loopback --port 18789 --force >/tmp/openclaw-parallels-npm-update-macos-gateway.log 2>&1 </dev/null &
+  stop_crabfork_gateway_processes
+  /opt/homebrew/bin/crabfork gateway run --bind loopback --port 18789 --force >/tmp/crabfork-parallels-npm-update-macos-gateway.log 2>&1 </dev/null &
   for _ in 1 2 3 4 5 6 7 8; do
-    if /opt/homebrew/bin/openclaw gateway status --deep --require-rpc >/dev/null 2>&1; then
+    if /opt/homebrew/bin/crabfork gateway status --deep --require-rpc >/dev/null 2>&1; then
       gateway_ready=1
       break
     fi
@@ -971,12 +971,12 @@ if [ "\$gateway_ready" != "1" ]; then
   done
 fi
 if [ "\$gateway_ready" != "1" ]; then
-  tail -n 120 /tmp/openclaw-parallels-npm-update-macos-gateway.log 2>/dev/null || true
+  tail -n 120 /tmp/crabfork-parallels-npm-update-macos-gateway.log 2>/dev/null || true
 fi
-/opt/homebrew/bin/openclaw gateway status --deep --require-rpc
-/opt/homebrew/bin/openclaw agent --agent main --session-id parallels-npm-update-macos-$expected_needle --message "Reply with exact ASCII text OK only." --json
+/opt/homebrew/bin/crabfork gateway status --deep --require-rpc
+/opt/homebrew/bin/crabfork agent --agent main --session-id parallels-npm-update-macos-$expected_needle --message "Reply with exact ASCII text OK only." --json
 EOF
-  macos_desktop_user_exec /bin/bash /tmp/openclaw-main-update.sh
+  macos_desktop_user_exec /bin/bash /tmp/crabfork-main-update.sh
 }
 
 run_windows_update() {
@@ -996,15 +996,15 @@ run_windows_update() {
 run_linux_update() {
   local update_target="$1"
   local expected_needle="$2"
-  cat <<EOF | prlctl exec "$LINUX_VM" /usr/bin/tee /tmp/openclaw-main-update.sh >/dev/null
+  cat <<EOF | prlctl exec "$LINUX_VM" /usr/bin/tee /tmp/crabfork-main-update.sh >/dev/null
 set -euo pipefail
 export HOME=/root
 cd "\$HOME"
-stop_openclaw_gateway_processes() {
-  openclaw gateway stop >/dev/null 2>&1 || true
-  pkill -9 -f openclaw-gateway || true
-  pkill -9 -f 'openclaw gateway run' || true
-  pkill -9 -f 'openclaw.mjs gateway' || true
+stop_crabfork_gateway_processes() {
+  crabfork gateway stop >/dev/null 2>&1 || true
+  pkill -9 -f crabfork-gateway || true
+  pkill -9 -f 'crabfork gateway run' || true
+  pkill -9 -f 'crabfork.mjs gateway' || true
   if command -v fuser >/dev/null 2>&1; then
     fuser -k 18789/tcp >/dev/null 2>&1 || true
   fi
@@ -1016,12 +1016,12 @@ stop_openclaw_gateway_processes() {
 }
 # Stop the pre-update manual gateway before replacing the package. Otherwise
 # the old host can observe new plugin metadata mid-update and abort validation.
-stop_openclaw_gateway_processes
-openclaw update --tag "$update_target" --yes --json
+stop_crabfork_gateway_processes
+crabfork update --tag "$update_target" --yes --json
 # The fresh Linux lane starts a manual gateway; stop the old process before
 # post-update config validation sees mixed old-host/new-plugin metadata.
-stop_openclaw_gateway_processes
-version="\$(openclaw --version)"
+stop_crabfork_gateway_processes
+version="\$(crabfork --version)"
 printf '%s\n' "\$version"
 if [ -n "$expected_needle" ]; then
   case "\$version" in
@@ -1032,11 +1032,11 @@ if [ -n "$expected_needle" ]; then
       ;;
   esac
 fi
-openclaw update status --json
-openclaw models set "$MODEL_ID"
-openclaw agent --local --agent main --session-id parallels-npm-update-linux-$expected_needle --message "Reply with exact ASCII text OK only." --json
+crabfork update status --json
+crabfork models set "$MODEL_ID"
+crabfork agent --local --agent main --session-id parallels-npm-update-linux-$expected_needle --message "Reply with exact ASCII text OK only." --json
 EOF
-  prlctl exec "$LINUX_VM" /usr/bin/env "$API_KEY_ENV=$API_KEY_VALUE" /bin/bash /tmp/openclaw-main-update.sh
+  prlctl exec "$LINUX_VM" /usr/bin/env "$API_KEY_ENV=$API_KEY_VALUE" /bin/bash /tmp/crabfork-main-update.sh
 }
 
 write_summary_json() {
@@ -1083,7 +1083,7 @@ PY
 
 LATEST_VERSION="$(resolve_latest_version)"
 if [[ -z "$PACKAGE_SPEC" ]]; then
-  PACKAGE_SPEC="openclaw@$LATEST_VERSION"
+  PACKAGE_SPEC="crabfork@$LATEST_VERSION"
 fi
 resolve_current_head
 
@@ -1153,7 +1153,7 @@ if [[ -n "$MAIN_TGZ_PATH" ]]; then
 fi
 windows_update_script_url="http://$HOST_IP:$HOST_PORT/$(basename "$WINDOWS_UPDATE_SCRIPT_PATH")"
 
-say "Run same-guest openclaw update to $UPDATE_TARGET_EFFECTIVE"
+say "Run same-guest crabfork update to $UPDATE_TARGET_EFFECTIVE"
 ensure_vm_running_for_update "$MACOS_VM"
 ensure_vm_running_for_update "$WINDOWS_VM"
 ensure_vm_running_for_update "$LINUX_VM"

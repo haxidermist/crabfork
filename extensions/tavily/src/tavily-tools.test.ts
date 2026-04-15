@@ -1,5 +1,5 @@
-import type { OpenClawConfig } from "openclaw/plugin-sdk/config-runtime";
-import type { OpenClawPluginApi } from "openclaw/plugin-sdk/plugin-runtime";
+import type { CrabforkConfig } from "crabfork/plugin-sdk/config-runtime";
+import type { CrabforkPluginApi } from "crabfork/plugin-sdk/plugin-runtime";
 import { beforeAll, beforeEach, describe, expect, it, vi } from "vitest";
 import {
   DEFAULT_TAVILY_BASE_URL,
@@ -22,10 +22,10 @@ vi.mock("./tavily-client.js", () => ({
   runTavilyExtract,
 }));
 
-function fakeApi(): OpenClawPluginApi {
+function fakeApi(): CrabforkPluginApi {
   return {
     config: {},
-  } as OpenClawPluginApi;
+  } as CrabforkPluginApi;
 }
 
 describe("tavily tools", () => {
@@ -104,7 +104,7 @@ describe("tavily tools", () => {
       max_results: 5,
       include_answer: true,
       time_range: "week",
-      include_domains: ["docs.openclaw.ai", "", "openclaw.ai"],
+      include_domains: ["docs.crabfork.ai", "", "crabfork.ai"],
       exclude_domains: ["bad.example", ""],
     });
 
@@ -116,7 +116,7 @@ describe("tavily tools", () => {
       maxResults: 5,
       includeAnswer: true,
       timeRange: "week",
-      includeDomains: ["docs.openclaw.ai", "openclaw.ai"],
+      includeDomains: ["docs.crabfork.ai", "crabfork.ai"],
       excludeDomains: ["bad.example"],
     });
     expect(result).toMatchObject({
@@ -130,7 +130,7 @@ describe("tavily tools", () => {
           maxResults: 5,
           includeAnswer: true,
           timeRange: "week",
-          includeDomains: ["docs.openclaw.ai", "openclaw.ai"],
+          includeDomains: ["docs.crabfork.ai", "crabfork.ai"],
           excludeDomains: ["bad.example"],
         },
       },
@@ -213,7 +213,7 @@ describe("tavily tools", () => {
           },
         },
       },
-    } as OpenClawConfig;
+    } as CrabforkConfig;
 
     expect(resolveTavilySearchConfig(cfg)).toEqual({
       apiKey: "plugin-key",
@@ -229,7 +229,7 @@ describe("tavily tools", () => {
 
     expect(resolveTavilyApiKey()).toBe("env-key");
     expect(resolveTavilyBaseUrl()).toBe("https://env.tavily.test");
-    expect(resolveTavilyBaseUrl({} as OpenClawConfig)).not.toBe(DEFAULT_TAVILY_BASE_URL);
+    expect(resolveTavilyBaseUrl({} as CrabforkConfig)).not.toBe(DEFAULT_TAVILY_BASE_URL);
     expect(resolveTavilySearchTimeoutSeconds()).toBe(DEFAULT_TAVILY_SEARCH_TIMEOUT_SECONDS);
     expect(resolveTavilyExtractTimeoutSeconds()).toBe(DEFAULT_TAVILY_EXTRACT_TIMEOUT_SECONDS);
   });

@@ -1,18 +1,18 @@
-import { DEFAULT_ACCOUNT_ID } from "openclaw/plugin-sdk/account-id";
-import { createScopedDmSecurityResolver } from "openclaw/plugin-sdk/channel-config-helpers";
-import { createChatChannelPlugin } from "openclaw/plugin-sdk/channel-core";
-import { createAccountStatusSink } from "openclaw/plugin-sdk/channel-lifecycle";
+import { DEFAULT_ACCOUNT_ID } from "crabfork/plugin-sdk/account-id";
+import { createScopedDmSecurityResolver } from "crabfork/plugin-sdk/channel-config-helpers";
+import { createChatChannelPlugin } from "crabfork/plugin-sdk/channel-core";
+import { createAccountStatusSink } from "crabfork/plugin-sdk/channel-lifecycle";
 import {
   createOpenGroupPolicyRestrictSendersWarningCollector,
   projectAccountWarningCollector,
-} from "openclaw/plugin-sdk/channel-policy";
-import { buildProbeChannelStatusSummary } from "openclaw/plugin-sdk/channel-status";
-import { createLazyRuntimeNamedExport } from "openclaw/plugin-sdk/lazy-runtime";
+} from "crabfork/plugin-sdk/channel-policy";
+import { buildProbeChannelStatusSummary } from "crabfork/plugin-sdk/channel-status";
+import { createLazyRuntimeNamedExport } from "crabfork/plugin-sdk/lazy-runtime";
 import {
   createComputedAccountStatusAdapter,
   createDefaultChannelRuntimeState,
-} from "openclaw/plugin-sdk/status-helpers";
-import { normalizeOptionalString } from "openclaw/plugin-sdk/text-runtime";
+} from "crabfork/plugin-sdk/status-helpers";
+import { normalizeOptionalString } from "crabfork/plugin-sdk/text-runtime";
 import {
   type ResolvedBlueBubblesAccount,
   resolveBlueBubblesEffectiveAllowPrivateNetwork,

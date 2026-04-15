@@ -1,11 +1,11 @@
-import type { OpenClawConfig } from "../../../config/types.js";
+import type { CrabforkConfig } from "../../../config/types.js";
 import { validateConfigObjectWithPlugins } from "../../../config/validation.js";
 import { applyLegacyDoctorMigrations } from "./legacy-config-compat.js";
 
 export { applyLegacyDoctorMigrations } from "./legacy-config-compat.js";
 
 export function migrateLegacyConfig(raw: unknown): {
-  config: OpenClawConfig | null;
+  config: CrabforkConfig | null;
   changes: string[];
 } {
   const { next, changes } = applyLegacyDoctorMigrations(raw);

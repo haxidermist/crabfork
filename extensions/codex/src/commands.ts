@@ -1,13 +1,13 @@
 import type {
-  OpenClawPluginCommandDefinition,
+  CrabforkPluginCommandDefinition,
   PluginCommandContext,
-} from "openclaw/plugin-sdk/plugin-entry";
+} from "crabfork/plugin-sdk/plugin-entry";
 import { handleCodexSubcommand, type CodexCommandDeps } from "./command-handlers.js";
 
 export function createCodexCommand(options: {
   pluginConfig?: unknown;
   deps?: Partial<CodexCommandDeps>;
-}): OpenClawPluginCommandDefinition {
+}): CrabforkPluginCommandDefinition {
   return {
     name: "codex",
     description: "Inspect and control the Codex app-server harness",
