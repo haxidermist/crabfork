@@ -1,4 +1,8 @@
-# 🦀 Crabfork — AI With Its Own Computer
+# Crabfork — AI With Its Own Computer
+
+<p align="center">
+  <img src="docs/assets/crabfork-mascot.png" alt="Crabfork" width="400">
+</p>
 
 **Crabfork** is an AI assistant that runs as a regular user on its own machine.
 

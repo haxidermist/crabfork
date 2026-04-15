@@ -7,8 +7,8 @@
     "library": "lucide"
   },
   "logo": {
-    "light": "/assets/pixel-lobster.svg",
-    "dark": "/assets/pixel-lobster.svg"
+    "light": "/assets/crabfork-mascot.png",
+    "dark": "/assets/crabfork-mascot.png"
   },
   "fonts": {
     "body": {
@@ -18,7 +18,7 @@
       "family": "DM Sans"
     }
   },
-  "favicon": "/assets/pixel-lobster.svg",
+  "favicon": "/assets/crabfork-mascot.png",
   "colors": {
     "primary": "#FF5A36",
     "dark": "#FF5A36",

@@ -9,16 +9,9 @@ title: "Crabfork"
 
 <p align="center">
     <img
-        src="/assets/crabfork-logo-text-dark.png"
+        src="/assets/crabfork-mascot.png"
         alt="Crabfork"
-        width="500"
-        class="dark:hidden"
-    />
-    <img
-        src="/assets/crabfork-logo-text.png"
-        alt="Crabfork"
-        width="500"
-        class="hidden dark:block"
+        width="400"
     />
 </p>
 
