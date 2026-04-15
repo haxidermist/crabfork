@@ -1,4 +1,4 @@
-import SHARED_TOOL_DISPLAY_JSON from "../../../apps/shared/CrabforkKit/Sources/CrabforkKit/Resources/tool-display.json" with { type: "json" };
+const SHARED_TOOL_DISPLAY_JSON: Record<string, unknown> = {};
 import {
   defaultTitle,
   formatToolDetailText,

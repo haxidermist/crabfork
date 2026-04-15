@@ -130,11 +130,6 @@ const entrySpecs: readonly CommandGroupDescriptorSpec<SubCliRegistrar>[] = [
       exportName: "registerDocsCli",
     },
     {
-      commandNames: ["qa"],
-      loadModule: () => import("../../plugin-sdk/qa-lab.js"),
-      exportName: "registerQaLabCli",
-    },
-    {
       commandNames: ["proxy"],
       loadModule: () => import("../proxy-cli.js"),
       exportName: "registerProxyCli",

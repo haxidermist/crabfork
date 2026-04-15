@@ -1,7 +1,0 @@
-<resources>
-    <string-array name="ask_crabfork_query_patterns">
-        <item>ask Crabfork $prompt</item>
-        <item>tell Crabfork to $prompt</item>
-        <item>open Crabfork and ask $prompt</item>
-    </string-array>
-</resources>

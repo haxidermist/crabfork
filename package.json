@@ -29,9 +29,6 @@
     "dist/",
     "!dist/**/*.map",
     "!dist/plugin-sdk/.tsbuildinfo",
-    "!dist/extensions/qa-channel/**",
-    "!dist/extensions/qa-lab/**",
-    "!dist/extensions/qa-matrix/**",
     "docs/",
     "!docs/.generated/**",
     "!docs/.i18n/zh-CN.tm.jsonl",
@@ -505,10 +502,6 @@
       "types": "./dist/plugin-sdk/direct-dm.d.ts",
       "default": "./dist/plugin-sdk/direct-dm.js"
     },
-    "./plugin-sdk/device-bootstrap": {
-      "types": "./dist/plugin-sdk/device-bootstrap.d.ts",
-      "default": "./dist/plugin-sdk/device-bootstrap.js"
-    },
     "./plugin-sdk/diagnostic-runtime": {
       "types": "./dist/plugin-sdk/diagnostic-runtime.d.ts",
       "default": "./dist/plugin-sdk/diagnostic-runtime.js"
@@ -765,10 +758,6 @@
       "types": "./dist/plugin-sdk/matrix-thread-bindings.d.ts",
       "default": "./dist/plugin-sdk/matrix-thread-bindings.js"
     },
-    "./plugin-sdk/qa-runtime": {
-      "types": "./dist/plugin-sdk/qa-runtime.d.ts",
-      "default": "./dist/plugin-sdk/qa-runtime.js"
-    },
     "./plugin-sdk/qa-runner-runtime": {
       "types": "./dist/plugin-sdk/qa-runner-runtime.d.ts",
       "default": "./dist/plugin-sdk/qa-runner-runtime.js"
@@ -888,10 +877,6 @@
     "./plugin-sdk/nostr": {
       "types": "./dist/plugin-sdk/nostr.d.ts",
       "default": "./dist/plugin-sdk/nostr.js"
-    },
-    "./plugin-sdk/qa-channel": {
-      "types": "./dist/plugin-sdk/qa-channel.d.ts",
-      "default": "./dist/plugin-sdk/qa-channel.js"
     },
     "./plugin-sdk/provider-auth": {
       "types": "./dist/plugin-sdk/provider-auth.d.ts",
@@ -1109,19 +1094,6 @@
     "./cli-entry": "./crabfork.mjs"
   },
   "scripts": {
-    "android:assemble": "cd apps/android && ./gradlew :app:assemblePlayDebug",
-    "android:assemble:third-party": "cd apps/android && ./gradlew :app:assembleThirdPartyDebug",
-    "android:bundle:release": "bun apps/android/scripts/build-release-aab.ts",
-    "android:format": "cd apps/android && ./gradlew :app:ktlintFormat :benchmark:ktlintFormat",
-    "android:install": "cd apps/android && ./gradlew :app:installPlayDebug",
-    "android:install:third-party": "cd apps/android && ./gradlew :app:installThirdPartyDebug",
-    "android:lint": "cd apps/android && ./gradlew :app:ktlintCheck :benchmark:ktlintCheck",
-    "android:lint:android": "cd apps/android && ./gradlew :app:lintDebug",
-    "android:run": "cd apps/android && ./gradlew :app:installPlayDebug && adb shell am start -n ai.crabfork.app/.MainActivity",
-    "android:run:third-party": "cd apps/android && ./gradlew :app:installThirdPartyDebug && adb shell am start -n ai.crabfork.app/.MainActivity",
-    "android:test": "cd apps/android && ./gradlew :app:testPlayDebugUnitTest",
-    "android:test:integration": "CRABFORK_LIVE_TEST=1 CRABFORK_LIVE_ANDROID_NODE=1 node scripts/run-vitest.mjs run --config test/vitest/vitest.live.config.ts src/gateway/android-node.capabilities.live.test.ts",
-    "android:test:third-party": "cd apps/android && ./gradlew :app:testThirdPartyDebugUnitTest",
     "audit:seams": "node scripts/audit-seams.mjs",
     "build": "node scripts/build-all.mjs",
     "build:ci-artifacts": "node scripts/build-all.mjs ciArtifacts",
@@ -1132,7 +1104,7 @@
     "canon:check:json": "node scripts/canon.mjs check --json",
     "canon:enforce": "node scripts/canon.mjs enforce --json",
     "canvas:a2ui:bundle": "node scripts/bundle-a2ui.mjs",
-    "check": "pnpm check:no-conflict-markers && pnpm tool-display:check && pnpm check:host-env-policy:swift && pnpm check:import-cycles && pnpm check:madge-import-cycles && pnpm tsgo && node scripts/prepare-extension-package-boundary-artifacts.mjs && pnpm lint && pnpm lint:webhook:no-low-level-body-read && pnpm lint:auth:no-pairing-store-group && pnpm lint:auth:pairing-account-scope",
+    "check": "pnpm check:no-conflict-markers && pnpm check:import-cycles && pnpm check:madge-import-cycles && pnpm tsgo && node scripts/prepare-extension-package-boundary-artifacts.mjs && pnpm lint && pnpm lint:webhook:no-low-level-body-read && pnpm lint:auth:no-pairing-store-group && pnpm lint:auth:pairing-account-scope",
     "check:base-config-schema": "node --import tsx scripts/generate-base-config-schema.ts --check",
     "check:bundled-channel-config-metadata": "node --import tsx scripts/generate-bundled-channel-config-metadata.ts --check",
     "check:docs": "pnpm format:docs:check && pnpm lint:docs && pnpm docs:check-i18n-glossary && pnpm docs:check-links",
@@ -1177,23 +1149,11 @@
     "format:docs": "git ls-files 'docs/**/*.md' 'docs/**/*.mdx' 'README.md' | xargs oxfmt --write",
     "format:docs:check": "git ls-files 'docs/**/*.md' 'docs/**/*.mdx' 'README.md' | xargs oxfmt --check",
     "format:fix": "oxfmt --write",
-    "format:swift": "swiftformat --lint --config .swiftformat apps/macos/Sources apps/ios/Sources apps/shared/CrabforkKit/Sources",
     "gateway:dev": "CRABFORK_SKIP_CHANNELS=1 node scripts/run-node.mjs --dev gateway",
     "gateway:dev:reset": "CRABFORK_SKIP_CHANNELS=1 node scripts/run-node.mjs --dev gateway --reset",
     "gateway:watch": "node scripts/watch-node.mjs gateway --force",
     "gen:host-env-policy:swift": "node scripts/generate-host-env-security-policy-swift.mjs --write",
     "ghsa:patch": "node scripts/ghsa-patch.mjs",
-    "ios:beta": "bash scripts/ios-beta-release.sh",
-    "ios:beta:archive": "bash scripts/ios-beta-archive.sh",
-    "ios:beta:prepare": "bash scripts/ios-beta-prepare.sh",
-    "ios:build": "bash -lc './scripts/ios-configure-signing.sh && ./scripts/ios-write-version-xcconfig.sh && cd apps/ios && xcodegen generate && xcodebuild -project Crabfork.xcodeproj -scheme Crabfork -destination \"${IOS_DEST:-platform=iOS Simulator,name=iPhone 17}\" -configuration Debug build'",
-    "ios:gen": "bash -lc './scripts/ios-configure-signing.sh && ./scripts/ios-write-version-xcconfig.sh && cd apps/ios && xcodegen generate'",
-    "ios:open": "bash -lc './scripts/ios-configure-signing.sh && ./scripts/ios-write-version-xcconfig.sh && cd apps/ios && xcodegen generate && open Crabfork.xcodeproj'",
-    "ios:run": "bash -lc './scripts/ios-configure-signing.sh && ./scripts/ios-write-version-xcconfig.sh && cd apps/ios && xcodegen generate && xcodebuild -project Crabfork.xcodeproj -scheme Crabfork -destination \"${IOS_DEST:-platform=iOS Simulator,name=iPhone 17}\" -configuration Debug build && xcrun simctl boot \"${IOS_SIM:-iPhone 17}\" || true && xcrun simctl launch booted ai.crabfork.ios'",
-    "ios:version": "node --import tsx scripts/ios-version.ts --json",
-    "ios:version:check": "node --import tsx scripts/ios-sync-versioning.ts --check",
-    "ios:version:pin": "node --import tsx scripts/ios-pin-version.ts",
-    "ios:version:sync": "node --import tsx scripts/ios-sync-versioning.ts --write",
     "lint": "node scripts/run-oxlint.mjs",
     "lint:agent:ingress-owner": "node scripts/check-ingress-agent-owner-context.mjs",
     "lint:all": "pnpm lint && pnpm lint:swift",
@@ -1213,7 +1173,6 @@
     "lint:plugins:no-monolithic-plugin-sdk-entry-imports": "node --import tsx scripts/check-no-monolithic-plugin-sdk-entry-imports.ts",
     "lint:plugins:no-register-http-handler": "node scripts/check-no-register-http-handler.mjs",
     "lint:plugins:plugin-sdk-subpaths-exported": "node scripts/check-plugin-sdk-subpath-exports.mjs",
-    "lint:swift": "swiftlint lint --config .swiftlint.yml && (cd apps/ios && swiftlint lint --config .swiftlint.yml)",
     "lint:tmp:channel-agnostic-boundaries": "node scripts/check-channel-agnostic-boundaries.mjs",
     "lint:tmp:no-random-messaging": "node scripts/check-no-random-messaging-tmp.mjs",
     "lint:tmp:no-raw-channel-fetch": "node scripts/check-no-raw-channel-fetch.mjs",
@@ -1221,9 +1180,6 @@
     "lint:web-fetch-provider-boundaries": "node scripts/check-web-fetch-provider-boundaries.mjs",
     "lint:web-search-provider-boundaries": "node scripts/check-web-search-provider-boundaries.mjs",
     "lint:webhook:no-low-level-body-read": "node scripts/check-webhook-auth-body-order.mjs",
-    "mac:open": "open dist/Crabfork.app",
-    "mac:package": "bash scripts/package-mac-app.sh",
-    "mac:restart": "bash scripts/restart-mac.sh",
     "moltbot:rpc": "node scripts/run-node.mjs agent --mode rpc --json",
     "plugin-sdk:api:check": "node --import tsx scripts/generate-plugin-sdk-api-baseline.ts --check",
     "plugin-sdk:api:gen": "node --import tsx scripts/generate-plugin-sdk-api-baseline.ts --write",
@@ -1236,7 +1192,6 @@
     "prepare": "command -v git >/dev/null 2>&1 && git rev-parse --is-inside-work-tree >/dev/null 2>&1 && git config core.hooksPath git-hooks || exit 0",
     "prepush:ci": "bash scripts/prepush-ci.sh",
     "probe:anthropic:prompt": "node --import tsx scripts/anthropic-prompt-probe.ts",
-    "protocol:check": "pnpm protocol:gen && pnpm protocol:gen:swift && git diff --exit-code -- dist/protocol.schema.json apps/macos/Sources/CrabforkProtocol/GatewayModels.swift apps/shared/CrabforkKit/Sources/CrabforkProtocol/GatewayModels.swift",
     "protocol:gen": "node --import tsx scripts/protocol-gen.ts",
     "protocol:gen:swift": "node --import tsx scripts/protocol-gen-swift.ts",
     "proxy:coverage": "node scripts/run-node.mjs proxy coverage",
@@ -1244,12 +1199,6 @@
     "proxy:install-ca": "node --import tsx scripts/proxy-install-ca.mjs",
     "proxy:run": "node scripts/run-node.mjs proxy run",
     "proxy:start": "node scripts/run-node.mjs proxy start",
-    "qa:e2e": "node --import tsx scripts/qa-e2e.ts",
-    "qa:lab:build": "vite build --config extensions/qa-lab/web/vite.config.ts",
-    "qa:lab:ui": "pnpm crabfork qa ui",
-    "qa:lab:up": "node --import tsx scripts/qa-lab-up.ts",
-    "qa:lab:up:fast": "node --import tsx scripts/qa-lab-up.ts --use-prebuilt-image --bind-ui-dist --skip-ui-build",
-    "qa:lab:watch": "vite build --watch --config extensions/qa-lab/web/vite.config.ts",
     "release:check": "pnpm check:base-config-schema && pnpm check:bundled-channel-config-metadata && pnpm config:docs:check && pnpm plugin-sdk:check-exports && pnpm plugin-sdk:api:check && node --import tsx scripts/release-check.ts",
     "release:crabfork:npm:check": "node --import tsx scripts/crabfork-npm-release-check.ts",
     "release:crabfork:npm:verify-published": "node --import tsx scripts/crabfork-npm-postpublish-verify.ts",
